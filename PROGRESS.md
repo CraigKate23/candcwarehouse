@@ -83,3 +83,24 @@ stays visible — never invent a number.
 
 **Tomorrow**: SEO scaffolding — `sitemap.ts`, `robots.ts`, per-page
 `generateMetadata`, and start on the About page so the 1998 story has a home.
+
+### 2026-04-23 — Day 2: SEO scaffolding (sitemap + robots)
+
+- Added `src/app/sitemap.ts` that emits `/sitemap.xml` at build time. Built
+  around a typed `ROUTES` array so each future page (services, about,
+  facility, quote, etc.) can be appended with its own `changeFrequency` and
+  `priority`. Today only `/` is listed because that's the only page that
+  returns 200 — avoids shipping 404s to Google.
+- Added `src/app/robots.ts` that emits `/robots.txt` with `User-Agent: *`
+  allowed sitewide, points crawlers at the sitemap, and sets `Host` to the
+  current `NEXT_PUBLIC_SITE_URL`. A comment in the file calls out that when
+  Greg cuts over to `candcwarehouse.com`, the Vercel env var should be
+  swapped and `robots.txt` keeps pointing at the right canonical.
+- Both files read `NEXT_PUBLIC_SITE_URL` with a fallback to
+  `https://candcwarehouse.vercel.app`, matching the pattern already used by
+  `layout.tsx` for `metadataBase` and the `LocalBusiness` JSON-LD.
+- `npm run build` confirms both new routes are registered:
+  `○ /robots.txt` and `○ /sitemap.xml` as static content.
+
+**Tomorrow**: start on the `/about` page so the 1998 story has a home, and
+append `/about` to the sitemap `ROUTES` array at the same time.
