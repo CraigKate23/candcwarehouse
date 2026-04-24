@@ -1,0 +1,674 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  business,
+  buttonPrimary,
+  buttonSecondary,
+  cardStyle,
+  colors,
+  container,
+  eyebrow,
+  fonts,
+} from "../components/styles";
+
+// Marker style for facts Greg still needs to confirm. Keeping these visually
+// loud (dashed orange) so nothing accidentally ships as invented data.
+const placeholder = {
+  display: "inline-block",
+  padding: "1px 8px",
+  borderRadius: 4,
+  border: `1px dashed ${colors.accent}`,
+  background: "rgba(217,106,44,0.08)",
+  color: colors.accentDeep,
+  fontFamily: fonts.mono,
+  fontSize: "0.85em",
+  letterSpacing: "0.02em",
+} as const;
+
+// Ethos cards — what we tell people about how we operate. These are
+// verifiable claims, not invented numbers.
+const ETHOS = [
+  {
+    title: "Family-run",
+    body: "Same owners since 1998. When you call, you talk to the people making the decisions — not a node in someone's call center.",
+  },
+  {
+    title: "Bonded first",
+    body: "We built the business around US Customs Bonded and General Order cargo — the kind of freight a lot of 3PLs don't want to deal with.",
+  },
+  {
+    title: "Port-proximate",
+    body: "Ladson, SC puts us minutes from Wando Welch, North Charleston Terminal, and Hugh K. Leatherman. Drayage miles stay low.",
+  },
+  {
+    title: "Hands-on",
+    body: "Devanning, reworking overweights, piece-count audits — we do the warehouse floor work ourselves, not through a second vendor.",
+  },
+];
+
+// Timeline — only 1998 founding is confirmed today. Every other milestone
+// is a placeholder until Greg fills in the specifics.
+type Milestone = { year: string; title: string; body: React.ReactNode };
+const TIMELINE: Milestone[] = [
+  {
+    year: "1998",
+    title: "C&C Warehouse founded in Ladson, SC",
+    body: "Opened as a family-run warehouse serving importers coming through the Port of Charleston.",
+  },
+  {
+    year: "—",
+    title: "First facility expansion",
+    body: (
+      <>
+        Added <span style={placeholder}>second building / sq ft TK</span>.
+        Year to confirm with Greg.
+      </>
+    ),
+  },
+  {
+    year: "—",
+    title: "US Customs Bonded designation",
+    body: (
+      <>
+        Became a CBP-designated Class 3 Bonded Warehouse in{" "}
+        <span style={placeholder}>year TK</span>.
+      </>
+    ),
+  },
+  {
+    year: "—",
+    title: "General Order approval",
+    body: (
+      <>
+        Approved as a General Order facility in{" "}
+        <span style={placeholder}>year TK</span>. Handled our first GO
+        container shortly after.
+      </>
+    ),
+  },
+  {
+    year: "Today",
+    title: "Charleston's bonded + GO specialist",
+    body: (
+      <>
+        Running{" "}
+        <span style={placeholder}>
+          ~XX,XXX sq ft / XX dock doors / XX,XXX racked positions
+        </span>{" "}
+        with a team carrying {business.teamExperienceYears}+ years of combined
+        warehouse experience.
+      </>
+    ),
+  },
+];
+
+// Team placeholders — three slots sized for the grid. Replace each with a
+// real first+last, role, and short bio once Greg sends them over.
+type TeamMember = {
+  name: React.ReactNode;
+  role: React.ReactNode;
+  bio: React.ReactNode;
+};
+const TEAM: TeamMember[] = [
+  {
+    name: <span style={placeholder}>Name TK</span>,
+    role: <span style={placeholder}>Role TK</span>,
+    bio: (
+      <>
+        Short bio goes here —{" "}
+        <span style={placeholder}>years at C&amp;C / what they own</span>.
+      </>
+    ),
+  },
+  {
+    name: <span style={placeholder}>Name TK</span>,
+    role: <span style={placeholder}>Role TK</span>,
+    bio: (
+      <>
+        Short bio goes here —{" "}
+        <span style={placeholder}>years at C&amp;C / what they own</span>.
+      </>
+    ),
+  },
+  {
+    name: <span style={placeholder}>Name TK</span>,
+    role: <span style={placeholder}>Role TK</span>,
+    bio: (
+      <>
+        Short bio goes here —{" "}
+        <span style={placeholder}>years at C&amp;C / what they own</span>.
+      </>
+    ),
+  },
+];
+
+export const metadata: Metadata = {
+  title: "About C&C Warehouse",
+  description: `Family-run US Customs Bonded and General Order warehouse in Ladson, SC, serving Port of Charleston importers since ${business.foundedYear}.`,
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    type: "website",
+    url: "/about",
+    title: `About · ${business.name}`,
+    description: `Family-run US Customs Bonded and General Order warehouse in Ladson, SC, since ${business.foundedYear}.`,
+  },
+};
+
+export default function AboutPage() {
+  return (
+    <>
+      {/* Intro / hero */}
+      <section
+        style={{
+          padding: "88px 0 64px",
+          background: "linear-gradient(180deg, #fafaf7 0%, #f3efe7 100%)",
+          borderBottom: `1px solid ${colors.line}`,
+        }}
+      >
+        <div
+          className="hero-grid"
+          style={{
+            ...container,
+            display: "grid",
+            gridTemplateColumns: "1.1fr 0.9fr",
+            gap: 56,
+            alignItems: "start",
+          }}
+        >
+          <div>
+            <div style={eyebrow}>About</div>
+            <h1
+              style={{
+                fontFamily: fonts.heading,
+                fontSize: "clamp(36px, 4.8vw, 56px)",
+                lineHeight: 1.08,
+                fontWeight: 700,
+                marginTop: 16,
+              }}
+            >
+              A family-run warehouse, built around the Port of Charleston.
+            </h1>
+            <p
+              style={{
+                fontFamily: fonts.body,
+                fontSize: 18,
+                lineHeight: 1.65,
+                color: colors.steel,
+                marginTop: 22,
+                maxWidth: 600,
+              }}
+            >
+              C&amp;C Warehouse opened in {business.foundedYear} in Ladson,
+              South Carolina, minutes from the SC Ports Authority terminals.
+              We started out handling the cargo other 3PLs sent back —
+              overweight containers, General Order freight, bonded shipments
+              stuck in limbo — and built a business around doing that work
+              well.
+            </p>
+            <p
+              style={{
+                fontFamily: fonts.body,
+                fontSize: 17,
+                lineHeight: 1.65,
+                color: colors.steel,
+                marginTop: 14,
+                maxWidth: 600,
+              }}
+            >
+              Almost three decades later we&rsquo;re still family-run. Same
+              phone number, same team making the calls, same focus on the
+              freight that comes off the water at Wando Welch and North
+              Charleston.
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                gap: 12,
+                marginTop: 28,
+                flexWrap: "wrap",
+              }}
+            >
+              <Link
+                href="/quote"
+                className="cta-primary"
+                style={buttonPrimary}
+              >
+                Request a quote
+              </Link>
+              <Link
+                href="/services"
+                className="cta-secondary"
+                style={buttonSecondary}
+              >
+                See what we do
+              </Link>
+            </div>
+          </div>
+
+          {/* Fact card — verifiable facts only */}
+          <aside
+            style={{
+              ...cardStyle,
+              background: colors.paper,
+            }}
+          >
+            <div style={eyebrow}>The short version</div>
+            <dl
+              style={{
+                marginTop: 18,
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                rowGap: 20,
+                columnGap: 18,
+                marginBlockEnd: 0,
+              }}
+            >
+              <Fact label="Founded" value={`${business.foundedYear}`} />
+              <Fact label="Ownership" value="Family-run" />
+              <Fact
+                label="Location"
+                value={`${business.city}, ${business.state}`}
+              />
+              <Fact
+                label="Team experience"
+                value={`${business.teamExperienceYears}+ yrs combined`}
+              />
+              <Fact label="CBP status" value="Class 3 Bonded" />
+              <Fact label="GO facility" value="CBP-designated" />
+            </dl>
+            <div
+              style={{
+                marginTop: 24,
+                paddingTop: 18,
+                borderTop: `1px dashed ${colors.line}`,
+                display: "grid",
+                gap: 6,
+              }}
+            >
+              <div style={eyebrow}>Talk to us</div>
+              <a
+                href={`tel:${business.phone}`}
+                style={{
+                  fontFamily: fonts.heading,
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: colors.ink,
+                }}
+              >
+                {business.phoneDisplay}
+              </a>
+              <a
+                href={`mailto:${business.email}`}
+                style={{
+                  fontFamily: fonts.body,
+                  fontSize: 15,
+                  color: colors.steel,
+                }}
+              >
+                {business.email}
+              </a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      {/* Ethos */}
+      <section style={{ padding: "80px 0" }}>
+        <div style={container}>
+          <div style={eyebrow}>How we operate</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3.2vw, 36px)",
+              fontWeight: 700,
+              marginTop: 10,
+              maxWidth: 700,
+            }}
+          >
+            Four things we&rsquo;ve stuck to since {business.foundedYear}.
+          </h2>
+
+          <div
+            className="value-grid"
+            style={{
+              marginTop: 40,
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: 20,
+            }}
+          >
+            {ETHOS.map((v) => (
+              <article
+                key={v.title}
+                className="value-card"
+                style={{
+                  background: colors.paper,
+                  border: `1px solid ${colors.line}`,
+                  borderRadius: 16,
+                  padding: 24,
+                }}
+              >
+                <h3
+                  style={{
+                    fontFamily: fonts.heading,
+                    fontSize: 18,
+                    fontWeight: 600,
+                  }}
+                >
+                  {v.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: fonts.body,
+                    fontSize: 14.5,
+                    lineHeight: 1.55,
+                    color: colors.steel,
+                    marginTop: 10,
+                  }}
+                >
+                  {v.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section
+        style={{
+          padding: "72px 0",
+          background: colors.paperDeep,
+          borderTop: `1px solid ${colors.line}`,
+          borderBottom: `1px solid ${colors.line}`,
+        }}
+      >
+        <div style={container}>
+          <div style={eyebrow}>Timeline</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3.2vw, 36px)",
+              fontWeight: 700,
+              marginTop: 10,
+            }}
+          >
+            The C&amp;C story, so far.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 15,
+              color: colors.steelLight,
+              marginTop: 8,
+              maxWidth: 540,
+            }}
+          >
+            A few milestones are still placeholders &mdash; call-outs in
+            orange mean we haven&rsquo;t confirmed the exact year or number
+            yet.
+          </p>
+
+          <ol
+            style={{
+              marginTop: 36,
+              listStyle: "none",
+              padding: 0,
+              display: "grid",
+              gap: 0,
+              borderTop: `1px solid ${colors.line}`,
+            }}
+          >
+            {TIMELINE.map((m) => (
+              <li
+                key={m.title}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "120px 1fr",
+                  gap: 24,
+                  padding: "22px 0",
+                  borderBottom: `1px solid ${colors.line}`,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: fonts.mono,
+                    fontSize: 14,
+                    letterSpacing: "0.08em",
+                    color: colors.accent,
+                    textTransform: "uppercase",
+                    paddingTop: 2,
+                  }}
+                >
+                  {m.year}
+                </div>
+                <div>
+                  <h3
+                    style={{
+                      fontFamily: fonts.heading,
+                      fontSize: 19,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {m.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: fonts.body,
+                      fontSize: 15.5,
+                      lineHeight: 1.6,
+                      color: colors.steel,
+                      marginTop: 6,
+                    }}
+                  >
+                    {m.body}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section style={{ padding: "80px 0" }}>
+        <div style={container}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: 24,
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <div style={eyebrow}>Team</div>
+              <h2
+                style={{
+                  fontFamily: fonts.heading,
+                  fontSize: "clamp(26px, 3.2vw, 36px)",
+                  fontWeight: 700,
+                  marginTop: 10,
+                }}
+              >
+                The people you&rsquo;ll actually talk to.
+              </h2>
+            </div>
+            <p
+              style={{
+                fontFamily: fonts.body,
+                fontSize: 14,
+                color: colors.steelLight,
+                maxWidth: 320,
+              }}
+            >
+              Names and bios are still being collected &mdash; the markers
+              below will be swapped for real team info once Greg sends it
+              over.
+            </p>
+          </div>
+
+          <div
+            className="value-grid"
+            style={{
+              marginTop: 36,
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 20,
+            }}
+          >
+            {TEAM.map((p, i) => (
+              <article
+                key={i}
+                style={{
+                  background: colors.paper,
+                  border: `1px solid ${colors.line}`,
+                  borderRadius: 16,
+                  padding: 24,
+                }}
+              >
+                <div
+                  style={{
+                    height: 140,
+                    borderRadius: 10,
+                    background:
+                      "linear-gradient(135deg, #f3efe7 0%, #ece4d3 100%)",
+                    border: `1px dashed ${colors.line}`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: fonts.mono,
+                    fontSize: 11,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: colors.steelLight,
+                  }}
+                >
+                  Photo TK
+                </div>
+                <h3
+                  style={{
+                    fontFamily: fonts.heading,
+                    fontSize: 18,
+                    fontWeight: 600,
+                    marginTop: 18,
+                  }}
+                >
+                  {p.name}
+                </h3>
+                <div
+                  style={{
+                    fontFamily: fonts.mono,
+                    fontSize: 12,
+                    color: colors.accent,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    marginTop: 4,
+                  }}
+                >
+                  {p.role}
+                </div>
+                <p
+                  style={{
+                    fontFamily: fonts.body,
+                    fontSize: 14.5,
+                    lineHeight: 1.55,
+                    color: colors.steel,
+                    marginTop: 12,
+                  }}
+                >
+                  {p.bio}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section style={{ padding: "80px 0 40px" }}>
+        <div style={{ ...container, textAlign: "center" }}>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3.2vw, 36px)",
+              fontWeight: 700,
+              maxWidth: 680,
+              margin: "0 auto",
+            }}
+          >
+            Work with a warehouse where the owners still answer the phone.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 17,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 560,
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            Tell us what&rsquo;s coming off the water and we&rsquo;ll tell
+            you the shortest path to getting it handled.
+          </p>
+          <div
+            style={{
+              marginTop: 26,
+              display: "flex",
+              justifyContent: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <Link href="/quote" className="cta-primary" style={buttonPrimary}>
+              Start a quote
+            </Link>
+            <a
+              href={`tel:${business.phone}`}
+              className="cta-secondary"
+              style={buttonSecondary}
+            >
+              Call {business.phoneDisplay}
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function Fact({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt
+        style={{
+          fontFamily: fonts.mono,
+          fontSize: 11,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: colors.steel,
+        }}
+      >
+        {label}
+      </dt>
+      <dd
+        style={{
+          fontFamily: fonts.heading,
+          fontSize: 17,
+          fontWeight: 600,
+          color: colors.ink,
+          marginTop: 4,
+          marginLeft: 0,
+        }}
+      >
+        {value}
+      </dd>
+    </div>
+  );
+}

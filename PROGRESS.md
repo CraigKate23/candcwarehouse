@@ -13,9 +13,12 @@ Greg explicitly signals cutover.
 - Space Grotesk / IBM Plex Sans / DM Mono via `next/font/google`
 - `Nav` and `Footer` shared components (client components for hover state)
 - Homepage hero + value props + services list + CTA
+- About page (1998 story, ethos, timeline with placeholders, team placeholders, CTA)
 - `LocalBusiness` JSON-LD injected via root layout
 - Sitewide metadata (title template, description, Open Graph, Twitter,
-  canonical, robots)
+  canonical, robots), per-page metadata for `/about`
+- `sitemap.xml` via `app/sitemap.ts` (lists `/` and `/about`)
+- `robots.txt` via `app/robots.ts`
 
 ## Placeholders still to fill in (ask Greg one at a time)
 
@@ -37,25 +40,23 @@ stays visible — never invent a number.
 
 1. **Fill in a placeholder with real data** from Greg (highest leverage once
    he answers).
-2. **SEO scaffolding**: `sitemap.xml` via `app/sitemap.ts`, `robots.txt` via
-   `app/robots.ts`, per-page `generateMetadata`, Open Graph image.
-3. **Port the remaining sketches to pages**: `/services`, `/about`,
-   `/facility`, `/quote`, `/portal`. One per day.
-4. **Wire the quote form to Resend** at `src/app/api/quote/route.ts` — mirror
+2. **Port the remaining sketches to pages**: `/services`, `/facility`,
+   `/quote`, `/portal`. One per day.
+3. **Wire the quote form to Resend** at `src/app/api/quote/route.ts` — mirror
    the FreightFigures pattern. Requires `RESEND_API_KEY` in Vercel env vars.
-5. **Dedicated service sub-pages** (`/services/bonded-storage`,
+4. **Dedicated service sub-pages** (`/services/bonded-storage`,
    `/services/devanning`, etc.) — one per day for SEO depth.
-6. **Resources / blog** at `/resources/` with `articles.ts` mirror of
+5. **Resources / blog** at `/resources/` with `articles.ts` mirror of
    FreightFigures. One article per run.
-7. **Portal polish** — realistic loading states, filter/sort on tables,
+6. **Portal polish** — realistic loading states, filter/sort on tables,
    CSV export. Mock data only until Greg says to wire real
    CartonCloud / Logiware APIs.
-8. **Mobile responsiveness audit** across 375 / 768 / 1024.
-9. **Performance** — `next/image` everywhere, `display: swap`, Lighthouse
+7. **Mobile responsiveness audit** across 375 / 768 / 1024.
+8. **Performance** — `next/image` everywhere, `display: swap`, Lighthouse
    on preview URL, fix biggest hits.
-10. **Cutover prep** (only when Greg signals). Crawl Squarespace site for all
-    ranking URLs, build redirect map in `next.config.ts`, pre-flight
-    checklist, DNS cutover.
+9. **Cutover prep** (only when Greg signals). Crawl Squarespace site for all
+   ranking URLs, build redirect map in `next.config.ts`, pre-flight
+   checklist, DNS cutover.
 
 ## Daily log
 
@@ -104,3 +105,36 @@ stays visible — never invent a number.
 
 **Tomorrow**: start on the `/about` page so the 1998 story has a home, and
 append `/about` to the sitemap `ROUTES` array at the same time.
+
+### 2026-04-24 — Day 3: /about page (1998 story + placeholders)
+
+- Added `src/app/about/page.tsx` as a Server Component with per-page
+  `metadata` (title, description, canonical `/about`, OG). Structure mirrors
+  the original `candc-about.html` sketch: intro hero with a right-side fact
+  card, a four-card "how we operate" ethos section, a five-row timeline, a
+  three-card team section, and a closing CTA.
+- The intro copy sticks to verifiable claims only: founded 1998 in Ladson
+  SC, family-run, serving importers through the Port of Charleston,
+  specialists in the bonded / GO / overweight work other 3PLs send back.
+- Declared a local `placeholder` inline style (dashed orange chip) inside
+  the file so unknown facts — building expansion year, CBP Class 3 year, GO
+  approval year, facility sq ft / dock doors / racked positions, team
+  names + roles + bios, photos — stay visually loud. Every placeholder is a
+  single `<span style={placeholder}>…</span>` so a find-and-replace pass
+  once Greg answers is trivial.
+- The fact card on the right only lists data we know is correct: founding
+  year, ownership, city/state, combined team experience, CBP Class 3
+  status, GO-designated status. No invented numbers.
+- Timeline has the 1998 founding as a hard fact and four subsequent
+  milestones with year-TK placeholders (facility expansion, CBP Class 3
+  designation, GO approval, today's snapshot).
+- Team section uses a 3-up grid with a "Photo TK" dashed frame, all three
+  cards currently placeholder-only pending Greg's write-up.
+- Appended `/about` to the `ROUTES` array in `sitemap.ts`
+  (changeFrequency: "monthly", priority: 0.8).
+- `npm run build` passes; Next.js registers `○ /about` as static content
+  alongside `/`, `/robots.txt`, and `/sitemap.xml`.
+
+**Tomorrow**: port the `/services` sketch to `src/app/services/page.tsx`
+(sticky TOC + 9 service sections, each a deep-link anchor) and add it to
+the sitemap. That sets up the dedicated-sub-pages backlog item.
