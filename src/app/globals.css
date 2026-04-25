@@ -116,3 +116,22 @@ img {
     gap: 14px !important;
   }
 }
+
+/* /services — TOC link hover and mobile stacking */
+.toc-link:hover {
+  color: var(--accent);
+  border-left-color: var(--accent) !important;
+}
+
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .services-toc {
+    position: static !important;
+  }
+  .service-highlights {
+    grid-template-columns: 1fr !important;
+  }
+}

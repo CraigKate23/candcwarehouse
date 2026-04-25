@@ -138,3 +138,40 @@ append `/about` to the sitemap `ROUTES` array at the same time.
 **Tomorrow**: port the `/services` sketch to `src/app/services/page.tsx`
 (sticky TOC + 9 service sections, each a deep-link anchor) and add it to
 the sitemap. That sets up the dedicated-sub-pages backlog item.
+
+### 2026-04-25 — Day 4: /services page (sticky TOC + 9 anchored sections)
+
+- Added `src/app/services/page.tsx` as a Server Component with per-page
+  `metadata` (title "Services", description listing the nine offerings,
+  canonical `/services`, OG). Layout is two-column: a sticky left TOC
+  (`position: sticky; top: 88` so it sits below the 64px sticky header)
+  and one anchored `<article id="…">` per service on the right. Each
+  section sets `scrollMarginTop: 88` so deep links land below the nav
+  instead of being hidden behind it.
+- The nine sections match the homepage list and use stable, SEO-friendly
+  anchor slugs (`#bonded-storage`, `#go-storage`, `#devanning`,
+  `#overweight-reworking`, `#drayage`, `#cross-dock`,
+  `#deconsolidation`, `#wms`, `#pick-pack`). When the dedicated
+  sub-pages ship (backlog item 4) the slugs become the natural URLs.
+- Each section has an eyebrow + H2 + intro paragraph + a 3-up grid of
+  highlight cards (label + body). Highlights are written conservatively:
+  verifiable claims for bonded/GO/cross-dock/deconsol/WMS/pick-pack;
+  dashed-orange `placeholder` chips wherever a real number is needed
+  (rack positions, devanning containers/day, drayage miles to Wando
+  Welch / NCT / Leatherman).
+- Bottom-of-page CTA section reuses the paper-deep band + fact card
+  pattern from /about so the basics (founded year, ownership, location,
+  CBP Class 3, GO designation, combined experience) are always visible
+  without scrolling back up.
+- Appended `/services` to the `ROUTES` array in `sitemap.ts`
+  (changeFrequency: "monthly", priority: 0.9).
+- Added `.toc-link:hover` and a `@media (max-width: 900px)` rule to
+  `globals.css` that stacks the TOC + sections to one column and
+  collapses each section's 3-up highlight grid for mobile.
+- `npm run build` passes; Next.js now registers `○ /services` alongside
+  `/`, `/about`, `/robots.txt`, and `/sitemap.xml` as static content.
+
+**Tomorrow**: port the `/quote` sketch as a Client Component (form state
+in `useState`, chip selectors for service type), and append `/quote` to
+the sitemap. That sets up backlog item 3 (wire the form to Resend) for
+the day after.
