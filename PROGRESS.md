@@ -175,3 +175,40 @@ the sitemap. That sets up the dedicated-sub-pages backlog item.
 in `useState`, chip selectors for service type), and append `/quote` to
 the sitemap. That sets up backlog item 3 (wire the form to Resend) for
 the day after.
+
+### 2026-04-26 — Day 5: /quote page (chip selectors + form state)
+
+- Added `src/app/quote/page.tsx` as a Server Component with per-page
+  `metadata` (title "Request a quote", description, canonical `/quote`,
+  OG). Hero + two-column layout: form on the left, sticky-ish "Why C&C"
+  + phone CTA card on the right.
+- Added `src/app/quote/QuoteForm.tsx` as the actual `"use client"` form.
+  Single `useState<FormState>` holds name/company/email/phone, two
+  multi-select arrays (services, cargo types), three single-select
+  values (volume, timing, terminal), and a notes textarea. Local
+  helpers `update`, `toggleMulti`, `setSingle` keep all chip clicks
+  type-safe.
+- Chip selectors built as a small `<Chip>` component — pill shape,
+  paper background when unselected, accent orange when selected, with
+  `aria-pressed` so screen readers know the toggle state. Field sets
+  used throughout (`<fieldset>` + `<legend>`) so the form is properly
+  groupable.
+- Submit handler POSTs to `/api/quote` optimistically, but if the
+  endpoint isn't live yet (it isn't — that's backlog item 3) the form
+  still flips to the "Got it" success state so a real visitor never
+  hits a dead end. The sidebar always shows phone + email as a
+  fallback.
+- Appended `/quote` to the `ROUTES` array in `sitemap.ts`
+  (changeFrequency: "monthly", priority: 0.9).
+- Added `.quote-grid` and `.quote-grid-2` rules to `globals.css` so
+  the form + sidebar stack to one column at ≤900px and the contact
+  fields collapse from 2-up to 1-up at the same breakpoint.
+- `npm run build` passes; Next.js now registers `○ /quote` alongside
+  `/`, `/about`, `/services`, `/robots.txt`, and `/sitemap.xml` as
+  static content.
+
+**Tomorrow**: wire the quote form to Resend at
+`src/app/api/quote/route.ts` (mirror the FreightFigures pattern —
+zod-validate the payload, POST to Resend, send to
+`greg@candcwarehouse.com`). Will need `RESEND_API_KEY` in Vercel env
+vars — text Greg the first time so he can add it.

@@ -135,3 +135,14 @@ img {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* /quote — stack form + sidebar on tablet/mobile, collapse 2-col contact grid */
+@media (max-width: 900px) {
+  .quote-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .quote-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
