@@ -19,6 +19,13 @@ Greg explicitly signals cutover.
   canonical, robots), per-page metadata for `/about`
 - `sitemap.xml` via `app/sitemap.ts` (lists `/` and `/about`)
 - `robots.txt` via `app/robots.ts`
+- `/services` page (sticky TOC + 9 anchored sections)
+- `/quote` page with structured chip-selector form
+- `/api/quote` route — validates payload (allow-list per chip set),
+  sends an HTML+text email via Resend with `replyTo` set to the
+  visitor. Driven by `RESEND_API_KEY` / `RESEND_FROM` / `QUOTE_TO`
+  env vars; logs and returns 503 if the API key isn't configured
+  so leads are never silently lost
 
 ## Placeholders still to fill in (ask Greg one at a time)
 
@@ -42,8 +49,8 @@ stays visible — never invent a number.
    he answers).
 2. **Port the remaining sketches to pages**: `/services`, `/facility`,
    `/quote`, `/portal`. One per day.
-3. **Wire the quote form to Resend** at `src/app/api/quote/route.ts` — mirror
-   the FreightFigures pattern. Requires `RESEND_API_KEY` in Vercel env vars.
+3. ~~**Wire the quote form to Resend** at `src/app/api/quote/route.ts`~~ ✓
+   Done 2026-04-27. Pending: Greg adds `RESEND_API_KEY` in Vercel.
 4. **Dedicated service sub-pages** (`/services/bonded-storage`,
    `/services/devanning`, etc.) — one per day for SEO depth.
 5. **Resources / blog** at `/resources/` with `articles.ts` mirror of
@@ -212,3 +219,47 @@ the day after.
 zod-validate the payload, POST to Resend, send to
 `greg@candcwarehouse.com`). Will need `RESEND_API_KEY` in Vercel env
 vars — text Greg the first time so he can add it.
+
+### 2026-04-27 — Day 6: wire /api/quote to Resend
+
+- Added `src/app/api/quote/route.ts` (Node runtime, `force-dynamic`).
+  POSTs from `QuoteForm.tsx` are JSON-parsed, validated, and emailed
+  to Greg via the Resend SDK.
+- Validation is intentionally allow-list based: services / cargo
+  types / volume / timing / terminal are checked against the same
+  literal sets the form uses to populate its chip selectors. Anything
+  outside those sets is dropped, so a drive-by spammer can't stuff
+  arbitrary strings into the email body. Name + valid email are
+  required; other fields trim + cap to 200 chars; notes cap at 4 KB.
+- Email body is sent as both HTML (paper background, accent-orange
+  eyebrow, two-column key/value table) and plain-text. All
+  user-supplied strings are HTML-escaped through a small `esc()`
+  helper before they hit the template. `replyTo` is set to the
+  visitor's email so Greg can hit "reply" to respond directly.
+- Three env vars, all configured in Vercel (not committed):
+  `RESEND_API_KEY` (required), `RESEND_FROM`
+  (defaults to `C&C Warehouse <onboarding@resend.dev>` so day-1
+  sending works without DNS verification — should be swapped to a
+  `@candcwarehouse.com` address once Resend's domain is verified),
+  and `QUOTE_TO` (defaults to `greg@candcwarehouse.com`).
+- If `RESEND_API_KEY` isn't set the route returns 503 and logs the
+  full lead to the Vercel function log so nothing is lost while Greg
+  is still adding the env var. The form's submit handler already
+  treats non-2xx as a soft success and shows the "Got it" state with
+  phone/email fallback in the sidebar.
+- Added `resend@^4.0.0` to `package.json` dependencies. `tsc --noEmit`
+  passes clean. `next build` compiles and generates all 9 pages
+  successfully (the build cleanup hits an EPERM on the sandboxed
+  bindfs mount but Vercel's clean Linux runners don't have that
+  filesystem quirk).
+- Texted Greg with the env var setup ask: log into Vercel project
+  `candcwarehouse`, Settings → Environment Variables, add
+  `RESEND_API_KEY` (issue at resend.com/api-keys) for Production +
+  Preview + Development. Until that lands, real submissions will
+  show the polite fallback success state but won't email through.
+
+**Tomorrow**: dedicated service sub-page for SEO depth — start with
+`/services/bonded-storage` (highest-intent keyword, the differentiated
+offering). Mirror the /services anchor section content but expand
+into a full page with its own H1, deep metadata, and a pricing /
+process / FAQ sub-structure. Append to `sitemap.ts` ROUTES.
