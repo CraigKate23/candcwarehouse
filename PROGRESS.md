@@ -21,6 +21,7 @@ Greg explicitly signals cutover.
 - `robots.txt` via `app/robots.ts`
 - `/services` page (sticky TOC + 9 anchored sections)
 - `/quote` page with structured chip-selector form
+- `/services/bonded-storage` dedicated sub-page (1st of 9 — process, when-to-use, capacity, FAQ)
 - `/api/quote` route — validates payload (allow-list per chip set),
   sends an HTML+text email via Resend with `replyTo` set to the
   visitor. Driven by `RESEND_API_KEY` / `RESEND_FROM` / `QUOTE_TO`
@@ -53,6 +54,7 @@ stays visible — never invent a number.
    Done 2026-04-27. Pending: Greg adds `RESEND_API_KEY` in Vercel.
 4. **Dedicated service sub-pages** (`/services/bonded-storage`,
    `/services/devanning`, etc.) — one per day for SEO depth.
+   _In progress: `/services/bonded-storage` shipped 2026-04-28._
 5. **Resources / blog** at `/resources/` with `articles.ts` mirror of
    FreightFigures. One article per run.
 6. **Portal polish** — realistic loading states, filter/sort on tables,
@@ -263,3 +265,46 @@ vars — text Greg the first time so he can add it.
 offering). Mirror the /services anchor section content but expand
 into a full page with its own H1, deep metadata, and a pricing /
 process / FAQ sub-structure. Append to `sitemap.ts` ROUTES.
+
+### 2026-04-28 — Day 7: /services/bonded-storage dedicated sub-page
+
+- Added `src/app/services/bonded-storage/page.tsx` as a Server Component
+  with deeper per-page metadata: title "US Customs Bonded Warehouse |
+  Class 3 Storage near Port of Charleston" (highest-intent term we have),
+  description, canonical `/services/bonded-storage`, OG. This is the
+  first of nine planned service sub-pages — one per day — for SEO depth
+  beyond the single-page `/services` anchored layout.
+- Page structure: hero with breadcrumb (`Services / Bonded storage`) +
+  CTA pair, 4-card fact strip (designation / type / max dwell / location),
+  4-step "how it works" sequence (terminal → receipt under bond → storage
+  → withdrawal/re-export), "when bonded storage pays off" 4-card grid
+  (cash flow, re-export likely, documentation in flight, inventory
+  staging), capacity & coverage 6-card grid, 6-question FAQ in
+  `<details>` accordions, and a closing CTA with the same paper "basics"
+  fact card from `/about` and `/services` so the verifiable basics are
+  always visible.
+- All factual claims kept conservative: CBP Class 3 designation, 5-year
+  max dwell (CBP rule), founded 1998, Class 3 = importer's private
+  bonded — no invented numbers. Two facts that need Greg's input
+  (racked positions, cargo insurance limit) are wrapped in the same
+  dashed-orange `placeholder` chip used elsewhere so they stay loud.
+- FAQ written to land long-tail queries: "What is a US Customs Bonded
+  Warehouse?", "How long can cargo stay?", "Bonded vs GO?",
+  "Partial withdrawals?", "Do you handle the CBP paperwork?",
+  "What kinds of cargo do you accept?". Bonded-vs-GO answer links to
+  `/services#go-storage` and the devanning capacity card links to
+  `/services#devanning` — internal linking back to the parent page.
+- Mobile responsiveness: every grid uses `grid-template-columns:
+  repeat(auto-fit, minmax(...px, 1fr))` so cards reflow without needing
+  a media query — pages render cleanly at 375 / 768 / 1024 without any
+  globals.css additions today.
+- Appended `/services/bonded-storage` to the `ROUTES` array in
+  `sitemap.ts` (changeFrequency: "monthly", priority: 0.85 — slightly
+  below the parent `/services` so the parent stays the primary
+  internal landing page). Robots.txt continues to allow sitewide.
+
+**Tomorrow**: next dedicated service sub-page —
+`/services/devanning` (the second-highest differentiator after bonded;
+hand-unload + piece-count audit is something many 3PLs won't touch).
+Mirror today's hero / steps / when-to-use / capacity / FAQ shape, swap
+in devanning-specific copy, append to sitemap ROUTES.
