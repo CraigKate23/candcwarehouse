@@ -308,3 +308,44 @@ process / FAQ sub-structure. Append to `sitemap.ts` ROUTES.
 hand-unload + piece-count audit is something many 3PLs won't touch).
 Mirror today's hero / steps / when-to-use / capacity / FAQ shape, swap
 in devanning-specific copy, append to sitemap ROUTES.
+
+### 2026-04-29 — Day 8: /services/devanning dedicated sub-page
+
+- Added `src/app/services/devanning/page.tsx` as a Server Component with
+  per-page metadata: title "Container Devanning | Hand-Unload &
+  Piece-Count Audit near Port of Charleston" (long-tail intent term),
+  description, canonical `/services/devanning`, OG. Second of the nine
+  planned service sub-pages, mirroring the bonded-storage shape so the
+  pattern is locked in: hero with breadcrumb, 4-card fact strip, 4-step
+  "how it works" sequence, "when to use it" 4-card grid, capacity
+  6-card grid, 6-question FAQ in `<details>` accordions, and a closing
+  CTA with the same paper "basics" fact card.
+- Copy is grounded in verifiable practice — seal recorded before it's
+  broken, hand-unload, real-time count reconciled to the BOL,
+  photographed exceptions, same-day report. Two facts that need Greg's
+  input (peak containers/day and cargo insurance limit) stay wrapped in
+  the same dashed-orange `placeholder` chip used elsewhere so missing
+  data is loud.
+- FAQ targets the long-tail queries devanning attracts: "What does
+  devanning mean?", "How long does it take?", "Can you devan bonded
+  cargo?", "What documentation do we get back?", "What if the container
+  arrives overweight?", "What kinds of cargo do you handle?". Internal
+  links cross-reference `/services/bonded-storage` (bonded devans) and
+  `/services#overweight-reworking` (devan + rework pairing).
+- Mobile responsiveness: every grid uses `repeat(auto-fit, minmax(...,
+  1fr))` so cards reflow at 375 / 768 / 1024 without any new
+  globals.css rules.
+- Appended `/services/devanning` to the `ROUTES` array in
+  `sitemap.ts` (changeFrequency: "monthly", priority: 0.85 — same as
+  bonded-storage, slightly below the parent `/services`).
+- `npm run build` passes; Next.js now registers `○ /services/devanning`
+  alongside `/`, `/about`, `/services`, `/services/bonded-storage`,
+  `/quote`, `/robots.txt`, and `/sitemap.xml` as static content.
+
+**Tomorrow**: third dedicated service sub-page —
+`/services/overweight-reworking` (the differentiator other 3PLs send
+back, and a natural follow-on from the devan FAQ that already
+cross-links to it). Reuse the same hero / steps / when-to-use /
+capacity / FAQ shape, swap in overweight-specific copy (split,
+re-palletize, redistribute across legal-weight loads), append to
+sitemap ROUTES.
