@@ -349,3 +349,52 @@ cross-links to it). Reuse the same hero / steps / when-to-use /
 capacity / FAQ shape, swap in overweight-specific copy (split,
 re-palletize, redistribute across legal-weight loads), append to
 sitemap ROUTES.
+
+### 2026-04-30 — Day 9: /services/overweight-reworking dedicated sub-page
+
+- Added `src/app/services/overweight-reworking/page.tsx` as a Server
+  Component with per-page metadata: title "Overweight Container Reworking
+  | Highway-Legal Redistribution near Port of Charleston" (long-tail
+  intent term — "overweight container reworking" is exactly what
+  importers search when they hit the problem), description, canonical
+  `/services/overweight-reworking`, OG. Third of the nine planned
+  service sub-pages, mirroring the locked-in shape from bonded-storage
+  and devanning: hero with breadcrumb, 4-card fact strip, 4-step
+  "how it works" sequence, "when to use it" 4-card grid, capacity
+  6-card grid, 6-question FAQ in `<details>` accordions, and a closing
+  CTA with the same paper "basics" fact card.
+- Copy is grounded in verifiable practice — heavy-haul drayage,
+  hand-unload off the chassis, plan to FHWA 80,000 lb gross /
+  34,000 lb tandem, certified scale on every outbound, weight ticket +
+  matching BOL handed to the driver. Two facts that need Greg's input
+  (peak overweight containers/day and cargo insurance limit) stay
+  wrapped in the same dashed-orange `placeholder` chip used elsewhere
+  so missing data is loud.
+- FAQ targets the long-tail queries this service attracts: "What is
+  overweight container reworking?", "What's a legal weight in the
+  US?", "Can you handle heavy commodities like steel, tile, or stone?",
+  "Do you provide weight tickets?", "Can the cargo stay bonded during
+  rework?", "How fast can you turn an overweight container?". Internal
+  links cross-reference `/services/bonded-storage` (rework under bond)
+  and `/services/devanning` (the unload-and-audit pattern overweight
+  rework builds on) — finishing the three-way internal link triangle
+  between the bonded, devanning, and rework sub-pages.
+- Mobile responsiveness: every grid uses `repeat(auto-fit, minmax(...,
+  1fr))` so cards reflow at 375 / 768 / 1024 without any new
+  globals.css rules.
+- Appended `/services/overweight-reworking` to the `ROUTES` array in
+  `sitemap.ts` (changeFrequency: "monthly", priority: 0.85 — same as
+  bonded-storage and devanning).
+- `npm run build` passes; Next.js now registers `○ /services/
+  overweight-reworking` alongside `/`, `/about`, `/services`,
+  `/services/bonded-storage`, `/services/devanning`, `/quote`,
+  `/robots.txt`, and `/sitemap.xml` as static content.
+
+**Tomorrow**: fourth dedicated service sub-page — `/services/drayage`
+(short-haul container moves between Wando Welch / NCT / Leatherman
+and the facility). Reuse the same hero / steps / when-to-use /
+capacity / FAQ shape, swap in drayage-specific copy (terminal
+geography, container types, chassis options, per-diem clock), append
+to sitemap ROUTES. Drayage is also the first sub-page where the
+"miles to terminal" placeholder chips on /services would land — note
+that on the page if Greg hasn't filled them in by then.
