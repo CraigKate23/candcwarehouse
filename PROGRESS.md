@@ -398,3 +398,56 @@ geography, container types, chassis options, per-diem clock), append
 to sitemap ROUTES. Drayage is also the first sub-page where the
 "miles to terminal" placeholder chips on /services would land — note
 that on the page if Greg hasn't filled them in by then.
+
+### 2026-05-01 — Day 10: /services/drayage dedicated sub-page
+
+- Added `src/app/services/drayage/page.tsx` as a Server Component with
+  per-page metadata: title "Port of Charleston Drayage | Container
+  Moves from Wando Welch, NCT, and Leatherman" (long-tail intent term —
+  importers searching for short-haul container moves out of the SC
+  Ports Authority terminals), description, canonical
+  `/services/drayage`, OG. Fourth of the nine planned service
+  sub-pages, mirroring the locked-in shape from bonded-storage,
+  devanning, and overweight-reworking: hero with breadcrumb, 4-card
+  fact strip, 4-step "how it works" sequence, "when to use it" 4-card
+  grid, capacity 6-card grid, 6-question FAQ in `<details>`
+  accordions, and a closing CTA with the same paper "basics" fact
+  card.
+- Copy is grounded in verifiable practice — booking the terminal
+  appointment, confirming the seal at the gate before leaving the
+  terminal, short-haul direct to the dock so the same crew can devan
+  off the chassis, empty return + chassis split coordinated as part
+  of the drayage scope (not a separate add-on). Three placeholder
+  values stay loud in dashed-orange chips: per-terminal mile counts
+  to Wando Welch / NCT / Leatherman (also referenced from the
+  /services drayage anchor) and cargo insurance limit. The mile
+  placeholders are the same chips the parent `/services` page
+  surfaces, so when Greg confirms the numbers it'll be a
+  find-and-replace across both pages.
+- FAQ targets the long-tail queries this service attracts: "What is
+  drayage?", "How far is your facility from the terminals?", "Can you
+  handle in-bond moves?", "What container types do you handle?",
+  "Do you provide chassis?", "Can you handle overweight containers?".
+  Internal links cross-reference `/services/bonded-storage` (in-bond
+  drayage handoff to bonded floor), `/services/devanning` (devan
+  pattern that drayage hands off to), and
+  `/services/overweight-reworking` (heavy-haul drayage paired with
+  redistribute) — completing the four-way internal-link mesh between
+  the bonded, devanning, overweight-rework, and drayage sub-pages.
+- Mobile responsiveness: every grid uses `repeat(auto-fit, minmax(...,
+  1fr))` so cards reflow at 375 / 768 / 1024 without any new
+  globals.css rules.
+- Appended `/services/drayage` to the `ROUTES` array in
+  `sitemap.ts` (changeFrequency: "monthly", priority: 0.85 — same as
+  the other service sub-pages, slightly below the parent `/services`).
+- `npm run build` passes; Next.js now registers `○ /services/drayage`
+  alongside `/`, `/about`, `/services`, `/services/bonded-storage`,
+  `/services/devanning`, `/services/overweight-reworking`, `/quote`,
+  `/robots.txt`, and `/sitemap.xml` as static content.
+
+**Tomorrow**: fifth dedicated service sub-page — `/services/cross-dock`
+(in/out same day, no inventory dwell — the speed-of-port-handoff
+service for shippers who already know the destination). Reuse the
+same hero / steps / when-to-use / capacity / FAQ shape, swap in
+cross-dock-specific copy (door-to-door velocity, retail compliance,
+ASN handling), append to sitemap ROUTES.
