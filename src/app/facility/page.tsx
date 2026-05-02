@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   business,
@@ -31,6 +32,8 @@ const LOCATIONS = [
   {
     name: "Ladson facility",
     badge: "Primary",
+    image: "/images/facility-exterior.webp",
+    imageAlt: "C&C Warehouse exterior in Ladson, SC",
     address: "137 Acres Drive",
     cityState: "Ladson, SC 29456",
     sqft: "60,000",
@@ -64,6 +67,8 @@ const LOCATIONS = [
   {
     name: "Hanahan facility",
     badge: "Secondary",
+    image: "/images/facility-interior.webp",
+    imageAlt: "C&C Warehouse interior floor with racked inventory",
     address: "1014 Northpointe Industrial Blvd",
     cityState: "Hanahan, SC 29410",
     sqft: "30,000",
@@ -237,25 +242,19 @@ export default function FacilityPage() {
                   overflow: "hidden",
                 }}
               >
-                {/* Photo placeholder */}
-                <div
+                <Image
+                  src={loc.image}
+                  alt={loc.imageAlt}
+                  width={1500}
+                  height={747}
                   style={{
-                    height: 200,
-                    background:
-                      "linear-gradient(135deg, #f3efe7 0%, #ece4d3 100%)",
+                    width: "100%",
+                    height: 220,
+                    objectFit: "cover",
+                    display: "block",
                     borderBottom: `1px solid ${colors.line}`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: fonts.mono,
-                    fontSize: 12,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: colors.steelLight,
                   }}
-                >
-                  Facility photo TK
-                </div>
+                />
 
                 <div style={{ padding: 28 }}>
                   <div

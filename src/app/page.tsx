@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   business,
@@ -126,14 +127,28 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Paper-style card with quick stats */}
+          {/* Photo + quick stats */}
           <div
             style={{
               ...cardStyle,
-              padding: 32,
+              padding: 0,
+              overflow: "hidden",
               background: colors.paper,
             }}
           >
+            <Image
+              src="/images/facility-exterior.webp"
+              alt="C&C Warehouse facility exterior in Ladson, SC"
+              width={1500}
+              height={747}
+              priority
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
+            <div style={{ padding: 28 }}>
             <div style={eyebrow}>At a glance</div>
             <div
               style={{
@@ -181,6 +196,7 @@ export default function Home() {
               >
                 {business.email}
               </a>
+            </div>
             </div>
           </div>
         </div>
