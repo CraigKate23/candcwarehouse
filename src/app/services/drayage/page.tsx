@@ -111,14 +111,12 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
     q: "How far is your facility from the terminals?",
     a: (
       <>
-        We&rsquo;re in Ladson, SC, minutes from all three SC Ports
-        Authority container terminals. Approximate drive distances:
-        Wando Welch <span style={placeholder}>~XX miles TK</span>,
-        North Charleston Terminal{" "}
-        <span style={placeholder}>~XX miles TK</span>, and Hugh K.
-        Leatherman <span style={placeholder}>~XX miles TK</span>. The
-        short distances keep per-container drayage cost down vs. inland
-        DCs that have to drag containers across the metro.
+        We have two facilities — one in Ladson and one in Hanahan — both
+        minutes from all three SC Ports Authority container terminals.
+        Approximate drive distances: Wando Welch ~16–24 miles, North
+        Charleston Terminal ~7–14 miles, and Hugh K. Leatherman ~6–14
+        miles. The short distances keep per-container drayage cost down
+        vs. inland DCs that have to drag containers across the metro.
       </>
     ),
   },
@@ -491,9 +489,8 @@ export default function DrayagePage() {
               body={
                 <>
                   All three SC Ports Authority container terminals —
-                  Wando Welch, North Charleston Terminal, and Hugh K.
-                  Leatherman. Approximate distances from C&amp;C:{" "}
-                  <span style={placeholder}>XX / XX / XX miles TK</span>.
+                  Wando Welch (~16–24 mi), North Charleston Terminal
+                  (~7–14 mi), and Hugh K. Leatherman (~6–14 mi).
                 </>
               }
             />

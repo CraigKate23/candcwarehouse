@@ -479,9 +479,9 @@ export default function OverweightReworkingPage() {
               label="Throughput"
               body={
                 <>
-                  <span style={placeholder}>XX overweight containers/day TK</span>{" "}
-                  at peak. Most reworks finish inside one shift, dependent
-                  on cargo density and the outbound split count.
+                  Up to 30 containers/day at peak. Most reworks finish
+                  inside one shift, dependent on cargo density and the
+                  outbound split count.
                 </>
               }
             />

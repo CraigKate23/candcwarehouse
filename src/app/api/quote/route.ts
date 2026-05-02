@@ -16,7 +16,10 @@ import { business } from "../../components/styles";
 //                      for inbox placement. Once `candcwarehouse.com`
 //                      DNS is verified in Resend, swap this to e.g.
 //                      "C&C Warehouse <quotes@candcwarehouse.com>".
-//   QUOTE_TO        — optional. Defaults to greg@candcwarehouse.com.
+//   QUOTE_TO        — optional. Defaults to information@candcwarehouse.com.
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://candcwarehouse.vercel.app";
 
 export const runtime = "nodejs";
 // Don't pre-render or cache — every POST is a unique submission.
@@ -199,7 +202,7 @@ function buildHtml(data: QuotePayload): string {
     ${notesBlock}
     <hr style="border:0;border-top:1px solid #e7e2d6;margin:28px 0;" />
     <div style="font-size:13px;color:#7a8493;">
-      Sent from the quote form at <a href="https://candcwarehouse.vercel.app/quote" style="color:#d96a2c;text-decoration:none;">candcwarehouse.vercel.app/quote</a>.
+      Sent from the quote form at <a href="${SITE_URL}/quote" style="color:#d96a2c;text-decoration:none;">${SITE_URL.replace(/^https?:\/\//, "")}/quote</a>.
       Reply directly to this email to reach ${esc(data.name)} &mdash; the reply-to is set to their address.
     </div>
   </div>

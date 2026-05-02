@@ -8,7 +8,7 @@ const links = [
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/facility", label: "Facility" },
-  { href: "/portal", label: "Portal" },
+  { href: "https://portal.candcwarehouse.com", label: "Portal" },
 ];
 
 export default function Nav() {

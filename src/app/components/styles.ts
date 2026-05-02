@@ -108,8 +108,8 @@ export const business = {
   city: "Ladson",
   state: "SC",
   postal: "29456",
-  phone: "+1-843-514-1001",
-  phoneDisplay: "(843) 514-1001",
-  email: "greg@candcwarehouse.com",
+  phone: "+1-843-818-2332",
+  phoneDisplay: "(843) 818-2332",
+  email: "information@candcwarehouse.com",
   teamExperienceYears: 50,
 };

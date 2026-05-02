@@ -55,12 +55,7 @@ const SERVICES: Service[] = [
       },
       {
         label: "Capacity",
-        body: (
-          <>
-            <span style={placeholder}>XX,XXX racked positions TK</span>{" "}
-            of bonded floor and rack space.
-          </>
-        ),
+        body: "3,000+ racked positions of bonded floor and rack space across two facilities.",
       },
     ],
   },
@@ -96,8 +91,7 @@ const SERVICES: Service[] = [
         label: "Throughput",
         body: (
           <>
-            <span style={placeholder}>XX containers/day TK</span> at peak,
-            scaled by container type and product mix.
+            30 containers/day at peak, scaled by container type and product mix.
           </>
         ),
       },
@@ -141,27 +135,15 @@ const SERVICES: Service[] = [
     highlights: [
       {
         label: "Wando Welch",
-        body: (
-          <>
-            <span style={placeholder}>~XX miles TK</span> from C&amp;C.
-          </>
-        ),
+        body: "~16–24 miles from our facilities.",
       },
       {
         label: "North Charleston Terminal",
-        body: (
-          <>
-            <span style={placeholder}>~XX miles TK</span> from C&amp;C.
-          </>
-        ),
+        body: "~7–14 miles from our facilities.",
       },
       {
         label: "Hugh K. Leatherman",
-        body: (
-          <>
-            <span style={placeholder}>~XX miles TK</span> from C&amp;C.
-          </>
-        ),
+        body: "~6–14 miles from our facilities.",
       },
     ],
   },
@@ -222,13 +204,13 @@ const SERVICES: Service[] = [
         label: "Portal",
         body: (
           <>
-            Importer portal coming online at{" "}
-            <Link
-              href="/portal"
+            Importer portal available at{" "}
+            <a
+              href="https://portal.candcwarehouse.com"
               style={{ color: colors.accent, textDecoration: "underline" }}
             >
-              /portal
-            </Link>
+              portal.candcwarehouse.com
+            </a>
             .
           </>
         ),

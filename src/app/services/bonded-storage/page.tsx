@@ -466,9 +466,9 @@ export default function BondedStoragePage() {
               label="Bonded floor & rack"
               body={
                 <>
-                  <span style={placeholder}>XX,XXX racked positions TK</span>{" "}
-                  of bonded floor and rack space, plus floor-load capacity for
-                  oversized or palletized loose cargo.
+                  3,000+ racked positions of bonded floor and rack space
+                  across two facilities, plus floor-load capacity for oversized
+                  or palletized loose cargo.
                 </>
               }
             />

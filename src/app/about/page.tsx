@@ -91,12 +91,9 @@ const TIMELINE: Milestone[] = [
     title: "Charleston's bonded + GO specialist",
     body: (
       <>
-        Running{" "}
-        <span style={placeholder}>
-          ~XX,XXX sq ft / XX dock doors / XX,XXX racked positions
-        </span>{" "}
-        with a team carrying {business.teamExperienceYears}+ years of combined
-        warehouse experience.
+        Running 90,000+ sq ft across two facilities with 3,000+ racked
+        positions and a team carrying {business.teamExperienceYears}+ years of
+        combined warehouse experience.
       </>
     ),
   },

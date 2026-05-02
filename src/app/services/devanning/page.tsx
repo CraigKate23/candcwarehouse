@@ -468,9 +468,9 @@ export default function DevanningPage() {
               label="Throughput"
               body={
                 <>
-                  <span style={placeholder}>XX containers/day TK</span> at
-                  peak, scaled by container type and product mix. Typical
-                  mixed-carton 40&prime; HC turns inside one shift.
+                  30 containers/day at peak, scaled by container type and
+                  product mix. Typical mixed-carton 40&prime; HC turns inside
+                  one shift.
                 </>
               }
             />

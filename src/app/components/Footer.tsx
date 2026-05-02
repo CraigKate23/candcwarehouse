@@ -13,6 +13,7 @@ export default function Footer() {
       }}
     >
       <div
+        className="footer-grid"
         style={{
           ...container,
           padding: "48px 24px 32px",
@@ -55,7 +56,7 @@ export default function Footer() {
 
         <FooterCol title="Work with us">
           <FooterLink href="/quote">Request a quote</FooterLink>
-          <FooterLink href="/portal">Customer portal</FooterLink>
+          <FooterLink href="https://portal.candcwarehouse.com">Customer portal</FooterLink>
           <FooterLink href={`mailto:${business.email}`}>
             {business.email}
           </FooterLink>
