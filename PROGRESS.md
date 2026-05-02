@@ -451,3 +451,54 @@ service for shippers who already know the destination). Reuse the
 same hero / steps / when-to-use / capacity / FAQ shape, swap in
 cross-dock-specific copy (door-to-door velocity, retail compliance,
 ASN handling), append to sitemap ROUTES.
+
+### 2026-05-02 — Day 11: /services/cross-dock dedicated sub-page
+
+- Added `src/app/services/cross-dock/page.tsx` as a Server Component
+  with per-page metadata: title "Cross-Dock Services near Port of
+  Charleston | Same-Day Sort & Tender" (long-tail intent term — the
+  vendors searching for cross-dock at the port are the right audience
+  for retail compliance and DC-bypass moves), description, canonical
+  `/services/cross-dock`, OG. Fifth of the nine planned service
+  sub-pages, mirroring the locked-in shape from bonded-storage,
+  devanning, overweight-reworking, and drayage: hero with breadcrumb,
+  4-card fact strip, 4-step "how it works" sequence, "when to use it"
+  4-card grid, capacity 6-card grid, 6-question FAQ in `<details>`
+  accordions, and a closing CTA with the same paper "basics" fact
+  card.
+- Copy is grounded in verifiable practice — pre-receipt dock plan
+  built off the ASN, striped staging zone, piece-count reconciled
+  to ASN before blending into the sort, sort live by SKU / store /
+  route / customer / DC, ASN (EDI 856) fired to the receiving DC at
+  tender. Two facts that need Greg's input (peak loads/day and cargo
+  insurance limit) stay wrapped in the same dashed-orange
+  `placeholder` chip used elsewhere so missing data is loud.
+- FAQ targets the long-tail queries cross-dock attracts: "What is
+  cross-docking?", "How fast can you turn a cross-dock?", "What sort
+  criteria can you handle?", "Can the cargo come in by container and
+  go out by truck?", "Can you handle retailer-compliant labeling and
+  ASNs?", "Can cross-dock cargo stay in bond?". Internal links
+  cross-reference `/services/drayage` (port-direct flow inbound),
+  `/services/devanning` (devan-then-cross-dock pattern), and
+  `/services/bonded-storage` (when bond carries through both legs)
+  — extending the internal-link mesh to a fifth node.
+- Mobile responsiveness: every grid uses `repeat(auto-fit, minmax(...,
+  1fr))` so cards reflow at 375 / 768 / 1024 without any new
+  globals.css rules.
+- Appended `/services/cross-dock` to the `ROUTES` array in
+  `sitemap.ts` (changeFrequency: "monthly", priority: 0.85 — same as
+  the other service sub-pages, slightly below the parent `/services`).
+- `npm run build` passes; Next.js now registers `○ /services/
+  cross-dock` alongside `/`, `/about`, `/services`,
+  `/services/bonded-storage`, `/services/devanning`,
+  `/services/overweight-reworking`, `/services/drayage`, `/quote`,
+  `/robots.txt`, and `/sitemap.xml` as static content.
+
+**Tomorrow**: sixth dedicated service sub-page —
+`/services/deconsolidation` (one inbound container split into many
+outbound shipments by customer / store / region — the natural
+companion to cross-dock for importers consolidating overseas to save
+ocean freight). Reuse the same hero / steps / when-to-use / capacity
+/ FAQ shape, swap in deconsolidation-specific copy (LCL vs. FCL
+deconsol, multi-stop outbound planning, pallet-build per customer),
+append to sitemap ROUTES.
