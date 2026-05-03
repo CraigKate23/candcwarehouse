@@ -52,7 +52,7 @@ const TIMELINE: Milestone[] = [
   {
     year: "2020",
     title: "Greg Cate takes the helm",
-    body: "Greg Cate returned to the company and took over day-to-day operations, bringing the next generation of leadership to C&C Warehouse.",
+    body: "Greg Cate purchased C&C Warehouse, bringing new ownership and a fresh chapter to the business the Connellys built.",
   },
   {
     year: "2023",
@@ -72,28 +72,6 @@ const TIMELINE: Milestone[] = [
   },
 ];
 
-type TeamMember = {
-  name: string;
-  role: string;
-  bio: string;
-};
-const TEAM: TeamMember[] = [
-  {
-    name: "Pam Connelly",
-    role: "Co-Founder",
-    bio: "Co-founded C&C Warehouse in 1998 and helped build the company from a single North Charleston location into the bonded and GO operation it is today.",
-  },
-  {
-    name: "Jimmy Connelly",
-    role: "Co-Founder",
-    bio: "Co-founded C&C Warehouse alongside Pam in 1998, growing the business around the specialized freight that other warehouses turned away.",
-  },
-  {
-    name: "Greg Cate",
-    role: "Operations",
-    bio: "Returned to C&C Warehouse in 2020 and has been at the helm ever since, overseeing the expansion to two facilities and 90,000+ sq ft of capacity.",
-  },
-];
 
 export const metadata: Metadata = {
   title: "About C&C Warehouse",
@@ -409,119 +387,6 @@ export default function AboutPage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section style={{ padding: "80px 0" }}>
-        <div style={container}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              justifyContent: "space-between",
-              gap: 24,
-              flexWrap: "wrap",
-            }}
-          >
-            <div>
-              <div style={eyebrow}>Team</div>
-              <h2
-                style={{
-                  fontFamily: fonts.heading,
-                  fontSize: "clamp(26px, 3.2vw, 36px)",
-                  fontWeight: 700,
-                  marginTop: 10,
-                }}
-              >
-                The people you&rsquo;ll actually talk to.
-              </h2>
-            </div>
-            <p
-              style={{
-                fontFamily: fonts.body,
-                fontSize: 15,
-                color: colors.steel,
-                maxWidth: 320,
-              }}
-            >
-              Three generations of warehouse experience. One phone number.
-            </p>
-          </div>
-
-          <div
-            className="value-grid"
-            style={{
-              marginTop: 36,
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 20,
-            }}
-          >
-            {TEAM.map((p, i) => (
-              <article
-                key={i}
-                style={{
-                  background: colors.paper,
-                  border: `1px solid ${colors.line}`,
-                  borderRadius: 16,
-                  padding: 24,
-                }}
-              >
-                <div
-                  style={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: "50%",
-                    background:
-                      "linear-gradient(135deg, #e7e2d6 0%, #d9d0c0 100%)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: fonts.heading,
-                    fontSize: 28,
-                    fontWeight: 700,
-                    color: colors.steel,
-                  }}
-                >
-                  {typeof p.name === "string" ? p.name.charAt(0) : ""}
-                </div>
-                <h3
-                  style={{
-                    fontFamily: fonts.heading,
-                    fontSize: 18,
-                    fontWeight: 600,
-                    marginTop: 18,
-                  }}
-                >
-                  {p.name}
-                </h3>
-                <div
-                  style={{
-                    fontFamily: fonts.mono,
-                    fontSize: 12,
-                    color: colors.accent,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    marginTop: 4,
-                  }}
-                >
-                  {p.role}
-                </div>
-                <p
-                  style={{
-                    fontFamily: fonts.body,
-                    fontSize: 14.5,
-                    lineHeight: 1.55,
-                    color: colors.steel,
-                    marginTop: 12,
-                  }}
-                >
-                  {p.bio}
-                </p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
