@@ -5,9 +5,20 @@ const nextConfig: NextConfig = {
     return [
       // Old Squarespace paths → new equivalents.
       // Keeps Google rankings and bookmarks alive after cutover.
+      // /summery was ranking #2 for "customs bonded warehouse Charleston SC"
+      {
+        source: "/summery",
+        destination: "/",
+        permanent: true,
+      },
       {
         source: "/project-gallery-page",
-        destination: "/about",
+        destination: "/facility",
+        permanent: true,
+      },
+      {
+        source: "/project-gallery",
+        destination: "/facility",
         permanent: true,
       },
       {
@@ -17,7 +28,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/new-page",
-        destination: "/",
+        destination: "/quote",
         permanent: true,
       },
       {

@@ -19,7 +19,7 @@ import { business } from "../../components/styles";
 //   QUOTE_TO        — optional. Defaults to information@candcwarehouse.com.
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://candcwarehouse.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
 export const runtime = "nodejs";
 // Don't pre-render or cache — every POST is a unique submission.

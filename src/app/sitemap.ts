@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next";
 // portal, resources) they should be appended here with their own
 // `lastModified` so search engines can pick them up.
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://candcwarehouse.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
 type Entry = {
   path: string;
