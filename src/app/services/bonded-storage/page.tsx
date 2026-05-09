@@ -48,6 +48,42 @@ export const metadata: Metadata = {
   },
 };
 
+// Per-page Service JSON-LD (added 2026-05-09 daily SEO pass).
+// provider.@id points at the parent LocalBusiness defined in src/app/layout.tsx.
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.candcwarehouse.com/services/bonded-storage#service",
+  "serviceType": "US Customs Bonded Storage",
+  "name": "Bonded Storage at the Port of Charleston (CBP Class 3)",
+  "url": "https://www.candcwarehouse.com/services/bonded-storage",
+  "provider": {
+    "@id": "https://www.candcwarehouse.com/#localbusiness"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Charleston"
+    },
+    {
+      "@type": "City",
+      "name": "North Charleston"
+    },
+    {
+      "@type": "City",
+      "name": "Mount Pleasant"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "South Carolina"
+    }
+  ],
+  "audience": {
+    "@type": "BusinessAudience",
+    "name": "Importers, freight forwarders, and customs brokers using the Port of Charleston"
+  }
+};
+
 const STEPS: { n: string; title: string; body: string }[] = [
   {
     n: "01",
@@ -173,6 +209,11 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
 export default function BondedStoragePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        id="service-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
       {/* Hero */}
       <section
         style={{

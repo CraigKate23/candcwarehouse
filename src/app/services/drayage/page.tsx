@@ -52,6 +52,42 @@ export const metadata: Metadata = {
   },
 };
 
+// Per-page Service JSON-LD (added 2026-05-09 daily SEO pass).
+// provider.@id points at the parent LocalBusiness defined in src/app/layout.tsx.
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.candcwarehouse.com/services/drayage#service",
+  "serviceType": "Container Drayage",
+  "name": "Container Drayage from Wando Welch, NCT, and Leatherman Terminals",
+  "url": "https://www.candcwarehouse.com/services/drayage",
+  "provider": {
+    "@id": "https://www.candcwarehouse.com/#localbusiness"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Charleston"
+    },
+    {
+      "@type": "City",
+      "name": "North Charleston"
+    },
+    {
+      "@type": "City",
+      "name": "Mount Pleasant"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "South Carolina"
+    }
+  ],
+  "audience": {
+    "@type": "BusinessAudience",
+    "name": "Importers, freight forwarders, and customs brokers using the Port of Charleston"
+  }
+};
+
 const STEPS: { n: string; title: string; body: string }[] = [
   {
     n: "01",
@@ -199,6 +235,11 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
 export default function DrayagePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        id="service-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
       {/* Hero */}
       <section
         style={{
