@@ -24,6 +24,8 @@ export const metadata: Metadata = {
       "Bonded, General Order, devanning, overweight reworking, drayage, and pick & pack — get a real quote from a real person near the Port of Charleston.",
     url: `${SITE_URL}${PAGE_PATH}`,
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
   },
 };
 

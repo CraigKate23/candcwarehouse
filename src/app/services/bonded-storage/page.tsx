@@ -41,6 +41,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
     url: "/services/bonded-storage",
     title: `US Customs Bonded Warehouse · ${business.name}`,
     description:

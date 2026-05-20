@@ -42,6 +42,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
     url: "/services/devanning",
     title: `Container Devanning · ${business.name}`,
     description:

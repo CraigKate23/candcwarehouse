@@ -81,6 +81,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
     url: "/about",
     title: `About · ${business.name}`,
     description: `Family-run US Customs Bonded and General Order warehouse in Ladson, SC, since ${business.foundedYear}.`,

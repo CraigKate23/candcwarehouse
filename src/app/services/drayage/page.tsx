@@ -45,6 +45,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
     url: "/services/drayage",
     title: `Port of Charleston Drayage · ${business.name}`,
     description:

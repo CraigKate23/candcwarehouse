@@ -45,6 +45,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
     url: "/services/cross-dock",
     title: `Cross-Dock Services · ${business.name}`,
     description:

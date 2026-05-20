@@ -43,6 +43,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    siteName: business.name,
+    locale: "en_US",
     url: "/services/overweight-reworking",
     title: `Overweight Container Reworking · ${business.name}`,
     description:
