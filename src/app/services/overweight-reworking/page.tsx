@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     title: `Overweight Container Reworking · ${business.name}`,
     description:
       "Split, re-palletize, and redistribute overweight ocean containers into FHWA legal-weight outbound loads — with certified weight tickets and BOLs ready for the driver.",
+    images: ["/images/og-default.jpg"],
   },
 };
 

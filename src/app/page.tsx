@@ -30,16 +30,18 @@ const VALUES = [
   },
 ];
 
+// Each service links to its dedicated page where one exists; the four
+// without a sub-page yet deep-link to their section anchor on /services.
 const SERVICES = [
-  "Bonded storage",
-  "General Order (GO) storage",
-  "Devanning",
-  "Overweight container reworking",
-  "Drayage",
-  "Cross-dock",
-  "Deconsolidation",
-  "WMS-tracked inventory",
-  "Pick & pack",
+  { label: "Bonded storage", href: "/services/bonded-storage" },
+  { label: "General Order (GO) storage", href: "/services#go-storage" },
+  { label: "Devanning", href: "/services/devanning" },
+  { label: "Overweight container reworking", href: "/services/overweight-reworking" },
+  { label: "Drayage", href: "/services/drayage" },
+  { label: "Cross-dock", href: "/services/cross-dock" },
+  { label: "Deconsolidation", href: "/services#deconsolidation" },
+  { label: "WMS-tracked inventory", href: "/services#wms" },
+  { label: "Pick & pack", href: "/services#pick-pack" },
 ];
 
 export default function Home() {
@@ -319,30 +321,38 @@ export default function Home() {
           >
             {SERVICES.map((s, i) => (
               <li
-                key={s}
+                key={s.label}
                 style={{
-                  padding: "18px 8px",
                   borderBottom: `1px solid ${colors.line}`,
                   borderRight:
                     (i + 1) % 3 === 0 ? "none" : `1px solid ${colors.line}`,
-                  fontFamily: fonts.heading,
-                  fontSize: 17,
-                  fontWeight: 500,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
                 }}
               >
-                <span
+                <Link
+                  href={s.href}
                   style={{
-                    fontFamily: fonts.mono,
-                    fontSize: 12,
-                    color: colors.accent,
+                    padding: "18px 8px",
+                    fontFamily: fonts.heading,
+                    fontSize: 17,
+                    fontWeight: 500,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    color: "inherit",
+                    textDecoration: "none",
                   }}
                 >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {s}
+                  <span
+                    style={{
+                      fontFamily: fonts.mono,
+                      fontSize: 12,
+                      color: colors.accent,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {s.label}
+                </Link>
               </li>
             ))}
           </ul>

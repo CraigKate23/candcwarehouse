@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     title: `Cross-Dock Services · ${business.name}`,
     description:
       "Same-day receive, sort, and tender at the C&C bonded warehouse near the Port of Charleston — built for retailer windows, ASN-driven outbounds, and DC-bypass moves.",
+    images: ["/images/og-default.jpg"],
   },
 };
 

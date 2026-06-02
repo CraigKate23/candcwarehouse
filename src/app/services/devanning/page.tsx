@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     title: `Container Devanning · ${business.name}`,
     description:
       "Piece-by-piece container unload with documented counts, damage notes, and photographed exceptions — minutes from the Port of Charleston.",
+    images: ["/images/og-default.jpg"],
   },
 };
 

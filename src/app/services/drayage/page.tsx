@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     title: `Port of Charleston Drayage · ${business.name}`,
     description:
       "Short-haul container moves between Wando Welch, NCT, and Leatherman and the C&C bonded warehouse — in-bond capable, heavy-haul chassis available, devan ready at the dock.",
+    images: ["/images/og-default.jpg"],
   },
 };
 

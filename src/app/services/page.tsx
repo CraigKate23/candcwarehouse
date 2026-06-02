@@ -244,6 +244,17 @@ const SERVICES: Service[] = [
   },
 ];
 
+// Services that have a dedicated, rankable sub-page. The /services section
+// for each of these links out to its page so the sub-pages are no longer
+// orphaned in the internal link graph.
+const DETAIL_PAGES = new Set([
+  "bonded-storage",
+  "devanning",
+  "overweight-reworking",
+  "drayage",
+  "cross-dock",
+]);
+
 export const metadata: Metadata = {
   title: "Services",
   description:
@@ -259,6 +270,7 @@ export const metadata: Metadata = {
     title: `Services · ${business.name}`,
     description:
       "Bonded, GO, devanning, overweight reworking, drayage, cross-dock, deconsolidation, WMS, pick & pack — Port of Charleston.",
+    images: ["/images/og-default.jpg"],
   },
 };
 
@@ -496,6 +508,25 @@ export default function ServicesPage() {
                     </div>
                   ))}
                 </div>
+
+                {DETAIL_PAGES.has(s.id) && (
+                  <Link
+                    href={`/services/${s.id}`}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      marginTop: 22,
+                      fontFamily: fonts.body,
+                      fontSize: 15,
+                      fontWeight: 600,
+                      color: colors.accentDeep,
+                      textDecoration: "none",
+                    }}
+                  >
+                    Full {s.title.toLowerCase()} details →
+                  </Link>
+                )}
               </article>
             ))}
           </div>

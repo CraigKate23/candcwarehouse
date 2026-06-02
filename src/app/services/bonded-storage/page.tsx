@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     title: `US Customs Bonded Warehouse · ${business.name}`,
     description:
       "CBP Class 3 bonded storage near the Port of Charleston. Defer duty, keep cargo under bond, release when you're ready.",
+    images: ["/images/og-default.jpg"],
   },
 };
 

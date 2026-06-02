@@ -64,20 +64,28 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: business.name,
-    title: `${business.name} — Bonded & GO Warehousing, Port of Charleston`,
+    title: `${business.name} — Bonded & General Order Warehousing near the Port of Charleston`,
     description: business.tagline,
     locale: "en_US",
     images: [OG_IMAGE],
   },
   twitter: {
+    // title/description intentionally omitted so each route's own <title>
+    // and description flow through to the Twitter card instead of a
+    // generic sitewide string.
     card: "summary_large_image",
-    title: business.name,
-    description: business.tagline,
     images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 

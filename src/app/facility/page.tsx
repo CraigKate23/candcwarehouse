@@ -24,9 +24,10 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/facility",
-    title: `Facility · ${business.name}`,
+    title: `Facility | 90,000+ sq ft across Ladson & Hanahan, SC · ${business.name}`,
     description:
       "Two facilities totaling 90,000+ sq ft near the Port of Charleston. Bonded, GO-approved, 3,000+ racked positions.",
+    images: ["/images/og-default.jpg"],
   },
 };
 
