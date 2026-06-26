@@ -48,10 +48,17 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/cross-dock",
-    title: `Cross-Dock Services · ${business.name}`,
+    title: `Cross-Dock Services near Port of Charleston | Same-Day Sort & Tender · ${business.name}`,
     description:
       "Same-day receive, sort, and tender at the C&C bonded warehouse near the Port of Charleston — built for retailer windows, ASN-driven outbounds, and DC-bypass moves.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — cross-dock, sort, and tender near the Port of Charleston",
+      },
+    ],
   },
 };
 
@@ -231,6 +238,63 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
 ];
 
+// FAQPage JSON-LD built verbatim from the on-page FAQ copy below
+// (plain-text mirror). Keep in sync if the FAQ answers change.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is cross-docking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cross-docking is when freight comes in on one dock, gets sorted and immediately tendered back out on another dock — without being put away into rack storage in between. The cargo touches the warehouse floor, but it doesn't dwell. It's the right shape when transit time matters more than storage cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast can you turn a cross-dock?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Same-day when the inbound and outbound windows align — the cargo is in the door, sorted, and out again before the next shift. When the outbound carrier doesn't pull until the following day we stage on the floor (not in rack) and tender at the booked appointment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What sort criteria can you handle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "By SKU, by store, by route, by customer, by retailer DC, or any combination — whatever the downstream system needs to receive cleanly. Pallet labels, carton labels, and BOLs come out in the format your receiving WMS expects, and ASNs fire to the receiving DC at tender so the dock door knows what's on the way."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the cargo come in by container and go out by truck?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — that's the most common shape. The container is drayed from Wando Welch, NCT, or Leatherman, hand-unloaded at the dock, and the freight moves directly to outbound staging for the carriers pulling that day. One handoff instead of three."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you handle retailer-compliant labeling and ASNs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We work to the receiving party's routing guide — UCC-128 / GS1-128 case labels, pallet placards, ASN (EDI 856) firing to the receiving DC at tender, and BOLs in the format the carrier and the receiver expect. If your retailer has a specific compliance manual, share it before the first load and we'll build the dock plan against it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can cross-dock cargo stay in bond?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — when the inbound is in-bond and the outbound is also a bonded move (e.g. headed to another bonded facility or for re-export), we can cross-dock under bond without breaking the status."
+      }
+    }
+  ]
+};
+
 export default function CrossDockPage() {
   return (
     <>
@@ -238,6 +302,11 @@ export default function CrossDockPage() {
         type="application/ld+json"
         id="service-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="faq-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero */}
       <section

@@ -44,10 +44,17 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/bonded-storage",
-    title: `US Customs Bonded Warehouse · ${business.name}`,
+    title: `US Customs Bonded Warehouse | Class 3 Storage near Port of Charleston · ${business.name}`,
     description:
       "CBP Class 3 bonded storage near the Port of Charleston. Defer duty, keep cargo under bond, release when you're ready.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — CBP Class 3 US Customs Bonded storage near the Port of Charleston",
+      },
+    ],
   },
 };
 
@@ -209,6 +216,63 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
 ];
 
+// FAQPage JSON-LD built verbatim from the on-page FAQ copy below
+// (plain-text mirror). Keep in sync if the FAQ answers change.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a US Customs Bonded Warehouse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A bonded warehouse is a facility approved and supervised by US Customs and Border Protection (CBP) where imported merchandise can be stored without paying import duty at the time of arrival. Duty is owed only when the cargo is withdrawn for US consumption — or never, if it's re-exported. C&C operates as a CBP-designated Class 3 bonded warehouse, which is the importer's private bonded warehouse classification."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long can cargo stay in a bonded warehouse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Up to five years from the date of importation under the standard CBP rule. That window covers nearly every legitimate use case — staging inventory, deferring duty across a fiscal year, or holding cargo while downstream paperwork resolves."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between bonded storage and General Order (GO)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bonded storage is voluntary — the importer (or their broker) elects to place cargo on bond. General Order is involuntary: when cargo sits at the port unclaimed past the 15-day window, CBP moves it to a GO-designated facility. C&C handles both."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I withdraw partial quantities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Bonded inventory is tracked at the SKU / lot level, and CBP permits partial withdrawals against the original entry. Pull a few pallets for a domestic order, leave the rest on bond."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle the CBP paperwork?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We coordinate with your customs broker on the entry, withdrawal, and re-export documentation, and we maintain the warehouse-side recordkeeping CBP requires (receipt, location, withdrawal, balance). If you don't already have a broker we can recommend one familiar with the Port of Charleston."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kinds of cargo do you accept on bond?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "General merchandise — palletized goods, floor-loaded containers, overweights, automotive parts, consumer goods, industrial equipment. We don't handle hazardous materials, cold-chain, or live animals. If you're not sure whether your cargo fits, call and we'll tell you straight."
+      }
+    }
+  ]
+};
+
 export default function BondedStoragePage() {
   return (
     <>
@@ -216,6 +280,11 @@ export default function BondedStoragePage() {
         type="application/ld+json"
         id="service-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="faq-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero */}
       <section
@@ -531,7 +600,7 @@ export default function BondedStoragePage() {
                   Hand-unload bonded containers piece-by-piece with a
                   documented count and damage notes — see{" "}
                   <Link
-                    href="/services#devanning"
+                    href="/services/devanning"
                     style={{
                       color: colors.accent,
                       textDecoration: "underline",

@@ -27,7 +27,14 @@ export const metadata: Metadata = {
     title: `Facility | 90,000+ sq ft across Ladson & Hanahan, SC · ${business.name}`,
     description:
       "Two facilities totaling 90,000+ sq ft near the Port of Charleston. Bonded, GO-approved, 3,000+ racked positions.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — 90,000+ sq ft bonded & General Order facilities in Ladson and Hanahan, SC near the Port of Charleston",
+      },
+    ],
   },
 };
 

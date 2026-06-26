@@ -48,10 +48,17 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/drayage",
-    title: `Port of Charleston Drayage · ${business.name}`,
+    title: `Port of Charleston Drayage | Container Moves from Wando Welch, NCT, and Leatherman · ${business.name}`,
     description:
       "Short-haul container moves between Wando Welch, NCT, and Leatherman and the C&C bonded warehouse — in-bond capable, heavy-haul chassis available, devan ready at the dock.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — Port of Charleston container drayage from Wando Welch, NCT, and Leatherman terminals",
+      },
+    ],
   },
 };
 
@@ -235,6 +242,63 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
 ];
 
+// FAQPage JSON-LD built verbatim from the on-page FAQ copy below
+// (plain-text mirror). Keep in sync if the FAQ answers change.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is drayage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Drayage is the short-haul truck move between an ocean container terminal and a nearby destination — typically a warehouse, a rail ramp, or an inland DC. It's a separate leg from the long-haul outbound. We handle the port-to-warehouse leg out of the SC Ports Authority terminals into our Ladson, SC facility."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far is your facility from the terminals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We have two facilities — one in Ladson and one in Hanahan — both minutes from all three SC Ports Authority container terminals. Approximate drive distances: Wando Welch ~16-24 miles, North Charleston Terminal ~7-14 miles, and Hugh K. Leatherman ~6-14 miles. The short distances keep per-container drayage cost down vs. inland DCs that have to drag containers across the metro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you handle in-bond moves?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We're a CBP-designated Class 3 bonded warehouse, so we can take an in-bond container off the terminal under bond and receive it onto the bonded floor without breaking the bond status."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What container types do you handle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard 20', 40', 40' high-cube, and 45' ocean containers, plus reefer (refrigerated) and flat-rack / open-top equipment. Overweight ocean containers are handled on heavy-haul chassis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide chassis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — we coordinate chassis through the standard pool providers (CCM, Direct, TRAC) plus heavy-haul chassis for overweight ocean containers. Chassis split-and-return back to the originating terminal is part of the drayage scope, not a separate add-on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you handle overweight containers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The drayage move runs on a heavy-haul chassis under permit from the terminal straight to our dock. Once the container is on the floor, we hand-unload and redistribute the cargo across legal-weight outbound loads."
+      }
+    }
+  ]
+};
+
 export default function DrayagePage() {
   return (
     <>
@@ -242,6 +306,11 @@ export default function DrayagePage() {
         type="application/ld+json"
         id="service-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="faq-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero */}
       <section

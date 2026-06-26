@@ -256,7 +256,7 @@ const DETAIL_PAGES = new Set([
 ]);
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Warehouse Services | Bonded, GO, Devanning & Drayage near the Port of Charleston",
   description:
     "Bonded storage, General Order, devanning, overweight container reworking, drayage, cross-dock, deconsolidation, WMS, and pick & pack — all run out of one Ladson, SC facility minutes from the Port of Charleston.",
   alternates: {
@@ -267,10 +267,17 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services",
-    title: `Services · ${business.name}`,
+    title: `Warehouse Services near the Port of Charleston · ${business.name}`,
     description:
       "Bonded, GO, devanning, overweight reworking, drayage, cross-dock, deconsolidation, WMS, pick & pack — Port of Charleston.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — bonded, GO, devanning, drayage, and cross-dock services near the Port of Charleston",
+      },
+    ],
   },
 };
 

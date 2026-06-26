@@ -45,10 +45,17 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/devanning",
-    title: `Container Devanning · ${business.name}`,
+    title: `Container Devanning | Hand-Unload & Piece-Count Audit near Port of Charleston · ${business.name}`,
     description:
       "Piece-by-piece container unload with documented counts, damage notes, and photographed exceptions — minutes from the Port of Charleston.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — container devanning and piece-count audit near the Port of Charleston",
+      },
+    ],
   },
 };
 
@@ -190,7 +197,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
         loads, and the overweight problem is solved at the same time the
         piece count is done. See{" "}
         <Link
-          href="/services#overweight-reworking"
+          href="/services/overweight-reworking"
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
           overweight reworking
@@ -213,6 +220,63 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
 ];
 
+// FAQPage JSON-LD built verbatim from the on-page FAQ copy below
+// (plain-text mirror). Keep in sync if the FAQ answers change.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does devanning mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Devanning (sometimes called stripping or destuffing) is the process of unloading cargo from an ocean container at a warehouse rather than at the port terminal. At C&C, devanning specifically means a hand-unload with a piece-count audit and exception documentation against the bill of lading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to devan a container?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on how the container was loaded. A palletized, slip-sheet, or pre-stacked load can come out in an hour or two. A floor-loaded 40' HC of mixed cartons typically takes most of a shift. Counts and damage notes are completed in the same window."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you devan bonded cargo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We're a CBP-designated Class 3 bonded warehouse, so bonded containers can be devanned under bond into bonded inventory without breaking the bond."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What documentation do we get back?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A signed piece-count tally reconciled against the BOL, a list of exceptions (shortage, overage, mis-mark, damage) with photographs, and the original seal number recorded before the seal was broken. We send the package the same day the container is unloaded."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the container arrives overweight?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Devanning and overweight reworking pair naturally — devan into our warehouse, redistribute the cargo across legal-weight outbound loads, and the overweight problem is solved at the same time the piece count is done."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kinds of cargo do you handle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "General merchandise — palletized goods, floor-loaded cartons, automotive parts, consumer goods, industrial equipment, drums and totes. We don't handle hazardous materials, cold-chain, or live animals. If you're not sure whether your cargo fits, call and we'll tell you straight."
+      }
+    }
+  ]
+};
+
 export default function DevanningPage() {
   return (
     <>
@@ -220,6 +284,11 @@ export default function DevanningPage() {
         type="application/ld+json"
         id="service-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="faq-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero */}
       <section

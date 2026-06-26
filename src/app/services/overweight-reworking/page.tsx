@@ -46,10 +46,17 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/overweight-reworking",
-    title: `Overweight Container Reworking · ${business.name}`,
+    title: `Overweight Container Reworking | Highway-Legal Redistribution near Port of Charleston · ${business.name}`,
     description:
       "Split, re-palletize, and redistribute overweight ocean containers into FHWA legal-weight outbound loads — with certified weight tickets and BOLs ready for the driver.",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — overweight container reworking and legal-weight redistribution near the Port of Charleston",
+      },
+    ],
   },
 };
 
@@ -220,6 +227,63 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
 ];
 
+// FAQPage JSON-LD built verbatim from the on-page FAQ copy below
+// (plain-text mirror). Keep in sync if the FAQ answers change.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is overweight container reworking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's the process of taking an ocean container that's too heavy to move legally on US highways, hand-unloading it, and redistributing the cargo across two or more outbound truckloads that each comply with FHWA gross- and axle-weight limits. We do the unload, the re-palletization, the weighing, and the tendering in one stop at our Ladson, SC dock."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's a legal weight in the US?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On the federal Interstate System, the limits are 80,000 lb gross vehicle weight, 20,000 lb on a single axle, and 34,000 lb on a tandem. State and local roads can be tighter. We plan redistributions to the federal limits and pull tighter where the outbound lane requires it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you handle heavy commodities like steel, tile, or stone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — heavy commodities are the typical use case. We have the forklift capacity, the floor loading, and the dock height to receive and re-palletize dense cargo straight off the chassis. If you're not sure whether your cargo fits, call and we'll tell you straight."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide weight tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every outbound load leaves with a certified weight ticket and a BOL that match. The driver has documentation in hand at the dock."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the cargo stay bonded during rework?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We're a CBP-designated Class 3 bonded warehouse, so an overweight rework can happen under bond without breaking the bond status."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast can you turn an overweight container?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most reworks finish inside a single shift once the container is on our dock. The driving variables are how the cargo was loaded (palletized vs. floor-loaded), how dense it is, and how many outbound legal-weight loads it splits across. We'll scope the timing on the quote so the outbound carrier can be booked accordingly."
+      }
+    }
+  ]
+};
+
 export default function OverweightReworkingPage() {
   return (
     <>
@@ -227,6 +291,11 @@ export default function OverweightReworkingPage() {
         type="application/ld+json"
         id="service-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="faq-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero */}
       <section
