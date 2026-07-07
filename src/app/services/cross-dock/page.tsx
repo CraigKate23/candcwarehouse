@@ -163,7 +163,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
         shift. When the outbound carrier doesn&rsquo;t pull until the
         following day we stage on the floor (not in rack) and tender at
         the booked appointment. Peak throughput is{" "}
-        <span style={placeholder}>X loads/day TK</span>.
+        60 loads/day.
       </>
     ),
   },
@@ -599,7 +599,7 @@ export default function CrossDockPage() {
               body={
                 <>
                   Peak cross-dock throughput at the Ladson facility:{" "}
-                  <span style={placeholder}>X loads/day TK</span> across
+                  60 loads/day across
                   inbound + outbound. Door count and dock space scale
                   with the schedule — share the volume profile and we
                   plan the dock plan to it.
