@@ -653,7 +653,7 @@ export default function CrossDockPage() {
                 <>
                   Warehouse legal liability and cargo coverage on
                   freight while it&rsquo;s on the dock — limits at{" "}
-                  <span style={placeholder}>$X,XXX,XXX TK</span>.
+                  $2,000,000.
                 </>
               }
             />

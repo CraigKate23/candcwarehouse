@@ -624,7 +624,7 @@ export default function DevanningPage() {
                 <>
                   Warehouse legal liability and cargo coverage on stored
                   inventory once it&rsquo;s off the container — limits at{" "}
-                  <span style={placeholder}>$X,XXX,XXX TK</span>.
+                  $2,000,000.
                 </>
               }
             />
