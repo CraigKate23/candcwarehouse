@@ -42,6 +42,7 @@ const SERVICES = [
   { label: "Deconsolidation", href: "/services#deconsolidation" },
   { label: "WMS-tracked inventory", href: "/services#wms" },
   { label: "Pick & pack", href: "/services#pick-pack" },
+  { label: "Amazon FBA prep", href: "/services/fba-prep" },
 ];
 
 export default function Home() {
