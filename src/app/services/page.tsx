@@ -242,6 +242,27 @@ const SERVICES: Service[] = [
       },
     ],
   },
+  {
+    id: "fba-prep",
+    title: "Amazon FBA prep",
+    eyebrow: "Label · bag · forward",
+    intro:
+      "Amazon stopped prepping seller inventory at its US fulfillment centers on January 1, 2026 — everything must now arrive prepped and labeled. We inspect, FNSKU-label, polybag, bundle, and forward your product to Amazon's network from the same dock where your container lands.",
+    highlights: [
+      {
+        label: "Compliance",
+        body: "Prepped to Amazon's spec — suffocation warnings, scannable barcodes, FNSKU on every unit.",
+      },
+      {
+        label: "Inbound",
+        body: "Container (devan + prep in one facility), LTL, or parcel from your supplier.",
+      },
+      {
+        label: "Oversize",
+        body: "Heavy, oversized, and automotive product accepted — the freight most prep centers refuse.",
+      },
+    ],
+  },
 ];
 
 // Services that have a dedicated, rankable sub-page. The /services section
@@ -253,6 +274,7 @@ const DETAIL_PAGES = new Set([
   "overweight-reworking",
   "drayage",
   "cross-dock",
+  "fba-prep",
 ]);
 
 export const metadata: Metadata = {
