@@ -297,7 +297,7 @@ export default function Home() {
                   marginTop: 10,
                 }}
               >
-                Nine ways we move your freight.
+                Ten ways we move your freight.
               </h2>
             </div>
             <Link

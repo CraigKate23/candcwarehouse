@@ -222,6 +222,32 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
 
 // FAQPage JSON-LD built verbatim from the on-page FAQ copy below
 // (plain-text mirror). Keep in sync if the FAQ answers change.
+// Breadcrumb structured data mirroring the visible Services / Devanning trail.
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.candcwarehouse.com",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://www.candcwarehouse.com/services",
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Devanning",
+      "item": "https://www.candcwarehouse.com/services/devanning",
+    },
+  ],
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -289,6 +315,11 @@ export default function DevanningPage() {
         type="application/ld+json"
         id="faq-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="breadcrumb-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Hero */}
       <section
@@ -625,6 +656,26 @@ export default function DevanningPage() {
                   Warehouse legal liability and cargo coverage on stored
                   inventory once it&rsquo;s off the container — limits at{" "}
                   $2,000,000.
+                </>
+              }
+            />
+            <CapCard
+              label="Amazon FBA prep"
+              body={
+                <>
+                  Selling on Amazon? Devanned cargo can go straight to the
+                  prep line — inspection, FNSKU labeling, polybagging, and
+                  forwarding to the FC — see{" "}
+                  <Link
+                    href="/services/fba-prep"
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    FBA prep
+                  </Link>{" "}
+                  for the full process.
                 </>
               }
             />

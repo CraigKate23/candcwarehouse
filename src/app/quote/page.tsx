@@ -19,14 +19,21 @@ export const metadata: Metadata = {
     "Tell us about your cargo and we'll come back with a bonded, GO, or general warehousing quote. Family-run, port-proximate, hands-on.",
   alternates: { canonical: `${SITE_URL}${PAGE_PATH}` },
   openGraph: {
-    title: "Request a quote — C&C Warehouse",
+    title: `Request a quote · ${business.name}`,
     description:
       "Bonded, General Order, devanning, overweight reworking, drayage, and pick & pack — get a real quote from a real person near the Port of Charleston.",
     url: `${SITE_URL}${PAGE_PATH}`,
     type: "website",
     siteName: business.name,
     locale: "en_US",
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — request a bonded, GO, or general warehousing quote near the Port of Charleston",
+      },
+    ],
   },
 };
 

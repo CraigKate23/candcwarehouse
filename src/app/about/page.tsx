@@ -74,7 +74,7 @@ const TIMELINE: Milestone[] = [
 
 
 export const metadata: Metadata = {
-  title: "About C&C Warehouse",
+  title: `About Us | Family-Run Bonded Warehouse since ${business.foundedYear}`,
   description: `Family-run US Customs Bonded and General Order warehouse in Ladson, SC, serving Port of Charleston importers since ${business.foundedYear}.`,
   alternates: {
     canonical: "/about",
@@ -84,9 +84,16 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/about",
-    title: `About · ${business.name}`,
+    title: `About Us | Family-Run Bonded Warehouse since ${business.foundedYear} · ${business.name}`,
     description: `Family-run US Customs Bonded and General Order warehouse in Ladson, SC, since ${business.foundedYear}.`,
-    images: ["/images/og-default.jpg"],
+    images: [
+      {
+        url: "/images/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "C&C Warehouse — family-run US Customs Bonded & General Order warehouse in Ladson, SC since 1998",
+      },
+    ],
   },
 };
 

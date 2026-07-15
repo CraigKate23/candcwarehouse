@@ -14,6 +14,18 @@ const PRODUCTION_HOST = "www.candcwarehouse.com";
 export function middleware(request: NextRequest) {
   const { hostname, pathname, search } = request.nextUrl;
 
+  // Force HTTPS. Vercel normally upgrades http→https at the edge, but a
+  // plain-HTTP 200 was observed on the homepage (2026-07-15 SEO report),
+  // and Google has shown http:// C&C URLs in results. Belt-and-suspenders:
+  // 301 anything that arrives over http to the canonical https host.
+  const proto = request.headers.get("x-forwarded-proto");
+  if (proto === "http") {
+    return NextResponse.redirect(
+      `https://${PRODUCTION_HOST}${pathname}${search}`,
+      301
+    );
+  }
+
   // Redirect vercel.app preview domain → production (308 permanent)
   if (hostname.endsWith(".vercel.app")) {
     return NextResponse.redirect(

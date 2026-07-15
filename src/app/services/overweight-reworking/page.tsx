@@ -229,6 +229,32 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
 
 // FAQPage JSON-LD built verbatim from the on-page FAQ copy below
 // (plain-text mirror). Keep in sync if the FAQ answers change.
+// Breadcrumb structured data mirroring the visible Services / Overweight container reworking trail.
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.candcwarehouse.com",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://www.candcwarehouse.com/services",
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Overweight container reworking",
+      "item": "https://www.candcwarehouse.com/services/overweight-reworking",
+    },
+  ],
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -296,6 +322,11 @@ export default function OverweightReworkingPage() {
         type="application/ld+json"
         id="faq-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="breadcrumb-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Hero */}
       <section

@@ -218,6 +218,32 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
 
 // FAQPage JSON-LD built verbatim from the on-page FAQ copy below
 // (plain-text mirror). Keep in sync if the FAQ answers change.
+// Breadcrumb structured data mirroring the visible Services / Bonded storage trail.
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.candcwarehouse.com",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://www.candcwarehouse.com/services",
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bonded storage",
+      "item": "https://www.candcwarehouse.com/services/bonded-storage",
+    },
+  ],
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -285,6 +311,11 @@ export default function BondedStoragePage() {
         type="application/ld+json"
         id="faq-jsonld"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        id="breadcrumb-jsonld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Hero */}
       <section
@@ -625,6 +656,25 @@ export default function BondedStoragePage() {
             <CapCard
               label="Withdrawal support"
               body="We coordinate with your customs broker on entry, withdrawal, and re-export filings — and on the warehouse-side recordkeeping CBP requires."
+            />
+            <CapCard
+              label="Feed Amazon FBA on bond"
+              body={
+                <>
+                  Hold imported inventory on bond and withdraw it in tranches
+                  as Amazon needs it — duty deferred on the rest. See{" "}
+                  <Link
+                    href="/services/fba-prep"
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    FBA prep
+                  </Link>{" "}
+                  for how the prep line works.
+                </>
+              }
             />
           </div>
         </div>

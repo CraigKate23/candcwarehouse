@@ -25,7 +25,7 @@ const placeholder = {
   letterSpacing: "0.02em",
 } as const;
 
-// The nine services C&C lists on the homepage. Each gets a deep-link
+// The ten services C&C lists on the homepage. Each gets a deep-link
 // anchor so /services#devanning etc. land at the right section. When we
 // move to dedicated sub-pages (priority 4 in the backlog) the anchors
 // double as the natural URL slugs.
@@ -289,7 +289,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services",
-    title: `Warehouse Services near the Port of Charleston · ${business.name}`,
+    title: `Warehouse Services | Bonded, GO, Devanning & Drayage near the Port of Charleston · ${business.name}`,
     description:
       "Bonded, GO, devanning, overweight reworking, drayage, cross-dock, deconsolidation, WMS, pick & pack — Port of Charleston.",
     images: [
@@ -326,7 +326,7 @@ export default function ServicesPage() {
               maxWidth: 880,
             }}
           >
-            Nine services, one warehouse, built around the Port of Charleston.
+            Ten services, one warehouse, built around the Port of Charleston.
           </h1>
           <p
             style={{
