@@ -112,4 +112,20 @@ export const business = {
   phoneDisplay: "(843) 818-2332",
   email: "information@candcwarehouse.com",
   teamExperienceYears: 50,
+  facilities: [
+    {
+      label: "Ladson (primary)",
+      street: "137 Acres Drive",
+      city: "Ladson",
+      state: "SC",
+      postal: "29456",
+    },
+    {
+      label: "Hanahan",
+      street: "1014 Northpointe Industrial Blvd",
+      city: "Hanahan",
+      state: "SC",
+      postal: "29410",
+    },
+  ],
 };

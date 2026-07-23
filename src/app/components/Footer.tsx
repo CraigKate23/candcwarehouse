@@ -74,8 +74,17 @@ export default function Footer() {
               lineHeight: 1.6,
             }}
           >
-            {business.city}, {business.state}
-            <br />
+            {business.facilities.map((f) => (
+              <div key={f.street} style={{ marginBottom: 10 }}>
+                <span style={{ color: colors.ink, fontWeight: 600 }}>
+                  {f.label}
+                </span>
+                <br />
+                {f.street}
+                <br />
+                {f.city}, {f.state} {f.postal}
+              </div>
+            ))}
             {business.phoneDisplay}
           </div>
         </FooterCol>
