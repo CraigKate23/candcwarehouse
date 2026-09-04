@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, IBM_Plex_Sans, DM_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import { business } from "./components/styles";
+
+const GA_MEASUREMENT_ID = "G-9JL82KXPPC";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -289,6 +292,7 @@ export default function RootLayout({
         <main style={{ flex: 1 }}>{children}</main>
         <Footer />
       </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }
