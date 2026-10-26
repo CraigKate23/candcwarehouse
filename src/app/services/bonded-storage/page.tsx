@@ -33,7 +33,9 @@ const placeholder = {
 // for C&C — "bonded warehouse" / "bonded storage" + Port of Charleston.
 
 export const metadata: Metadata = {
-  title: "US Customs Bonded Warehouse | Class 3 Storage near Port of Charleston",
+  title: {
+    absolute: "Customs Bonded Warehouse Charleston SC | Class 3 | C&C",
+  },
   description:
     "C&C Warehouse is a CBP-designated Class 3 bonded warehouse in Ladson, SC, minutes from the Port of Charleston. Hold imported cargo on bond and defer duty until you're ready to enter the goods for consumption.",
   alternates: {
@@ -44,7 +46,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/bonded-storage",
-    title: `US Customs Bonded Warehouse | Class 3 Storage near Port of Charleston · ${business.name}`,
+    title: "Customs Bonded Warehouse Charleston SC | Class 3 | C&C",
     description:
       "CBP Class 3 bonded storage near the Port of Charleston. Defer duty, keep cargo under bond, release when you're ready.",
     images: [
@@ -171,7 +173,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
         the port unclaimed past the 15-day window, CBP moves it to a
         GO-designated facility. C&amp;C handles both, and{" "}
         <Link
-          href="/services#go-storage"
+          href="/services/general-order"
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
           our GO services page
@@ -359,10 +361,21 @@ export default function BondedStoragePage() {
               maxWidth: 880,
             }}
           >
-            US Customs Bonded warehousing,
-            <br />
-            minutes from the Port of Charleston.
+            Customs Bonded Warehouse in Charleston, SC
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            US Customs Bonded warehousing, minutes from the Port of Charleston.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

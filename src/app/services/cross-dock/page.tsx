@@ -36,8 +36,9 @@ const placeholder = {
 // drayage on the inbound side and pick-pack / parcel on the outbound.
 
 export const metadata: Metadata = {
-  title:
-    "Cross-Dock Services near Port of Charleston | Same-Day Sort & Tender",
+  title: {
+    absolute: "Cross-Dock Services Charleston SC | Same-Day | C&C Warehouse",
+  },
   description:
     "Same-day cross-dock at the C&C Warehouse facility in Ladson, SC. Receive on one dock, sort by SKU / store / route, and tender out the other side without warehousing — for retail compliance windows, DC bypass, and time-defined consolidations.",
   alternates: {
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/cross-dock",
-    title: `Cross-Dock Services near Port of Charleston | Same-Day Sort & Tender · ${business.name}`,
+    title: "Cross-Dock Services Charleston SC | Same-Day | C&C Warehouse",
     description:
       "Same-day receive, sort, and tender at the C&C bonded warehouse near the Port of Charleston — built for retailer windows, ASN-driven outbounds, and DC-bypass moves.",
     images: [
@@ -381,10 +382,21 @@ export default function CrossDockPage() {
               maxWidth: 880,
             }}
           >
-            In one dock, sorted on the floor,
-            <br />
-            out the other side same day.
+            Cross-Dock Services in Charleston, SC
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            In one dock, sorted on the floor, out the other side same day.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

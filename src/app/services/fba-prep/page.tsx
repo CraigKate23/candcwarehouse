@@ -20,8 +20,9 @@ import {
 // (Greg's call, 7/12/26) — quote-driven like every other service page.
 
 export const metadata: Metadata = {
-  title:
-    "Amazon FBA Prep near the Port of Charleston | Container Devan + FBA Forwarding",
+  title: {
+    absolute: "Amazon FBA Prep Charleston SC | Devan & Forward | C&C",
+  },
   description:
     "FBA prep, FNSKU labeling, polybagging, and forwarding at C&C Warehouse in Ladson, SC — minutes from the Port of Charleston. Amazon ended its FBA prep services in January 2026; we devan your container, prep to Amazon's spec, and forward to the FC.",
   alternates: {
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/fba-prep",
-    title: `Amazon FBA Prep near the Port of Charleston | Container Devan + FBA Forwarding · ${business.name}`,
+    title: "Amazon FBA Prep Charleston SC | Devan & Forward | C&C",
     description:
       "Container devan + FBA prep + forwarding in one facility, minutes from the Port of Charleston. Inspection, FNSKU labeling, polybagging, bundling — prepped to Amazon's spec inside a CBP Class 3 bonded warehouse.",
     images: [
@@ -345,10 +346,21 @@ export default function FbaPrepPage() {
               maxWidth: 880,
             }}
           >
-            Amazon stopped prepping your inventory.
-            <br />
-            We didn&rsquo;t.
+            Amazon FBA Prep in Charleston, SC
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Amazon stopped prepping your inventory. We didn&rsquo;t.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

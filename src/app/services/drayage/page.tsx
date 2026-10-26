@@ -36,8 +36,9 @@ const placeholder = {
 // get filled in once Greg confirms the numbers.
 
 export const metadata: Metadata = {
-  title:
-    "Port of Charleston Drayage | Container Moves from Wando Welch, NCT, and Leatherman",
+  title: {
+    absolute: "Port of Charleston Drayage | Wando, NCT, Leatherman | C&C",
+  },
   description:
     "Short-haul container drayage between the SC Ports Authority terminals (Wando Welch, NCT, Hugh K. Leatherman) and the C&C Warehouse bonded floor in Ladson, SC. In-bond capable, per-diem aware, same crew unloads at the dock.",
   alternates: {
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/drayage",
-    title: `Port of Charleston Drayage | Container Moves from Wando Welch, NCT, and Leatherman · ${business.name}`,
+    title: "Port of Charleston Drayage | Wando, NCT, Leatherman | C&C",
     description:
       "Short-haul container moves between Wando Welch, NCT, and Leatherman and the C&C bonded warehouse — in-bond capable, heavy-haul chassis available, devan ready at the dock.",
     images: [
@@ -385,10 +386,21 @@ export default function DrayagePage() {
               maxWidth: 880,
             }}
           >
-            Off the terminal, onto our dock,
-            <br />
-            in one short hop.
+            Port of Charleston Container Drayage
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Off the terminal, onto our dock, in one short hop.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

@@ -16,14 +16,20 @@ const ROUTES: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/services", changeFrequency: "monthly", priority: 0.9 },
   { path: "/services/bonded-storage", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/services/general-order", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/devanning", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/overweight-reworking", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/drayage", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/cross-dock", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/services/deconsolidation", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/services/wms", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/services/pick-pack", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/fba-prep", changeFrequency: "monthly", priority: 0.85 },
   { path: "/quote", changeFrequency: "monthly", priority: 0.9 },
   { path: "/facility", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/faq", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -29,6 +29,9 @@ const dmMono = DM_Mono({
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
+const HOME_TITLE =
+  "Bonded & General Order Warehouse | Charleston, SC | C&C";
+
 const OG_IMAGE = {
   url: "/images/og-default.jpg",
   width: 1200,
@@ -39,10 +42,10 @@ const OG_IMAGE = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${business.name} — Bonded & General Order Warehousing near the Port of Charleston`,
+    default: HOME_TITLE,
     template: `%s · ${business.name}`,
   },
-  description: business.tagline,
+  description: business.metaDescription,
   applicationName: business.name,
   authors: [{ name: business.legalName }],
   keywords: [
@@ -57,15 +60,14 @@ export const metadata: Metadata = {
     "container reworking",
     "3PL Charleston",
   ],
-  alternates: {
-    canonical: "/",
-  },
+  // Canonical is set per page. A sitewide canonical of "/" was inherited
+  // by the 404 and told Google every unknown URL was the homepage.
   openGraph: {
     type: "website",
     url: SITE_URL,
     siteName: business.name,
-    title: `${business.name} — Bonded & General Order Warehousing near the Port of Charleston`,
-    description: business.tagline,
+    title: HOME_TITLE,
+    description: business.metaDescription,
     locale: "en_US",
     images: [OG_IMAGE],
   },
@@ -198,7 +200,7 @@ const localBusinessNode = {
   "@id": LOCAL_BIZ_ID,
   name: business.name,
   legalName: business.legalName,
-  description: business.tagline,
+  description: business.metaDescription,
   url: SITE_URL,
   telephone: business.phone,
   email: business.email,
@@ -252,7 +254,7 @@ const websiteNode = {
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
   name: business.name,
-  description: business.tagline,
+  description: business.metaDescription,
   publisher: { "@id": ORG_ID },
   inLanguage: "en-US",
 };

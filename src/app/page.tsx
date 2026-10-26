@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -30,18 +31,23 @@ const VALUES = [
   },
 ];
 
-// Each service links to its dedicated page where one exists; the four
-// without a sub-page yet deep-link to their section anchor on /services.
+// The homepage title and description live on the root layout. This export
+// exists so the homepage — and only the homepage — carries a canonical.
+// Unmatched URLs must not inherit one.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 const SERVICES = [
   { label: "Bonded storage", href: "/services/bonded-storage" },
-  { label: "General Order (GO) storage", href: "/services#go-storage" },
+  { label: "General Order (GO) storage", href: "/services/general-order" },
   { label: "Devanning", href: "/services/devanning" },
   { label: "Overweight container reworking", href: "/services/overweight-reworking" },
   { label: "Drayage", href: "/services/drayage" },
   { label: "Cross-dock", href: "/services/cross-dock" },
-  { label: "Deconsolidation", href: "/services#deconsolidation" },
-  { label: "WMS-tracked inventory", href: "/services#wms" },
-  { label: "Pick & pack", href: "/services#pick-pack" },
+  { label: "Deconsolidation", href: "/services/deconsolidation" },
+  { label: "WMS-tracked inventory", href: "/services/wms" },
+  { label: "Pick & pack", href: "/services/pick-pack" },
   { label: "Amazon FBA prep", href: "/services/fba-prep" },
 ];
 

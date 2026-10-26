@@ -7,9 +7,10 @@ const PRODUCTION_HOST = "www.candcwarehouse.com";
  * (candcwarehouse.vercel.app) to the canonical production URL.
  * This prevents Google from indexing the duplicate .vercel.app host.
  *
- * Also upgrades the bare apex (candcwarehouse.com) → www redirect
- * from Vercel's default 307 to a 301, which is better for SEO
- * consolidation.
+ * Apex (candcwarehouse.com) → www is a permanent redirect. next.config.ts
+ * emits 308 when the request reaches Next.js. This middleware repeats
+ * that 308 in case the request is handled here first. Vercel's domain
+ * setting can still answer with 307 before either of those runs.
  */
 export function middleware(request: NextRequest) {
   const { hostname, pathname, search } = request.nextUrl;
@@ -34,11 +35,11 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Upgrade bare apex → www from 307 to 301
+  // Apex → www. 308 matches the permanent redirect in next.config.ts.
   if (hostname === "candcwarehouse.com") {
     return NextResponse.redirect(
       `https://${PRODUCTION_HOST}${pathname}${search}`,
-      301
+      308
     );
   }
 
