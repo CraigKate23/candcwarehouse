@@ -102,7 +102,7 @@ export const cardStyle: CSSProperties = {
 // Anything still unknown stays as a placeholder so missing data is obvious.
 export const business = {
   name: "C&C Warehouse",
-  legalName: "C&C Warehouse, Inc.",
+  legalName: "C&C Warehouse and Distribution LLC",
   tagline: "US Customs Bonded & General Order warehousing near the Port of Charleston.",
   // Homepage meta description. Kept near 155 characters so the phone
   // number is inside the snippet Google usually shows. Facts match the

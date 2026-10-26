@@ -528,5 +528,8 @@ append to sitemap ROUTES.
 - `next.config.ts` permanent-redirects the apex host to
   `https://www.candcwarehouse.com` (308). Middleware matches that 308.
   A 307 from Vercel's domain setting can still win before either runs.
-- Legal name was not changed. It is still `C&C Warehouse, Inc.` in
-  `business.legalName`.
+- Legal name is `C&C Warehouse and Distribution LLC` in
+  `business.legalName`. The display name stays `C&C Warehouse`. Layout
+  author, LocalBusiness `legalName`, Organization `name`, and the footer
+  copyright all read that constant. The previous Inc. form is gone from
+  the repo.
