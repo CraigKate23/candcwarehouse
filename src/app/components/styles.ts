@@ -102,8 +102,13 @@ export const cardStyle: CSSProperties = {
 // Anything still unknown stays as a placeholder so missing data is obvious.
 export const business = {
   name: "C&C Warehouse",
-  legalName: "C&C Warehouse, Inc.",
+  legalName: "C&C Warehouse and Distribution LLC",
   tagline: "US Customs Bonded & General Order warehousing near the Port of Charleston.",
+  // Homepage meta description. Kept near 155 characters so the phone
+  // number is inside the snippet Google usually shows. Facts match the
+  // rest of the site: Class 3, GO, both cities, port, three services.
+  metaDescription:
+    "Family-run CBP Class 3 bonded and GO warehouse in Ladson & Hanahan, SC, near the Port of Charleston. Devanning, overweight rework, drayage. (843) 818-2332.",
   foundedYear: 1998,
   city: "Ladson",
   state: "SC",

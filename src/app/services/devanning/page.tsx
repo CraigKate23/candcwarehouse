@@ -33,8 +33,9 @@ const placeholder = {
 // piece-count audits and damage documentation on hand-unloaded containers.
 
 export const metadata: Metadata = {
-  title:
-    "Container Devanning | Hand-Unload & Piece-Count Audit near Port of Charleston",
+  title: {
+    absolute: "Container Devanning Charleston SC | Piece-Count Audit | C&C",
+  },
   description:
     "Hand-unload containers piece-by-piece at C&C Warehouse in Ladson, SC. Documented piece counts, photographed exceptions, and damage notes against your bill of lading — minutes from the Port of Charleston.",
   alternates: {
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/devanning",
-    title: `Container Devanning | Hand-Unload & Piece-Count Audit near Port of Charleston · ${business.name}`,
+    title: "Container Devanning Charleston SC | Piece-Count Audit | C&C",
     description:
       "Piece-by-piece container unload with documented counts, damage notes, and photographed exceptions — minutes from the Port of Charleston.",
     images: [
@@ -363,10 +364,22 @@ export default function DevanningPage() {
               maxWidth: 880,
             }}
           >
-            Hand-unloaded, counted, documented —
-            <br />
-            so what arrived matches what was billed.
+            Container Devanning in Charleston, SC
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Hand-unloaded, counted, documented — so what arrived matches what
+            was billed.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

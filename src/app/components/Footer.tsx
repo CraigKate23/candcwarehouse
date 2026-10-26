@@ -52,6 +52,8 @@ export default function Footer() {
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/facility">Facility</FooterLink>
           <FooterLink href="/services">Services</FooterLink>
+          <FooterLink href="/faq">FAQ</FooterLink>
+          <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="https://warehousingcosts.com/charleston-warehousing">
             Charleston warehousing costs
           </FooterLink>

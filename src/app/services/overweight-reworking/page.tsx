@@ -34,8 +34,9 @@ const placeholder = {
 // many 3PLs send back to the port — leaning into it on the SEO side.
 
 export const metadata: Metadata = {
-  title:
-    "Overweight Container Reworking | Highway-Legal Redistribution near Port of Charleston",
+  title: {
+    absolute: "Overweight Container Reworking Charleston SC | C&C Warehouse",
+  },
   description:
     "Overweight ocean containers split, re-palletized, and redistributed across legal-weight outbound loads at C&C Warehouse in Ladson, SC. Weight tickets and BOLs in hand — minutes from the Port of Charleston.",
   alternates: {
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/overweight-reworking",
-    title: `Overweight Container Reworking | Highway-Legal Redistribution near Port of Charleston · ${business.name}`,
+    title: "Overweight Container Reworking Charleston SC | C&C Warehouse",
     description:
       "Split, re-palletize, and redistribute overweight ocean containers into FHWA legal-weight outbound loads — with certified weight tickets and BOLs ready for the driver.",
     images: [
@@ -370,10 +371,21 @@ export default function OverweightReworkingPage() {
               maxWidth: 880,
             }}
           >
-            Overweight in. Legal-weight out.
-            <br />
-            Weight tickets in hand at the dock.
+            Overweight Container Reworking in Charleston, SC
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Overweight in. Legal-weight out. Weight tickets in hand at the dock.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

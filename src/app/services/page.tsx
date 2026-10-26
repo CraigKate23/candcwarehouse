@@ -265,20 +265,26 @@ const SERVICES: Service[] = [
   },
 ];
 
-// Services that have a dedicated, rankable sub-page. The /services section
-// for each of these links out to its page so the sub-pages are no longer
-// orphaned in the internal link graph.
-const DETAIL_PAGES = new Set([
-  "bonded-storage",
-  "devanning",
-  "overweight-reworking",
-  "drayage",
-  "cross-dock",
-  "fba-prep",
-]);
+// Dedicated pages. The GO anchor slug stays `go-storage` so existing
+// /services#go-storage links still land; the rankable URL is
+// /services/general-order.
+const DETAIL_HREF: Record<string, string> = {
+  "bonded-storage": "/services/bonded-storage",
+  "go-storage": "/services/general-order",
+  devanning: "/services/devanning",
+  "overweight-reworking": "/services/overweight-reworking",
+  drayage: "/services/drayage",
+  "cross-dock": "/services/cross-dock",
+  deconsolidation: "/services/deconsolidation",
+  wms: "/services/wms",
+  "pick-pack": "/services/pick-pack",
+  "fba-prep": "/services/fba-prep",
+};
 
 export const metadata: Metadata = {
-  title: "Warehouse Services | Bonded, GO, Devanning & Drayage near the Port of Charleston",
+  title: {
+    absolute: "Warehouse Services Charleston SC | Bonded & GO | C&C",
+  },
   description:
     "Bonded storage, General Order, devanning, overweight container reworking, drayage, cross-dock, deconsolidation, WMS, and pick & pack — all run out of one Ladson, SC facility minutes from the Port of Charleston.",
   alternates: {
@@ -289,7 +295,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services",
-    title: `Warehouse Services | Bonded, GO, Devanning & Drayage near the Port of Charleston · ${business.name}`,
+    title: "Warehouse Services Charleston SC | Bonded & GO | C&C",
     description:
       "Bonded, GO, devanning, overweight reworking, drayage, cross-dock, deconsolidation, WMS, pick & pack — Port of Charleston.",
     images: [
@@ -326,8 +332,21 @@ export default function ServicesPage() {
               maxWidth: 880,
             }}
           >
-            Ten services, one warehouse, built around the Port of Charleston.
+            Warehouse Services near the Port of Charleston
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Ten services, one warehouse, built around the port.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,
@@ -538,9 +557,9 @@ export default function ServicesPage() {
                   ))}
                 </div>
 
-                {DETAIL_PAGES.has(s.id) && (
+                {DETAIL_HREF[s.id] && (
                   <Link
-                    href={`/services/${s.id}`}
+                    href={DETAIL_HREF[s.id]}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",

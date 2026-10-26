@@ -13,7 +13,9 @@ import {
 } from "../components/styles";
 
 export const metadata: Metadata = {
-  title: "Facility | 90,000+ sq ft across Ladson & Hanahan, SC",
+  title: {
+    absolute: "Warehouse Space Ladson & Hanahan SC | C&C Warehouse",
+  },
   description:
     "Two facilities totaling 90,000+ sq ft with 3,000+ racked pallet positions, minutes from the Port of Charleston terminals. US Customs Bonded, General Order approved.",
   alternates: {
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/facility",
-    title: `Facility | 90,000+ sq ft across Ladson & Hanahan, SC · ${business.name}`,
+    title: "Warehouse Space Ladson & Hanahan SC | C&C Warehouse",
     description:
       "Two facilities totaling 90,000+ sq ft near the Port of Charleston. Bonded, GO-approved, 3,000+ racked positions.",
     images: [
@@ -162,8 +164,21 @@ export default function FacilityPage() {
               maxWidth: 820,
             }}
           >
-            90,000+ sq ft across two locations, minutes from the port.
+            Warehouse Space in Ladson &amp; Hanahan, SC
           </h1>
+          <p
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.25,
+              fontWeight: 500,
+              color: colors.inkSoft,
+              marginTop: 14,
+              maxWidth: 720,
+            }}
+          >
+            90,000+ sq ft across two locations, minutes from the port.
+          </p>
           <p
             style={{
               fontFamily: fonts.body,

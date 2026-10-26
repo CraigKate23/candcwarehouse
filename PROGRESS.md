@@ -502,3 +502,34 @@ ocean freight). Reuse the same hero / steps / when-to-use / capacity
 / FAQ shape, swap in deconsolidation-specific copy (LCL vs. FCL
 deconsol, multi-stop outbound planning, pallet-build per customer),
 append to sitemap ROUTES.
+
+### 2026-10-26 — SEO titles, 404 canonical, missing service pages
+
+- Shortened rendered `<title>` tags to 60 characters or fewer and put the
+  keyword first. Page titles that already include the brand use
+  `title.absolute` so the layout template does not append a second
+  " · C&C Warehouse". Homepage description replaced the short tagline
+  repeat with a ~155-character description (Class 3, both cities, port,
+  devanning, overweight rework, drayage, phone).
+- Removed the sitewide `alternates.canonical: "/"` from the root layout.
+  It was inherited by the 404. Canonical `/` now lives only on the
+  homepage. `not-found.tsx` sets `canonical: null` and noindex.
+- Service H1s are the search keyword. The old slogan is the subhead
+  under the H1, same type family, so the hero still stacks eyebrow /
+  title / supporting line / body.
+- Added `/services/general-order`, `/services/deconsolidation`,
+  `/services/wms`, `/services/pick-pack`, `/faq`, and `/contact`, all
+  listed in `sitemap.ts`. General Order has Service, FAQPage, and
+  BreadcrumbList JSON-LD in the same shape as the other service pages.
+  Home and `/services` link to the new URLs. No new fee amounts; the
+  15-day rule and six-month auction clock are stated in general terms.
+  Square footage and terminal miles on `/faq` are the figures already
+  on `/facility`.
+- `next.config.ts` permanent-redirects the apex host to
+  `https://www.candcwarehouse.com` (308). Middleware matches that 308.
+  A 307 from Vercel's domain setting can still win before either runs.
+- Legal name is `C&C Warehouse and Distribution LLC` in
+  `business.legalName`. The display name stays `C&C Warehouse`. Layout
+  author, LocalBusiness `legalName`, Organization `name`, and the footer
+  copyright all read that constant. The previous Inc. form is gone from
+  the repo.
