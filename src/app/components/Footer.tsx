@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { business, colors, container, fonts } from "./styles";
+import { business, colors, container, fonts, ladsonLocation } from "./styles";
 
 export default function Footer() {
   return (
@@ -61,7 +61,7 @@ export default function Footer() {
 
         <FooterCol title="Work with us">
           <FooterLink href="/quote">Request a quote</FooterLink>
-          <FooterLink href="https://portal.candcwarehouse.com">Customer portal</FooterLink>
+          <FooterLink href={business.portalUrl}>Customer portal</FooterLink>
           <FooterLink href={`mailto:${business.email}`}>
             {business.email}
           </FooterLink>
@@ -78,9 +78,23 @@ export default function Footer() {
           >
             {business.facilities.map((f) => (
               <div key={f.street} style={{ marginBottom: 10 }}>
-                <span style={{ color: colors.ink, fontWeight: 600 }}>
-                  {f.label}
-                </span>
+                {f.street === ladsonLocation.street ? (
+                  <Link
+                    href={ladsonLocation.path}
+                    className="footer-link"
+                    style={{
+                      color: colors.ink,
+                      fontWeight: 600,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {f.label}
+                  </Link>
+                ) : (
+                  <span style={{ color: colors.ink, fontWeight: 600 }}>
+                    {f.label}
+                  </span>
+                )}
                 <br />
                 {f.street}
                 <br />

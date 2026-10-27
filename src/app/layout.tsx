@@ -3,7 +3,15 @@ import { Space_Grotesk, IBM_Plex_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import { business } from "./components/styles";
+import { business, ladsonLocation } from "./components/styles";
+import {
+  areaServed,
+  geoCoordinates,
+  hanahanBranchJsonLd,
+  ladsonBranchJsonLd,
+  openingHoursSpecification,
+  postalAddress,
+} from "./components/structured-data";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -105,9 +113,6 @@ export const viewport: Viewport = {
 // the Service schema doesn't need to repeat addresses.
 const ORG_ID = `${SITE_URL}/#organization`;
 const LOCAL_BIZ_ID = `${SITE_URL}/#localbusiness`;
-const LADSON_ID = `${SITE_URL}/#facility-ladson`;
-const HANAHAN_ID = `${SITE_URL}/#facility-hanahan`;
-
 const sharedKnowsAbout = [
   "US Customs Bonded Warehousing",
   "General Order Storage",
@@ -119,77 +124,8 @@ const sharedKnowsAbout = [
   "Pick and Pack Fulfillment",
 ];
 
-const sharedAreaServed = [
-  { "@type": "City", name: "Charleston" },
-  { "@type": "City", name: "North Charleston" },
-  { "@type": "City", name: "Mount Pleasant" },
-  { "@type": "City", name: "Ladson" },
-  { "@type": "City", name: "Hanahan" },
-  { "@type": "AdministrativeArea", name: "South Carolina" },
-];
-
-const sharedHours = [
-  {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "08:00",
-    closes: "16:30",
-  },
-];
-
-const ladsonBranch = {
-  "@type": "LocalBusiness",
-  "@id": LADSON_ID,
-  name: `${business.name} — Ladson Facility`,
-  url: `${SITE_URL}/facility`,
-  telephone: business.phone,
-  email: business.email,
-  image: `${SITE_URL}/images/facility-exterior.webp`,
-  priceRange: "$$",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "137 Acres Drive",
-    addressLocality: "Ladson",
-    addressRegion: "SC",
-    postalCode: "29456",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 32.9837,
-    longitude: -80.1062,
-  },
-  openingHoursSpecification: sharedHours,
-  branchOf: { "@id": ORG_ID },
-  areaServed: sharedAreaServed,
-};
-
-const hanahanBranch = {
-  "@type": "LocalBusiness",
-  "@id": HANAHAN_ID,
-  name: `${business.name} — Hanahan Facility`,
-  url: `${SITE_URL}/facility`,
-  telephone: business.phone,
-  email: business.email,
-  image: `${SITE_URL}/images/facility-interior.webp`,
-  priceRange: "$$",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "1014 Northpointe Industrial Blvd",
-    addressLocality: "Hanahan",
-    addressRegion: "SC",
-    postalCode: "29410",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 32.9182,
-    longitude: -79.9928,
-  },
-  openingHoursSpecification: sharedHours,
-  branchOf: { "@id": ORG_ID },
-  areaServed: sharedAreaServed,
-};
+const ladsonBranch = ladsonBranchJsonLd(SITE_URL);
+const hanahanBranch = hanahanBranchJsonLd(SITE_URL);
 
 // Primary LocalBusiness node referenced by Service schema across the site
 // as `provider`. Points at the Ladson address (the primary facility),
@@ -208,23 +144,12 @@ const localBusinessNode = {
   image: `${SITE_URL}/images/og-default.jpg`,
   logo: `${SITE_URL}/images/og-default.jpg`,
   priceRange: "$$",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "137 Acres Drive",
-    addressLocality: "Ladson",
-    addressRegion: "SC",
-    postalCode: "29456",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 32.9837,
-    longitude: -80.1062,
-  },
-  openingHoursSpecification: sharedHours,
-  areaServed: sharedAreaServed,
+  address: postalAddress(ladsonLocation),
+  geo: geoCoordinates(ladsonLocation.geo),
+  openingHoursSpecification: openingHoursSpecification(),
+  areaServed,
   knowsAbout: sharedKnowsAbout,
-  department: [{ "@id": HANAHAN_ID }],
+  department: [{ "@id": `${SITE_URL}/#facility-hanahan` }],
   parentOrganization: { "@id": ORG_ID },
 };
 

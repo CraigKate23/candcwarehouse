@@ -10,6 +10,8 @@ import {
   container,
   eyebrow,
   fonts,
+  ladsonLocation,
+  serviceLinks,
 } from "./components/styles";
 
 const VALUES = [
@@ -38,18 +40,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const SERVICES = [
-  { label: "Bonded storage", href: "/services/bonded-storage" },
-  { label: "General Order (GO) storage", href: "/services/general-order" },
-  { label: "Devanning", href: "/services/devanning" },
-  { label: "Overweight container reworking", href: "/services/overweight-reworking" },
-  { label: "Drayage", href: "/services/drayage" },
-  { label: "Cross-dock", href: "/services/cross-dock" },
-  { label: "Deconsolidation", href: "/services/deconsolidation" },
-  { label: "WMS-tracked inventory", href: "/services/wms" },
-  { label: "Pick & pack", href: "/services/pick-pack" },
-  { label: "Amazon FBA prep", href: "/services/fba-prep" },
-];
+const SERVICES = serviceLinks;
 
 export default function Home() {
   return (
@@ -170,7 +161,11 @@ export default function Home() {
             >
               <Stat label="Founded" value={`${business.foundedYear}`} />
               <Stat label="Team experience" value={`${business.teamExperienceYears}+ yrs`} />
-              <Stat label="Location" value="Ladson, SC" />
+              <Stat
+                label="Location"
+                value={`${business.city}, ${business.state}`}
+                href={ladsonLocation.path}
+              />
               <Stat label="Ownership" value="Family-run" />
             </div>
 
@@ -417,7 +412,15 @@ export default function Home() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: string;
+  href?: string;
+}) {
   return (
     <div>
       <div
@@ -440,7 +443,13 @@ function Stat({ label, value }: { label: string; value: string }) {
           marginTop: 4,
         }}
       >
-        {value}
+        {href ? (
+          <Link href={href} style={{ color: colors.ink, textDecoration: "underline" }}>
+            {value}
+          </Link>
+        ) : (
+          value
+        )}
       </div>
     </div>
   );

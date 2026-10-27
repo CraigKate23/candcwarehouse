@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   business,
+  businessHours,
   buttonPrimary,
   buttonSecondary,
   colors,
   container,
   eyebrow,
   fonts,
+  ladsonLocation,
 } from "../components/styles";
 import { JsonLd } from "../components/service-blocks";
 
@@ -150,7 +152,16 @@ export default function ContactPage() {
                   padding: 22,
                 }}
               >
-                <div style={eyebrow}>{f.label}</div>
+                {f.street === ladsonLocation.street ? (
+                  <Link
+                    href={ladsonLocation.path}
+                    style={{ ...eyebrow, textDecoration: "underline" }}
+                  >
+                    {f.label}
+                  </Link>
+                ) : (
+                  <div style={eyebrow}>{f.label}</div>
+                )}
                 <h2
                   style={{
                     fontFamily: fonts.heading,
@@ -220,9 +231,10 @@ export default function ContactPage() {
                   marginTop: 14,
                 }}
               >
-                Monday–Friday, 8:00 a.m. to 4:30 p.m. Those hours are the
-                same ones already published in the site&rsquo;s business
-                structured data.
+                {businessHours.display}{" "}
+                Those hours are the same ones
+                already published in the site&rsquo;s business structured
+                data.
               </p>
             </article>
           </div>

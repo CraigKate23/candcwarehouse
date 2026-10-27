@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -407,7 +408,7 @@ export default function CrossDockPage() {
               maxWidth: 760,
             }}
           >
-            Same-day cross-dock at our Ladson, SC facility — receive,
+            Same-day cross-dock at our <LadsonLink>Ladson, SC</LadsonLink> facility — receive,
             sort, and tender freight back out without warehousing it in
             between. Built for retail compliance windows, DC-bypass
             moves, and time-defined consolidations near the Port of

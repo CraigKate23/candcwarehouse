@@ -9,6 +9,7 @@ import {
   container,
   eyebrow,
   fonts,
+  ladsonLocation,
 } from "./styles";
 
 export function JsonLd({ id, data }: { id: string; data: unknown }) {
@@ -514,7 +515,17 @@ export function ServiceClose({
           >
             <Fact label="Founded" value={`${business.foundedYear}`} />
             <Fact label="Ownership" value="Family-run" />
-            <Fact label="Location" value={`${business.city}, ${business.state}`} />
+            <Fact
+              label="Location"
+              value={
+                <Link
+                  href={ladsonLocation.path}
+                  style={{ color: colors.ink, textDecoration: "underline" }}
+                >
+                  {business.city}, {business.state}
+                </Link>
+              }
+            />
             <Fact label="CBP status" value="Class 3 Bonded" />
             <Fact label="GO facility" value="CBP-designated" />
             <Fact
@@ -528,7 +539,7 @@ export function ServiceClose({
   );
 }
 
-function Fact({ label, value }: { label: string; value: string }) {
+function Fact({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div>
       <dt

@@ -10,6 +10,7 @@ import {
   container,
   eyebrow,
   fonts,
+  ladsonLocation,
 } from "../components/styles";
 
 export const metadata: Metadata = {
@@ -42,38 +43,27 @@ export const metadata: Metadata = {
 
 const LOCATIONS = [
   {
-    name: "Ladson facility",
-    badge: "Primary",
-    image: "/images/facility-exterior.webp",
-    imageAlt: "C&C Warehouse exterior in Ladson, SC",
-    address: "137 Acres Drive",
-    cityState: "Ladson, SC 29456",
-    sqft: "60,000",
+    name: ladsonLocation.facilityName,
+    badge: ladsonLocation.badge,
+    image: ladsonLocation.image,
+    imageAlt: ladsonLocation.imageAlt,
+    address: ladsonLocation.street,
+    cityState: `${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}`,
+    sqft: ladsonLocation.sqft,
+    href: ladsonLocation.path,
     highlights: [
       {
         label: "Size",
-        body: "60,000 sq ft of bonded and general warehousing space.",
+        body: `${ladsonLocation.sqft} sq ft of bonded and general warehousing space.`,
       },
       {
         label: "Designation",
         body: "CBP Class 3 Bonded Warehouse. General Order approved.",
       },
-      {
-        label: "Wando Welch",
-        body: "~24 miles — short-haul drayage via I-526.",
-      },
-      {
-        label: "NCT",
-        body: "~14 miles — quick run down I-26.",
-      },
-      {
-        label: "Leatherman",
-        body: "~14 miles — direct access off I-26.",
-      },
-      {
-        label: "Inland Port Greer",
-        body: "~199 miles — I-26 straight shot upstate.",
-      },
+      ...ladsonLocation.drives.map((drive) => ({
+        label: drive.label,
+        body: `${drive.distance} — ${drive.route}`,
+      })),
     ],
   },
   {
@@ -327,6 +317,22 @@ export default function FacilityPage() {
                     <br />
                     {loc.cityState}
                   </div>
+                  {"href" in loc && loc.href ? (
+                    <Link
+                      href={loc.href}
+                      style={{
+                        display: "inline-block",
+                        marginTop: 10,
+                        fontFamily: fonts.body,
+                        fontSize: 15,
+                        fontWeight: 600,
+                        color: colors.accent,
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Ladson warehouse details
+                    </Link>
+                  ) : null}
 
                   <div
                     style={{

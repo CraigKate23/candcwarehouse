@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { colors, container, fonts } from "./styles";
+import { colors, container, fonts, ladsonLocation } from "./styles";
 
 const links = [
   { href: "/services", label: "Services" },
@@ -35,38 +35,41 @@ export default function Nav() {
           height: 64,
         }}
       >
-        <Link
-          href="/"
+        <div
           style={{
             display: "inline-flex",
             alignItems: "baseline",
             gap: 10,
-            textDecoration: "none",
-            color: colors.ink,
           }}
         >
-          <span
+          <Link
+            href="/"
             style={{
               fontFamily: fonts.heading,
               fontSize: 20,
               fontWeight: 700,
               letterSpacing: "-0.01em",
+              textDecoration: "none",
+              color: colors.ink,
             }}
           >
             C&amp;C Warehouse
-          </span>
-          <span
+          </Link>
+          <Link
+            href={ladsonLocation.path}
             style={{
               fontFamily: fonts.mono,
               fontSize: 11,
               color: colors.accent,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
             }}
           >
-            Ladson, SC
-          </span>
-        </Link>
+            {ladsonLocation.city}, {ladsonLocation.state}
+          </Link>
+        </div>
 
         <nav
           aria-label="Primary"

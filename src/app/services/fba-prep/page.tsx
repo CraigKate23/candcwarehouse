@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -376,7 +377,7 @@ export default function FbaPrepPage() {
             arrive prepped. We inspect, label, bag, bundle, and forward your
             product to Amazon&rsquo;s network, from the same dock where your
             container lands. Minutes from the Port of Charleston, inside a
-            CBP Class 3 bonded warehouse.
+            CBP Class 3 bonded warehouse in <LadsonLink>Ladson, SC</LadsonLink>.
           </p>
 
           <div

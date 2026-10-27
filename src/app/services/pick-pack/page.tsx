@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import { business, colors } from "../../components/styles";
 import {
   CardGrid,
@@ -95,7 +96,7 @@ export default function PickPackPage() {
         lede={
           <>
             Bulk lands at the Port of Charleston. Orders leave as parcel or
-            LTL from Ladson and Hanahan. Picks are routed off the{" "}
+            LTL from <LadsonLink>Ladson</LadsonLink> and Hanahan. Picks are routed off the{" "}
             <Link
               href="/services/wms"
               style={{ color: colors.accent, textDecoration: "underline" }}
