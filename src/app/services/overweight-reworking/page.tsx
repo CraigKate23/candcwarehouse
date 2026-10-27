@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -400,7 +401,8 @@ export default function OverweightReworkingPage() {
             outbound loads — re-palletized, weighed on a certified scale,
             and tendered with BOLs and weight tickets ready for the
             driver. One of the things C&amp;C is best known for, since{" "}
-            {business.foundedYear}.
+            {business.foundedYear}. The dock is our{" "}
+            <LadsonLink>warehouse in Ladson, SC</LadsonLink>.
           </p>
 
           <div

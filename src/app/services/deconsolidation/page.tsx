@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import { business, colors } from "../../components/styles";
 import {
   CardGrid,
@@ -95,8 +96,9 @@ export default function DeconsolidationPage() {
         lede={
           <>
             Importers consolidate overseas to save ocean freight, then need
-            the cargo split once it lands. We receive the container at
-            Ladson or Hanahan, sort it by customer, store, or region, and
+            the cargo split once it lands. We receive the container at{" "}
+            <LadsonLink>Ladson</LadsonLink> or Hanahan, sort it by customer,
+            store, or region, and
             tender separate outbound shipments. Floor-loaded boxes start
             with a{" "}
             <Link

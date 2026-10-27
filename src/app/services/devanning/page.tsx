@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -394,7 +395,8 @@ export default function DevanningPage() {
             your bill of lading as we go, and photograph any exception we
             find. You get a signed tally and a clean exception report the
             same day — minutes from the Port of Charleston, since{" "}
-            {business.foundedYear}.
+            {business.foundedYear}. The floor is our{" "}
+            <LadsonLink>warehouse in Ladson, SC</LadsonLink>.
           </p>
 
           <div

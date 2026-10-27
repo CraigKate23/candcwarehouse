@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import { business, colors } from "../../components/styles";
 import {
   CardGrid,
@@ -103,9 +104,9 @@ export default function WmsPage() {
             >
               portal.candcwarehouse.com
             </a>
-            . The floor behind that portal is the same Ladson and Hanahan
-            buildings — 3,000+ racked positions — minutes from the Port of
-            Charleston.
+            . The floor behind that portal is the same <LadsonLink>Ladson</LadsonLink> and
+            Hanahan buildings — 3,000+ racked positions — minutes from the
+            Port of Charleston.
           </>
         }
       />

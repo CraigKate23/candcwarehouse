@@ -8,6 +8,7 @@ import {
   container,
   eyebrow,
   fonts,
+  ladsonLocation,
 } from "../components/styles";
 import { JsonLd, faqJsonLd } from "../components/service-blocks";
 
@@ -104,6 +105,7 @@ const LINKS: { href: string; label: string }[] = [
   { href: "/services/pick-pack", label: "Pick and pack" },
   { href: "/services/fba-prep", label: "FBA prep" },
   { href: "/facility", label: "Facility" },
+  { href: ladsonLocation.path, label: "Ladson warehouse" },
   { href: "/contact", label: "Contact" },
 ];
 

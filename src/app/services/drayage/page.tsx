@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -413,7 +414,7 @@ export default function DrayagePage() {
           >
             Short-haul container drayage between Wando Welch, North
             Charleston Terminal, Hugh K. Leatherman, and our bonded
-            warehouse in Ladson, SC. In-bond capable, heavy-haul
+            warehouse in <LadsonLink>Ladson, SC</LadsonLink>. In-bond capable, heavy-haul
             chassis on call, same crew unloads at the dock — since{" "}
             {business.foundedYear}.
           </p>

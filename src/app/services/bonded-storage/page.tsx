@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -389,7 +390,8 @@ export default function BondedStoragePage() {
             Hold imported cargo on bond so duty isn&rsquo;t owed until you&rsquo;re
             ready to enter it for consumption. C&amp;C is a CBP-designated
             Class 3 bonded warehouse — the importer&rsquo;s private bonded
-            classification — operating in Ladson, SC since {business.foundedYear}.
+            classification — operating in <LadsonLink>Ladson, SC</LadsonLink> since{" "}
+            {business.foundedYear}.
           </p>
 
           <div

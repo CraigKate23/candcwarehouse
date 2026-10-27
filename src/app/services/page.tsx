@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LadsonLink } from "../components/LadsonLink";
 import {
   business,
   buttonPrimary,
@@ -9,6 +10,7 @@ import {
   container,
   eyebrow,
   fonts,
+  ladsonLocation,
 } from "../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -361,7 +363,9 @@ export default function ServicesPage() {
             grew outward from there. Today the same crew handles bonded and GO
             cargo, devans containers by hand, reworks overweights into
             highway-legal loads, runs drayage off the SC Ports Authority
-            terminals, and ships orders out of a WMS-tracked floor.
+            terminals, and ships orders out of a WMS-tracked floor. The
+            primary building is the <LadsonLink>warehouse in Ladson, SC</LadsonLink>{" "}
+            at {ladsonLocation.street}.
           </p>
 
           <div
