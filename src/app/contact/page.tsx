@@ -9,7 +9,6 @@ import {
   container,
   eyebrow,
   fonts,
-  ladsonLocation,
 } from "../components/styles";
 import { JsonLd } from "../components/service-blocks";
 
@@ -152,16 +151,12 @@ export default function ContactPage() {
                   padding: 22,
                 }}
               >
-                {f.street === ladsonLocation.street ? (
-                  <Link
-                    href={ladsonLocation.path}
-                    style={{ ...eyebrow, textDecoration: "underline" }}
-                  >
-                    {f.label}
-                  </Link>
-                ) : (
-                  <div style={eyebrow}>{f.label}</div>
-                )}
+                <Link
+                  href={f.path}
+                  style={{ ...eyebrow, textDecoration: "underline" }}
+                >
+                  {f.label}
+                </Link>
                 <h2
                   style={{
                     fontFamily: fonts.heading,

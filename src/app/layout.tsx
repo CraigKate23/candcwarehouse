@@ -61,6 +61,7 @@ export const metadata: Metadata = {
     "General Order warehouse",
     "Port of Charleston",
     "Ladson SC warehouse",
+    "Hanahan SC warehouse",
     "bonded storage",
     "devanning",
     "drayage",

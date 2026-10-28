@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import { business, colors } from "../../components/styles";
 import {
@@ -96,7 +97,7 @@ export default function GeneralOrderPage() {
         lede={
           <>
             C&amp;C Warehouse is a CBP-designated General Order facility in{" "}
-            <LadsonLink>Ladson</LadsonLink> and Hanahan, minutes from the Port
+            <LadsonLink>Ladson</LadsonLink> and <HanahanLink>Hanahan</HanahanLink>, minutes from the Port
             of Charleston. When
             freight goes unclaimed past the 15-day window at the port, CBP
             can move it to a GO warehouse. We receive it, hold it, and work

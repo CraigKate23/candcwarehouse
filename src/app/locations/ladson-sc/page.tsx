@@ -12,6 +12,7 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
   ladsonLocation,
   serviceLinks,
 } from "../../components/styles";
@@ -190,7 +191,11 @@ export default function LadsonLocationPage() {
             warehouse — and a CBP-designated General Order facility. The
             company has been family-run since {business.foundedYear}, and the
             team carries {business.teamExperienceYears}+ years of combined
-            warehouse experience. The Hanahan building is separate; the
+            warehouse experience. The{" "}
+            <Link href={hanahanLocation.path} style={linkStyle}>
+              Hanahan building
+            </Link>{" "}
+            is separate; the
             two-building overview lives on the{" "}
             <Link href="/facility" style={linkStyle}>
               facility page
@@ -426,8 +431,11 @@ export default function LadsonLocationPage() {
             }}
           >
             These are the services already listed on the site. Ladson is the
-            primary building for that work. If a shipment is handled in
-            Hanahan instead, the list and the phone number do not change.
+            primary building for that work. If a shipment is handled in{" "}
+            <Link href={hanahanLocation.path} style={linkStyle}>
+              Hanahan
+            </Link>{" "}
+            instead, the list and the phone number do not change.
             Racked pallet positions are published as 3,000+ across both
             buildings, not as a Ladson-only count — see the{" "}
             <Link href="/facility" style={linkStyle}>
@@ -520,7 +528,11 @@ export default function LadsonLocationPage() {
             These miles are the Ladson figures already published on the site.
             {` ${wando.name} is ${wando.about} on ${wando.road}. ${nct.name} is ${nct.about} on ${nct.road}. ${leatherman.name} is ${leatherman.about} on ${leatherman.road}. ${greer.name} is ${greer.about} on ${greer.road}.`}{" "}
             Hanahan&rsquo;s shorter terminal runs are a different set of
-            numbers and stay on the{" "}
+            numbers on the{" "}
+            <Link href={hanahanLocation.path} style={linkStyle}>
+              Hanahan warehouse page
+            </Link>
+            . Both buildings are still listed on the{" "}
             <Link href="/facility" style={linkStyle}>
               facility page
             </Link>

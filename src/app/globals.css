@@ -105,6 +105,13 @@ img {
 }
 
 @media (max-width: 820px) {
+  .site-header-bar {
+    height: auto !important;
+    flex-wrap: wrap !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    row-gap: 10px !important;
+  }
   .footer-grid {
     grid-template-columns: 1fr 1fr !important;
   }

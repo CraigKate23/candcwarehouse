@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import { business, colors } from "../../components/styles";
 import {
@@ -96,7 +97,7 @@ export default function PickPackPage() {
         lede={
           <>
             Bulk lands at the Port of Charleston. Orders leave as parcel or
-            LTL from <LadsonLink>Ladson</LadsonLink> and Hanahan. Picks are routed off the{" "}
+            LTL from <LadsonLink>Ladson</LadsonLink> and <HanahanLink>Hanahan</HanahanLink>. Picks are routed off the{" "}
             <Link
               href="/services/wms"
               style={{ color: colors.accent, textDecoration: "underline" }}

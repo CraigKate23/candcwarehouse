@@ -10,6 +10,7 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
   ladsonLocation,
 } from "../components/styles";
 
@@ -51,6 +52,7 @@ const LOCATIONS = [
     cityState: `${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}`,
     sqft: ladsonLocation.sqft,
     href: ladsonLocation.path,
+    detailsLabel: `${ladsonLocation.city} warehouse details`,
     highlights: [
       {
         label: "Size",
@@ -67,38 +69,28 @@ const LOCATIONS = [
     ],
   },
   {
-    name: "Hanahan facility",
-    badge: "Secondary",
-    image: "/images/facility-interior.webp",
-    imageAlt: "C&C Warehouse interior floor with racked inventory",
-    address: "1014 Northpointe Industrial Blvd",
-    cityState: "Hanahan, SC 29410",
-    sqft: "30,000",
+    name: hanahanLocation.facilityName,
+    badge: hanahanLocation.badge,
+    image: hanahanLocation.image,
+    imageAlt: hanahanLocation.imageAlt,
+    address: hanahanLocation.street,
+    cityState: `${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}`,
+    sqft: hanahanLocation.sqft,
+    href: hanahanLocation.path,
+    detailsLabel: `${hanahanLocation.city} warehouse details`,
     highlights: [
       {
         label: "Size",
-        body: "30,000 sq ft of additional warehouse capacity.",
+        body: `${hanahanLocation.sqft} sq ft of additional warehouse capacity.`,
       },
       {
         label: "Location advantage",
         body: "Closer to the port terminals — shortest drayage runs in our network.",
       },
-      {
-        label: "Wando Welch",
-        body: "~16 miles — across I-526.",
-      },
-      {
-        label: "NCT",
-        body: "~7 miles — minutes away.",
-      },
-      {
-        label: "Leatherman",
-        body: "~6 miles — the closest terminal to this facility.",
-      },
-      {
-        label: "Inland Port Greer",
-        body: "~201 miles — I-26 upstate.",
-      },
+      ...hanahanLocation.drives.map((drive) => ({
+        label: drive.label,
+        body: `${drive.distance} — ${drive.route}`,
+      })),
     ],
   },
 ];
@@ -181,7 +173,14 @@ export default function FacilityPage() {
           >
             C&amp;C Warehouse operates out of two facilities in the
             Charleston metro — a 60,000 sq ft primary location in Ladson and
-            a 30,000 sq ft facility in Hanahan. Both are US Customs Bonded
+            a 30,000 sq ft facility in{" "}
+            <Link
+              href={hanahanLocation.path}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Hanahan
+            </Link>
+            . Both are US Customs Bonded
             and sit within easy drayage range of Wando Welch, NCT, and Hugh
             K. Leatherman terminals.
           </p>
@@ -330,7 +329,7 @@ export default function FacilityPage() {
                         textDecoration: "underline",
                       }}
                     >
-                      Ladson warehouse details
+                      {loc.detailsLabel}
                     </Link>
                   ) : null}
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../components/HanahanLink";
 import { LadsonLink } from "../components/LadsonLink";
 import {
   business,
@@ -10,6 +11,7 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
   ladsonLocation,
 } from "../components/styles";
 
@@ -365,7 +367,9 @@ export default function ServicesPage() {
             highway-legal loads, runs drayage off the SC Ports Authority
             terminals, and ships orders out of a WMS-tracked floor. The
             primary building is the <LadsonLink>warehouse in Ladson, SC</LadsonLink>{" "}
-            at {ladsonLocation.street}.
+            at {ladsonLocation.street}. The secondary building is the{" "}
+            <HanahanLink>warehouse in Hanahan, SC</HanahanLink> at{" "}
+            {hanahanLocation.street}.
           </p>
 
           <div
