@@ -9,6 +9,7 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
 } from "../components/styles";
 
 // Ethos cards — what we tell people about how we operate. These are
@@ -57,7 +58,20 @@ const TIMELINE: Milestone[] = [
   {
     year: "2023",
     title: "Northpointe facility added",
-    body: "Expanded with a 30,000 sq ft secondary facility at 1014 Northpointe Industrial Blvd in Hanahan — closer to the port terminals and bringing total capacity to 90,000+ sq ft.",
+    body: (
+      <>
+        Expanded with a {hanahanLocation.sqft} sq ft secondary facility at{" "}
+        {hanahanLocation.street} in{" "}
+        <Link
+          href={hanahanLocation.path}
+          style={{ color: colors.accent, textDecoration: "underline" }}
+        >
+          {hanahanLocation.city}
+        </Link>{" "}
+        — closer to the port terminals and bringing total capacity to 90,000+
+        sq ft.
+      </>
+    ),
   },
   {
     year: "Today",

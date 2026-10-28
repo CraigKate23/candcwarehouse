@@ -161,14 +161,56 @@ export const ladsonLocation = {
   ],
 };
 
+// Secondary building. Drive lines match the Hanahan card on /facility
+// exactly (`distance` + `route`). `name` / `about` match the longer
+// terminal names and "about N miles" wording already used on /faq.
 export const hanahanLocation = {
+  path: "/locations/hanahan-sc",
   label: "Hanahan",
+  facilityName: "Hanahan facility",
+  badge: "Secondary",
   street: "1014 Northpointe Industrial Blvd",
   city: "Hanahan",
   state: "SC",
   postal: "29410",
+  sqft: "30,000",
   image: "/images/facility-interior.webp",
+  imageAlt: "C&C Warehouse interior floor with racked inventory",
   geo: { latitude: 32.9182, longitude: -79.9928 },
+  drives: [
+    {
+      label: "Wando Welch",
+      name: "Wando Welch",
+      distance: "~16 miles",
+      about: "about 16 miles",
+      route: "across I-526.",
+      detail: "across I-526",
+    },
+    {
+      label: "NCT",
+      name: "North Charleston Terminal",
+      distance: "~7 miles",
+      about: "about 7 miles",
+      route: "minutes away.",
+      detail: "minutes away",
+    },
+    {
+      label: "Leatherman",
+      name: "Hugh K. Leatherman",
+      distance: "~6 miles",
+      about: "about 6 miles",
+      route: "the closest terminal to this facility.",
+      detail: "the closest terminal to this facility",
+    },
+    {
+      label: "Inland Port Greer",
+      name: "Inland Port Greer",
+      distance: "~201 miles",
+      about: "about 201 miles",
+      route: "I-26 upstate.",
+      detail: "I-26 upstate",
+    },
+  ],
 };
 
 // The ten services on the homepage, in that order.
@@ -211,6 +253,7 @@ export const business = {
       city: ladsonLocation.city,
       state: ladsonLocation.state,
       postal: ladsonLocation.postal,
+      path: ladsonLocation.path,
     },
     {
       label: hanahanLocation.label,
@@ -218,6 +261,7 @@ export const business = {
       city: hanahanLocation.city,
       state: hanahanLocation.state,
       postal: hanahanLocation.postal,
+      path: hanahanLocation.path,
     },
   ],
 };

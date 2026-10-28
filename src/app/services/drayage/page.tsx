@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
@@ -159,7 +160,8 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
     q: "How far is your facility from the terminals?",
     a: (
       <>
-        We have two facilities — one in Ladson and one in Hanahan — both
+        We have two facilities — one in <LadsonLink>Ladson</LadsonLink> and one in{" "}
+        <HanahanLink>Hanahan</HanahanLink> — both
         minutes from all three SC Ports Authority container terminals.
         Approximate drive distances: Wando Welch ~16–24 miles, North
         Charleston Terminal ~7–14 miles, and Hugh K. Leatherman ~6–14

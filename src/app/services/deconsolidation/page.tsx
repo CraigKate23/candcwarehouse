@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import { business, colors } from "../../components/styles";
 import {
@@ -97,7 +98,7 @@ export default function DeconsolidationPage() {
           <>
             Importers consolidate overseas to save ocean freight, then need
             the cargo split once it lands. We receive the container at{" "}
-            <LadsonLink>Ladson</LadsonLink> or Hanahan, sort it by customer,
+            <LadsonLink>Ladson</LadsonLink> or <HanahanLink>Hanahan</HanahanLink>, sort it by customer,
             store, or region, and
             tender separate outbound shipments. Floor-loaded boxes start
             with a{" "}

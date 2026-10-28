@@ -70,12 +70,15 @@ export function ladsonBranchJsonLd(siteUrl: string) {
   };
 }
 
+// Hanahan branch. @id matches the node the root layout has always emitted.
+// url points at the dedicated Hanahan page. Place is included because this
+// node is a physical facility, not only the parent organization.
 export function hanahanBranchJsonLd(siteUrl: string) {
   return {
-    "@type": "LocalBusiness" as const,
+    "@type": ["LocalBusiness", "Place"] as ["LocalBusiness", "Place"],
     "@id": `${siteUrl}/#facility-hanahan`,
     name: `${business.name} — Hanahan Facility`,
-    url: `${siteUrl}/facility`,
+    url: `${siteUrl}${hanahanLocation.path}`,
     telephone: business.phone,
     email: business.email,
     image: `${siteUrl}${hanahanLocation.image}`,

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { colors, container, fonts, ladsonLocation } from "./styles";
+import { colors, container, fonts, hanahanLocation, ladsonLocation } from "./styles";
 
 const links = [
   { href: "/services", label: "Services" },
@@ -27,12 +27,14 @@ export default function Nav() {
       }}
     >
       <div
+        className="site-header-bar"
         style={{
           ...container,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           height: 64,
+          gap: 12,
         }}
       >
         <div
@@ -68,6 +70,20 @@ export default function Nav() {
             }}
           >
             {ladsonLocation.city}, {ladsonLocation.state}
+          </Link>
+          <Link
+            href={hanahanLocation.path}
+            style={{
+              fontFamily: fonts.mono,
+              fontSize: 11,
+              color: colors.accent,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
+            }}
+          >
+            {hanahanLocation.city}, {hanahanLocation.state}
           </Link>
         </div>
 
