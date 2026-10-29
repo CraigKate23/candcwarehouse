@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next";
-import { hanahanLocation, ladsonLocation } from "./components/styles";
+import {
+  hanahanLocation,
+  ladsonLocation,
+  terminalsGuidePath,
+} from "./components/styles";
 
 // List only routes that are actually live. As new pages ship (facility,
 // portal, resources) they should be appended here with their own
@@ -29,6 +33,7 @@ const ROUTES: Entry[] = [
   { path: "/quote", changeFrequency: "monthly", priority: 0.9 },
   { path: ladsonLocation.path, changeFrequency: "monthly", priority: 0.85 },
   { path: hanahanLocation.path, changeFrequency: "monthly", priority: 0.85 },
+  { path: terminalsGuidePath, changeFrequency: "monthly", priority: 0.7 },
   { path: "/facility", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/faq", changeFrequency: "monthly", priority: 0.6 },

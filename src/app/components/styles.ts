@@ -213,6 +213,10 @@ export const hanahanLocation = {
   ],
 };
 
+// Guide that restates the terminal miles already published on /facility
+// and /faq. Distances stay on the location objects above.
+export const terminalsGuidePath = "/guides/port-of-charleston-terminals";
+
 // The ten services on the homepage, in that order.
 export const serviceLinks: { label: string; href: string }[] = [
   { label: "Bonded storage", href: "/services/bonded-storage" },

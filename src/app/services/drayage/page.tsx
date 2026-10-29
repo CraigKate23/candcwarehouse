@@ -11,6 +11,7 @@ import {
   container,
   eyebrow,
   fonts,
+  terminalsGuidePath,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -649,7 +650,15 @@ export default function DrayagePage() {
                 <>
                   All three SC Ports Authority container terminals —
                   Wando Welch (~16–24 mi), North Charleston Terminal
-                  (~7–14 mi), and Hugh K. Leatherman (~6–14 mi).
+                  (~7–14 mi), and Hugh K. Leatherman (~6–14 mi). Per-building
+                  miles, including Inland Port Greer, are on the{" "}
+                  <Link
+                    href={terminalsGuidePath}
+                    style={{ color: colors.accent, textDecoration: "underline" }}
+                  >
+                    Port of Charleston terminals
+                  </Link>{" "}
+                  guide.
                 </>
               }
             />

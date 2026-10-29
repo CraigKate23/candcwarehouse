@@ -10,6 +10,7 @@ import {
   fonts,
   hanahanLocation,
   ladsonLocation,
+  terminalsGuidePath,
 } from "../components/styles";
 import { JsonLd, faqJsonLd } from "../components/service-blocks";
 
@@ -106,6 +107,7 @@ const LINKS: { href: string; label: string }[] = [
   { href: "/services/pick-pack", label: "Pick and pack" },
   { href: "/services/fba-prep", label: "FBA prep" },
   { href: "/facility", label: "Facility" },
+  { href: terminalsGuidePath, label: "Port of Charleston terminals" },
   { href: ladsonLocation.path, label: "Ladson warehouse" },
   { href: hanahanLocation.path, label: "Hanahan warehouse" },
   { href: "/contact", label: "Contact" },
@@ -163,7 +165,14 @@ export default function FaqPage() {
             Short answers from what this site already states. Square footage,
             terminal miles, and the service list match the facility and
             services pages. Fees that are not printed there are not printed
-            here either.
+            here either. Per-building terminal miles are also on the{" "}
+            <Link
+              href={terminalsGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
           </p>
         </div>
       </section>
