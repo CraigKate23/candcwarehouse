@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { business, colors, container, fonts } from "./styles";
+import { business, colors, container, fonts, terminalsGuidePath } from "./styles";
 
 export default function Footer() {
   return (
@@ -51,6 +51,7 @@ export default function Footer() {
         <FooterCol title="Company">
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/facility">Facility</FooterLink>
+          <FooterLink href={terminalsGuidePath}>Terminal distances</FooterLink>
           <FooterLink href="/services">Services</FooterLink>
           <FooterLink href="/faq">FAQ</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>

@@ -12,6 +12,7 @@ import {
   fonts,
   hanahanLocation,
   ladsonLocation,
+  terminalsGuidePath,
 } from "../components/styles";
 
 export const metadata: Metadata = {
@@ -182,7 +183,15 @@ export default function FacilityPage() {
             </Link>
             . Both are US Customs Bonded
             and sit within easy drayage range of Wando Welch, NCT, and Hugh
-            K. Leatherman terminals.
+            K. Leatherman terminals. Per-building miles, including Inland
+            Port Greer, are on the{" "}
+            <Link
+              href={terminalsGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
           </p>
           <div
             style={{

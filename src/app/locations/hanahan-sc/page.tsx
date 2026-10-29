@@ -15,6 +15,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   serviceLinks,
+  terminalsGuidePath,
 } from "../../components/styles";
 
 const PATH = hanahanLocation.path;
@@ -539,7 +540,11 @@ export default function HanahanLocationPage() {
             <Link href="/services/drayage" style={linkStyle}>
               drayage service
             </Link>
-            .
+            . Both buildings&rsquo; miles, side by side, are on the{" "}
+            <Link href={terminalsGuidePath} style={linkStyle}>
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
           </p>
           <dl
             style={{
