@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { business, colors, container, fonts, terminalsGuidePath } from "./styles";
+import {
+  business,
+  colors,
+  container,
+  fbaGuidePath,
+  fonts,
+  terminalsGuidePath,
+} from "./styles";
 
 export default function Footer() {
   return (
@@ -52,6 +59,7 @@ export default function Footer() {
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/facility">Facility</FooterLink>
           <FooterLink href={terminalsGuidePath}>Terminal distances</FooterLink>
+          <FooterLink href={fbaGuidePath}>Port to Amazon FBA</FooterLink>
           <FooterLink href="/services">Services</FooterLink>
           <FooterLink href="/faq">FAQ</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
