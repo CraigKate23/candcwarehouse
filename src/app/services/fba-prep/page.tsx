@@ -9,6 +9,7 @@ import {
   colors,
   container,
   eyebrow,
+  fbaGuidePath,
   fonts,
 } from "../../components/styles";
 
@@ -378,6 +379,26 @@ export default function FbaPrepPage() {
             product to Amazon&rsquo;s network, from the same dock where your
             container lands. Minutes from the Port of Charleston, inside a
             CBP Class 3 bonded warehouse in <LadsonLink>Ladson, SC</LadsonLink>.
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 18,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 16,
+              maxWidth: 760,
+            }}
+          >
+            The longer walkthrough — from terminal pickup to Amazon FBA —
+            is the{" "}
+            <Link
+              href={fbaGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Port of Charleston to Amazon FBA
+            </Link>{" "}
+            guide.
           </p>
 
           <div

@@ -9,6 +9,7 @@ import {
   colors,
   container,
   eyebrow,
+  fbaGuidePath,
   fonts,
   hanahanLocation,
   ladsonLocation,
@@ -524,7 +525,12 @@ export default function PortOfCharlestonTerminalsPage() {
             between those terminals and the warehouse. Bonded storage,
             General Order, devanning, overweight container reworking, and
             cross-dock are the related services on the services list. The
-            two addresses have their own pages.
+            two addresses have their own pages. Importers sending that
+            freight on to Amazon FBA can follow the{" "}
+            <Link href={fbaGuidePath} style={linkStyle}>
+              Port of Charleston to Amazon FBA
+            </Link>{" "}
+            guide.
           </p>
           <ul
             style={{
@@ -556,6 +562,12 @@ export default function PortOfCharlestonTerminalsPage() {
             </li>
             <li>
               <TextLink href="/facility" label="Facility" />
+            </li>
+            <li>
+              <TextLink
+                href={fbaGuidePath}
+                label="Port of Charleston to Amazon FBA"
+              />
             </li>
           </ul>
         </div>

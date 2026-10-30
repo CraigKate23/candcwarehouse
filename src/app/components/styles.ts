@@ -217,6 +217,10 @@ export const hanahanLocation = {
 // and /faq. Distances stay on the location objects above.
 export const terminalsGuidePath = "/guides/port-of-charleston-terminals";
 
+// Guide that walks an importer from those terminals to Amazon FBA,
+// using only facts already published on the service and location pages.
+export const fbaGuidePath = "/guides/port-of-charleston-to-amazon-fba";
+
 // The ten services on the homepage, in that order.
 export const serviceLinks: { label: string; href: string }[] = [
   { label: "Bonded storage", href: "/services/bonded-storage" },
