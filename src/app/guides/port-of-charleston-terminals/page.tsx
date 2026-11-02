@@ -523,8 +523,11 @@ export default function PortOfCharlestonTerminalsPage() {
           >
             Drayage from Wando Welch, NCT, and Leatherman is the short-haul
             between those terminals and the warehouse. Bonded storage,
-            General Order, devanning, overweight container reworking, and
-            cross-dock are the related services on the services list. The
+            General Order, devanning, overweight container reworking, and{" "}
+            <Link href="/services/cross-dock" style={linkStyle}>
+              cross-dock in Charleston
+            </Link>{" "}
+            are the related services on the services list. The
             two addresses have their own pages. Importers sending that
             freight on to Amazon FBA can follow the{" "}
             <Link href={fbaGuidePath} style={linkStyle}>

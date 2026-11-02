@@ -540,7 +540,11 @@ export default function HanahanLocationPage() {
             <Link href="/services/drayage" style={linkStyle}>
               drayage service
             </Link>
-            . Both buildings&rsquo; miles, side by side, are on the{" "}
+            . Freight that should leave the same day can move through{" "}
+            <Link href="/services/cross-dock" style={linkStyle}>
+              cross-dock in Charleston
+            </Link>{" "}
+            at this building. Both buildings&rsquo; miles, side by side, are on the{" "}
             <Link href={terminalsGuidePath} style={linkStyle}>
               Port of Charleston terminals
             </Link>{" "}

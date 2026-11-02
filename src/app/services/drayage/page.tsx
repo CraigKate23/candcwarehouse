@@ -658,7 +658,14 @@ export default function DrayagePage() {
                   >
                     Port of Charleston terminals
                   </Link>{" "}
-                  guide.
+                  guide. Freight that should not dwell can continue as{" "}
+                  <Link
+                    href="/services/cross-dock"
+                    style={{ color: colors.accent, textDecoration: "underline" }}
+                  >
+                    cross-dock in Charleston
+                  </Link>
+                  .
                 </>
               }
             />
