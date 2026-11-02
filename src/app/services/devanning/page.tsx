@@ -639,7 +639,22 @@ export default function DevanningPage() {
             />
             <CapCard
               label="Disposition"
-              body="Cargo staged to rack, cross-docked to your outbound carrier, or palletized per your SOP — sorted by SKU as it comes off so no double-handling later."
+              body={
+                <>
+                  Cargo staged to rack, sent through{" "}
+                  <Link
+                    href="/services/cross-dock"
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    cross-dock in Charleston
+                  </Link>{" "}
+                  to your outbound carrier, or palletized per your SOP —
+                  sorted by SKU as it comes off so no double-handling later.
+                </>
+              }
             />
             <CapCard
               label="Drayage included"

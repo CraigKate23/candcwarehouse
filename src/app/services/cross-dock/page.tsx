@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
@@ -10,6 +11,9 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
+  ladsonLocation,
+  terminalsGuidePath,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -36,12 +40,15 @@ const placeholder = {
 // transit time matters more than storage cost. Pairs naturally with
 // drayage on the inbound side and pick-pack / parcel on the outbound.
 
+const TITLE = "Charleston Cross Dock | Port of Charleston | C&C";
+const DESCRIPTION =
+  "Charleston cross dock at Ladson and Hanahan, near the Port of Charleston terminals. Same-day sort and tender. Drayage from Wando Welch, NCT, and Leatherman.";
+
 export const metadata: Metadata = {
   title: {
-    absolute: "Cross-Dock Services Charleston SC | Same-Day | C&C Warehouse",
+    absolute: TITLE,
   },
-  description:
-    "Same-day cross-dock at the C&C Warehouse facility in Ladson, SC. Receive on one dock, sort by SKU / store / route, and tender out the other side without warehousing — for retail compliance windows, DC bypass, and time-defined consolidations.",
+  description: DESCRIPTION,
   alternates: {
     canonical: "/services/cross-dock",
   },
@@ -50,9 +57,8 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/cross-dock",
-    title: "Cross-Dock Services Charleston SC | Same-Day | C&C Warehouse",
-    description:
-      "Same-day receive, sort, and tender at the C&C bonded warehouse near the Port of Charleston — built for retailer windows, ASN-driven outbounds, and DC-bypass moves.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: [
       {
         url: "/images/og-default.jpg",
@@ -71,12 +77,21 @@ const serviceJsonLd = {
   "@type": "Service",
   "@id": "https://www.candcwarehouse.com/services/cross-dock#service",
   "serviceType": "Cross-Dock Services",
-  "name": "Cross-Dock at the Port of Charleston",
+  "name": "Charleston Cross Dock at the Port of Charleston",
+  "description": DESCRIPTION,
   "url": "https://www.candcwarehouse.com/services/cross-dock",
   "provider": {
     "@id": "https://www.candcwarehouse.com/#localbusiness"
   },
   "areaServed": [
+    {
+      "@type": "City",
+      "name": "Ladson"
+    },
+    {
+      "@type": "City",
+      "name": "Hanahan"
+    },
     {
       "@type": "City",
       "name": "Charleston"
@@ -142,6 +157,67 @@ const WHEN_TO_USE: { label: string; body: string }[] = [
   },
 ];
 
+type PublishedDrive = {
+  label: string;
+  name: string;
+  distance: string;
+  about: string;
+  route: string;
+};
+
+function publishedDrive(drives: readonly PublishedDrive[], label: string) {
+  const drive = drives.find((item) => item.label === label);
+  if (!drive) {
+    throw new Error(`Missing published drive for ${label}`);
+  }
+  return drive;
+}
+
+function driveSentence(drive: PublishedDrive) {
+  const route = drive.route.endsWith(".")
+    ? drive.route.slice(0, -1)
+    : drive.route;
+  return `${drive.name} is ${drive.about}, ${route}`;
+}
+
+const hanahanWando = publishedDrive(hanahanLocation.drives, "Wando Welch");
+const hanahanNct = publishedDrive(hanahanLocation.drives, "NCT");
+const hanahanLeatherman = publishedDrive(hanahanLocation.drives, "Leatherman");
+const ladsonWando = publishedDrive(ladsonLocation.drives, "Wando Welch");
+const ladsonNct = publishedDrive(ladsonLocation.drives, "NCT");
+const ladsonLeatherman = publishedDrive(ladsonLocation.drives, "Leatherman");
+
+const hanahanOcean = [hanahanWando, hanahanNct, hanahanLeatherman]
+  .map(driveSentence)
+  .join(". ");
+const ladsonOcean = [ladsonWando, ladsonNct, ladsonLeatherman]
+  .map(driveSentence)
+  .join(". ");
+
+const SPEED_ANSWER =
+  "Same-day when the inbound and outbound windows align — the cargo is in the door, sorted, and out again before the next shift. When the outbound carrier doesn't pull until the following day we stage on the floor (not in rack) and tender at the booked appointment. Peak throughput across both locations is 30 containers/day. Devanning, reworking, and cross-dock are scaled by product mix.";
+
+const WHERE_ANSWER = `Cross-dock runs from both buildings. The primary floor is the ${ladsonLocation.facilityName} at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state}. The ${hanahanLocation.facilityName} at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} is closer to the port terminals — the shortest drayage runs in our network. Inventory moves between both buildings as needed. Same WMS, same crew, same phone number.`;
+
+const PORT_ANSWER = `Yes. Drayage from Wando Welch, North Charleston Terminal, and Hugh K. Leatherman is the inbound leg into either building. Published drive distances from Hanahan: ${hanahanOcean}. From Ladson: ${ladsonOcean}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`;
+
+const CLOSER_ANSWER = `Hanahan. That building is closer to the port terminals — the shortest drayage runs in our network. Hugh K. Leatherman is ${hanahanLeatherman.about} — the closest terminal to the Hanahan facility. North Charleston Terminal is ${hanahanNct.about}. Wando Welch is ${hanahanWando.about}. Ladson is the primary building, with published runs of ${ladsonWando.about} to Wando Welch, ${ladsonNct.about} to North Charleston Terminal, and ${ladsonLeatherman.about} to Hugh K. Leatherman.`;
+
+const PORT_FAQS: { q: string; a: string }[] = [
+  {
+    q: "Where do you cross-dock in Charleston, SC?",
+    a: WHERE_ANSWER,
+  },
+  {
+    q: "Can you cross-dock freight from the Port of Charleston?",
+    a: PORT_ANSWER,
+  },
+  {
+    q: "Which building is closer to the Port of Charleston for a cross-dock?",
+    a: CLOSER_ANSWER,
+  },
+];
+
 const FAQ: { q: string; a: React.ReactNode }[] = [
   {
     q: "What is cross-docking?",
@@ -158,16 +234,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "How fast can you turn a cross-dock?",
-    a: (
-      <>
-        Same-day when the inbound and outbound windows align — the
-        cargo is in the door, sorted, and out again before the next
-        shift. When the outbound carrier doesn&rsquo;t pull until the
-        following day we stage on the floor (not in rack) and tender at
-        the booked appointment. Peak throughput is{" "}
-        60 loads/day.
-      </>
-    ),
+    a: SPEED_ANSWER,
   },
   {
     q: "What sort criteria can you handle?",
@@ -238,6 +305,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
       </>
     ),
   },
+  ...PORT_FAQS,
 ];
 
 // FAQPage JSON-LD built verbatim from the on-page FAQ copy below
@@ -285,7 +353,7 @@ const faqJsonLd = {
       "name": "How fast can you turn a cross-dock?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Same-day when the inbound and outbound windows align — the cargo is in the door, sorted, and out again before the next shift. When the outbound carrier doesn't pull until the following day we stage on the floor (not in rack) and tender at the booked appointment."
+        "text": SPEED_ANSWER
       }
     },
     {
@@ -319,7 +387,15 @@ const faqJsonLd = {
         "@type": "Answer",
         "text": "Yes — when the inbound is in-bond and the outbound is also a bonded move (e.g. headed to another bonded facility or for re-export), we can cross-dock under bond without breaking the status."
       }
-    }
+    },
+    ...PORT_FAQS.map((item) => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a,
+      },
+    })),
   ]
 };
 
@@ -408,11 +484,14 @@ export default function CrossDockPage() {
               maxWidth: 760,
             }}
           >
-            Same-day cross-dock at our <LadsonLink>Ladson, SC</LadsonLink> facility — receive,
-            sort, and tender freight back out without warehousing it in
-            between. Built for retail compliance windows, DC-bypass
-            moves, and time-defined consolidations near the Port of
-            Charleston since {business.foundedYear}.
+            Same-day cross-dock in Charleston at our{" "}
+            <LadsonLink>Ladson</LadsonLink> and{" "}
+            <HanahanLink>Hanahan</HanahanLink> buildings — receive, sort,
+            and tender freight back out without warehousing it in
+            between. Inbound drayage runs from Wando Welch, North
+            Charleston Terminal, and Hugh K. Leatherman. Built for retail
+            compliance windows, DC-bypass moves, and time-defined
+            consolidations since {business.foundedYear}.
           </p>
 
           <div
@@ -452,6 +531,106 @@ export default function CrossDockPage() {
             <FactCard label="Documentation" value="Labels · BOLs · ASNs" />
             <FactCard label="Bond status" value="Carries through when both legs are bonded" />
           </div>
+        </div>
+      </section>
+
+      <section
+        id="port-of-charleston"
+        style={{
+          padding: "56px 0",
+          borderTop: `1px solid ${colors.line}`,
+        }}
+      >
+        <div style={container}>
+          <div style={eyebrow}>Port of Charleston</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3vw, 34px)",
+              fontWeight: 700,
+              marginTop: 10,
+              maxWidth: 720,
+            }}
+          >
+            Port of Charleston cross dock, from both buildings.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Cross-dock in Charleston runs from both floors. The primary
+            building is the{" "}
+            <LadsonLink>{ladsonLocation.facilityName}</LadsonLink>,{" "}
+            {ladsonLocation.sqft} sq ft at {ladsonLocation.street}. The{" "}
+            <HanahanLink>{hanahanLocation.facilityName}</HanahanLink>,{" "}
+            {hanahanLocation.sqft} sq ft at {hanahanLocation.street}, is
+            closer to the port terminals — the shortest drayage runs in
+            our network. Inventory moves between both buildings as needed.
+            Same WMS, same crew, same phone number. Inbound{" "}
+            <Link
+              href="/services/drayage"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              drayage
+            </Link>{" "}
+            is from Wando Welch, North Charleston Terminal, and Hugh K.
+            Leatherman. The miles below are the per-building figures
+            already published on the{" "}
+            <Link
+              href="/facility"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              facility page
+            </Link>{" "}
+            and the{" "}
+            <Link
+              href={terminalsGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
+          </p>
+          <div
+            style={{
+              marginTop: 28,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 18,
+            }}
+          >
+            <OceanMiles
+              heading="Hanahan — closer to the terminals"
+              href={hanahanLocation.path}
+              drives={hanahanLocation.drives}
+            />
+            <OceanMiles
+              heading="Ladson — primary building"
+              href={ladsonLocation.path}
+              drives={ladsonLocation.drives}
+            />
+          </div>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 18,
+              maxWidth: 760,
+            }}
+          >
+            Both facilities sit within 25 miles of all three SC Ports
+            Authority ocean terminals. Peak throughput across both
+            locations is 30 containers/day. Devanning, reworking, and
+            cross-dock are scaled by product mix.
+          </p>
         </div>
       </section>
 
@@ -642,11 +821,11 @@ export default function CrossDockPage() {
               label="Throughput"
               body={
                 <>
-                  Peak cross-dock throughput at the Ladson facility:{" "}
-                  60 loads/day across
-                  inbound + outbound. Door count and dock space scale
-                  with the schedule — share the volume profile and we
-                  plan the dock plan to it.
+                  Peak throughput across both locations: 30 containers/day.
+                  Devanning, reworking, and cross-dock are scaled by
+                  product mix. Door count and dock space scale with the
+                  schedule — share the volume profile and we plan the
+                  dock plan to it.
                 </>
               }
             />
@@ -855,6 +1034,71 @@ export default function CrossDockPage() {
         </div>
       </section>
     </>
+  );
+}
+
+function OceanMiles({
+  heading,
+  href,
+  drives,
+}: {
+  heading: string;
+  href: string;
+  drives: readonly PublishedDrive[];
+}) {
+  const ocean = drives.filter((drive) => drive.label !== "Inland Port Greer");
+  return (
+    <div
+      style={{
+        background: colors.paper,
+        border: `1px solid ${colors.line}`,
+        borderRadius: 12,
+        padding: 20,
+      }}
+    >
+      <h3
+        style={{
+          fontFamily: fonts.heading,
+          fontSize: 18,
+          fontWeight: 600,
+          margin: 0,
+        }}
+      >
+        <Link
+          href={href}
+          style={{ color: colors.ink, textDecoration: "underline" }}
+        >
+          {heading}
+        </Link>
+      </h3>
+      <dl style={{ margin: "14px 0 0" }}>
+        {ocean.map((drive) => (
+          <div key={drive.label} style={{ marginTop: 10 }}>
+            <dt
+              style={{
+                fontFamily: fonts.heading,
+                fontSize: 15,
+                fontWeight: 600,
+                color: colors.ink,
+              }}
+            >
+              {drive.name}
+            </dt>
+            <dd
+              style={{
+                margin: "4px 0 0",
+                fontFamily: fonts.body,
+                fontSize: 14.5,
+                lineHeight: 1.5,
+                color: colors.steel,
+              }}
+            >
+              {drive.distance} — {drive.route}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
 
