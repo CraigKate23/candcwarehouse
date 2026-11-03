@@ -96,7 +96,7 @@ export default function Footer() {
                     textDecoration: "underline",
                   }}
                 >
-                  {f.label}
+                  {f.query}
                 </Link>
                 <br />
                 {f.street}

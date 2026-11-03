@@ -10,6 +10,7 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
   ladsonLocation,
   serviceLinks,
 } from "./components/styles";
@@ -358,6 +359,55 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section style={{ padding: "72px 0" }}>
+        <div style={container}>
+          <div style={eyebrow}>Locations</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(28px, 3.4vw, 40px)",
+              fontWeight: 700,
+              marginTop: 12,
+              maxWidth: 720,
+            }}
+          >
+            Warehousing in Ladson, SC and Hanahan, SC.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 18,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 18,
+              maxWidth: 720,
+            }}
+          >
+            {business.name} operates two facilities in the Charleston metro.
+            Both are US Customs Bonded: a CBP Class 3 bonded warehouse and a
+            CBP-designated General Order facility in {ladsonLocation.city} and{" "}
+            {hanahanLocation.city}. These are operating warehouses, not
+            commercial listings of space for lease. The primary building is the{" "}
+            <Link
+              href={ladsonLocation.path}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              {ladsonLocation.query}
+            </Link>{" "}
+            at {ladsonLocation.street}, {ladsonLocation.sqft} sq ft. The
+            secondary building is the{" "}
+            <Link
+              href={hanahanLocation.path}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              {hanahanLocation.query}
+            </Link>{" "}
+            at {hanahanLocation.street}, {hanahanLocation.sqft} sq ft, closer
+            to the port terminals.
+          </p>
         </div>
       </section>
 

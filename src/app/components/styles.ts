@@ -115,6 +115,10 @@ export const businessHours = {
 export const ladsonLocation = {
   path: "/locations/ladson-sc",
   label: "Ladson (primary)",
+  // Query the Ladson page should win: "Ladson SC warehouse".
+  query: "Ladson SC warehouse",
+  heading: "Ladson SC Warehouse",
+  warehousing: "Warehousing in Ladson, SC",
   facilityName: "Ladson facility",
   badge: "Primary",
   street: "137 Acres Drive",
@@ -167,6 +171,10 @@ export const ladsonLocation = {
 export const hanahanLocation = {
   path: "/locations/hanahan-sc",
   label: "Hanahan",
+  // Query the Hanahan page should win: "Hanahan SC warehouse".
+  query: "Hanahan SC warehouse",
+  heading: "Hanahan SC Warehouse",
+  warehousing: "Warehousing in Hanahan, SC",
   facilityName: "Hanahan facility",
   badge: "Secondary",
   street: "1014 Northpointe Industrial Blvd",
@@ -257,6 +265,7 @@ export const business = {
   facilities: [
     {
       label: ladsonLocation.label,
+      query: ladsonLocation.query,
       street: ladsonLocation.street,
       city: ladsonLocation.city,
       state: ladsonLocation.state,
@@ -265,6 +274,7 @@ export const business = {
     },
     {
       label: hanahanLocation.label,
+      query: hanahanLocation.query,
       street: hanahanLocation.street,
       city: hanahanLocation.city,
       state: hanahanLocation.state,
@@ -273,3 +283,11 @@ export const business = {
     },
   ],
 };
+
+// Sentences shared by the location pages and their LocalBusiness nodes.
+// Every clause is already published: role, size, address, Class 3, GO,
+// and — for Hanahan — the shorter terminal runs. The lease clause only
+// says these pages are not commercial listings.
+export const ladsonOperatingLine = `${business.name} operates the ${ladsonLocation.sqft} sq ft primary building at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal} as a CBP Class 3 bonded warehouse — an importer's private bonded warehouse — and a CBP-designated General Order facility. This is warehousing in ${ladsonLocation.city}, ${ladsonLocation.state}, not a commercial listing of space for lease.`;
+
+export const hanahanOperatingLine = `${business.name} operates the ${hanahanLocation.sqft} sq ft secondary building at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. Both facilities are US Customs Bonded. ${business.name} is a CBP Class 3 bonded warehouse and a CBP-designated General Order facility in ${ladsonLocation.city} and ${hanahanLocation.city}, closer to the port terminals — the shortest drayage runs in our network. This is warehousing in ${hanahanLocation.city}, ${hanahanLocation.state}, not a commercial listing of space for lease.`;

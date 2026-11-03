@@ -269,16 +269,17 @@ export default function PortOfCharlestonTerminalsPage() {
             }}
           >
             {business.name}, family-run since {business.foundedYear}, keeps
-            two buildings in the Charleston metro. The primary building is{" "}
-            {ladsonLocation.sqft} sq ft at{" "}
+            two buildings in the Charleston metro. The primary building is the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
-              {ladsonLocation.street}, {ladsonLocation.city}
+              {ladsonLocation.query}
             </Link>
-            . The secondary building is {hanahanLocation.sqft} sq ft at{" "}
+            , {ladsonLocation.sqft} sq ft at {ladsonLocation.street},{" "}
+            {ladsonLocation.city}. The secondary building is the{" "}
             <Link href={hanahanLocation.path} style={linkStyle}>
-              {hanahanLocation.street}, {hanahanLocation.city}
+              {hanahanLocation.query}
             </Link>
-            . Together the buildings are 90,000+ sq ft. Both are US Customs
+            , {hanahanLocation.sqft} sq ft at {hanahanLocation.street},{" "}
+            {hanahanLocation.city}. Together the buildings are 90,000+ sq ft. Both are US Customs
             Bonded: a CBP Class 3 bonded warehouse and a CBP-designated
             General Order facility in {ladsonLocation.city} and{" "}
             {hanahanLocation.city}. The{" "}
@@ -484,12 +485,12 @@ export default function PortOfCharlestonTerminalsPage() {
             }}
           >
             <BuildingCopy
-              title={`${ladsonLocation.city} warehouse`}
+              title={ladsonLocation.query}
               href={ladsonLocation.path}
               body={`${ladsonLocation.facilityName}, ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. ${ladsonOcean}. ${milesSentence(GREER.ladson)}.`}
             />
             <BuildingCopy
-              title={`${hanahanLocation.city} warehouse`}
+              title={hanahanLocation.query}
               href={hanahanLocation.path}
               body={`${hanahanLocation.facilityName}, ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. ${hanahanOcean}. ${milesSentence(GREER.hanahan)}. The facility page describes Hanahan as closer to the port terminals — the shortest drayage runs in our network.`}
             />
@@ -554,13 +555,13 @@ export default function PortOfCharlestonTerminalsPage() {
             <li>
               <TextLink
                 href={ladsonLocation.path}
-                label={`${ladsonLocation.city} warehouse`}
+                label={ladsonLocation.query}
               />
             </li>
             <li>
               <TextLink
                 href={hanahanLocation.path}
-                label={`${hanahanLocation.city} warehouse`}
+                label={hanahanLocation.query}
               />
             </li>
             <li>
