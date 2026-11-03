@@ -13,6 +13,7 @@ import {
   eyebrow,
   fonts,
   hanahanLocation,
+  hanahanOperatingLine,
   ladsonLocation,
   serviceLinks,
   terminalsGuidePath,
@@ -22,8 +23,8 @@ const PATH = hanahanLocation.path;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = "Hanahan SC Warehouse | Port of Charleston | C&C";
-const DESCRIPTION = `Hanahan SC warehouse at ${hanahanLocation.street}: ${hanahanLocation.sqft} sq ft near the Port of Charleston. CBP Class 3 bonded and General Order. ${business.phoneDisplay}.`;
+const TITLE = `${hanahanLocation.heading} | ${hanahanLocation.warehousing} | C&C`;
+const DESCRIPTION = `Hanahan SC warehouse at ${hanahanLocation.street}: operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${business.phoneDisplay}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -51,8 +52,12 @@ const [wando, nct, leatherman, greer] = hanahanLocation.drives;
 
 const FAQ: { q: string; a: string }[] = [
   {
-    q: "Where is the warehouse in Hanahan, SC?",
-    a: `The secondary ${business.name} building is ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. The building is ${hanahanLocation.sqft} sq ft. Ladson, at ${ladsonLocation.street}, is the primary address.`,
+    q: "Where is the Hanahan SC warehouse?",
+    a: `Looking for a warehouse in Hanahan, SC: the secondary ${business.name} building is ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. The building is ${hanahanLocation.sqft} sq ft. The ${ladsonLocation.query}, at ${ladsonLocation.street}, is the primary address.`,
+  },
+  {
+    q: "Is the Hanahan SC warehouse space for lease?",
+    a: `No. ${business.name} operates the ${hanahanLocation.sqft} sq ft building at ${hanahanLocation.street} as additional warehouse capacity, closer to the port terminals. Both facilities are US Customs Bonded. ${business.name} is a CBP Class 3 bonded warehouse and a CBP-designated General Order facility in ${ladsonLocation.city} and ${hanahanLocation.city}. When a load is handled here, it is the services already listed on this page — not a commercial listing of space for lease.`,
   },
   {
     q: "Is there a bonded warehouse in Hanahan, SC?",
@@ -160,9 +165,9 @@ export default function HanahanLocationPage() {
               maxWidth: 880,
             }}
           >
-            Warehouse in Hanahan, SC
+            {hanahanLocation.heading}
           </h1>
-          <p
+          <h2
             style={{
               fontFamily: fonts.heading,
               fontSize: "clamp(20px, 2.4vw, 28px)",
@@ -173,9 +178,9 @@ export default function HanahanLocationPage() {
               maxWidth: 760,
             }}
           >
-            {hanahanLocation.sqft} sq ft at {hanahanLocation.street}. Additional
-            capacity, closer to the port terminals.
-          </p>
+            {hanahanLocation.warehousing} — {hanahanLocation.sqft} sq ft at{" "}
+            {hanahanLocation.street}.
+          </h2>
           <p
             style={{
               fontFamily: fonts.body,
@@ -186,18 +191,27 @@ export default function HanahanLocationPage() {
               maxWidth: 760,
             }}
           >
-            {business.name} keeps a second floor in Hanahan. The building is{" "}
-            {hanahanLocation.sqft} sq ft of additional warehouse capacity,
-            closer to the port terminals — the shortest drayage runs in our
-            network. Both facilities are US Customs Bonded. The company is a
-            CBP Class 3 bonded warehouse and a CBP-designated General Order
-            facility in {ladsonLocation.city} and {hanahanLocation.city},
-            family-run since {business.foundedYear}, with a team carrying{" "}
-            {business.teamExperienceYears}+ years of combined warehouse
-            experience. Together the buildings are 90,000+ sq ft. The primary
-            building is the{" "}
+            {hanahanOperatingLine}
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 18,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            The company has been family-run since {business.foundedYear}, with
+            a team carrying {business.teamExperienceYears}+ years of combined
+            warehouse experience. Together the buildings are 90,000+ sq ft.
+            From this address, {leatherman.name} is {leatherman.about} —{" "}
+            {leatherman.detail}. {nct.name} is {nct.about}, {nct.detail}.{" "}
+            {wando.name} is {wando.about}, {wando.detail}. {greer.name} is{" "}
+            {greer.about}, {greer.detail}. The primary building is the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
-              warehouse in Ladson, SC
+              {ladsonLocation.query}
             </Link>
             . The two-building overview lives on the{" "}
             <Link href="/facility" style={linkStyle}>
@@ -440,9 +454,9 @@ export default function HanahanLocationPage() {
             says inventory moves between both buildings as needed — same WMS,
             same crew, same phone number. Racked pallet positions are published
             as 3,000+ across both buildings, not as a Hanahan-only count. The
-            primary building is in{" "}
+            primary building is the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
-              Ladson
+              {ladsonLocation.query}
             </Link>
             . Fees are not listed here. Ask on the{" "}
             <Link href="/quote" style={linkStyle}>
@@ -516,7 +530,7 @@ export default function HanahanLocationPage() {
               maxWidth: 720,
             }}
           >
-            Published drive distances from Hanahan.
+            Published drive distances from the {hanahanLocation.query}.
           </h2>
           <p
             style={{
@@ -534,9 +548,9 @@ export default function HanahanLocationPage() {
             miles of all three SC Ports Authority ocean terminals. Ladson&rsquo;s
             terminal runs are a different set of numbers and stay on the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
-              Ladson warehouse page
-            </Link>
-            . Drayage from these terminals is the{" "}
+              {ladsonLocation.query}
+            </Link>{" "}
+            page. Drayage from these terminals is the{" "}
             <Link href="/services/drayage" style={linkStyle}>
               drayage service
             </Link>
@@ -610,7 +624,7 @@ export default function HanahanLocationPage() {
               maxWidth: 720,
             }}
           >
-            Hanahan warehouse questions.
+            Questions about the {hanahanLocation.query}.
           </h2>
           <div
             style={{

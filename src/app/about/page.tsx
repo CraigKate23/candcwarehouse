@@ -10,6 +10,7 @@ import {
   eyebrow,
   fonts,
   hanahanLocation,
+  ladsonLocation,
 } from "../components/styles";
 
 // Ethos cards — what we tell people about how we operate. These are
@@ -48,7 +49,20 @@ const TIMELINE: Milestone[] = [
   {
     year: "2010",
     title: "Acres Drive facility completed",
-    body: "Moved into our 60,000 sq ft primary facility at 137 Acres Drive in Ladson, SC — purpose-built for bonded and General Order storage with direct interstate access.",
+    body: (
+      <>
+        Moved into our {ladsonLocation.sqft} sq ft primary facility at{" "}
+        {ladsonLocation.street}, the{" "}
+        <Link
+          href={ladsonLocation.path}
+          style={{ color: colors.accent, textDecoration: "underline" }}
+        >
+          {ladsonLocation.query}
+        </Link>
+        , purpose-built for bonded and General Order storage with direct
+        interstate access.
+      </>
+    ),
   },
   {
     year: "2020",
@@ -61,14 +75,14 @@ const TIMELINE: Milestone[] = [
     body: (
       <>
         Expanded with a {hanahanLocation.sqft} sq ft secondary facility at{" "}
-        {hanahanLocation.street} in{" "}
+        {hanahanLocation.street}, the{" "}
         <Link
           href={hanahanLocation.path}
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
-          {hanahanLocation.city}
-        </Link>{" "}
-        — closer to the port terminals and bringing total capacity to 90,000+
+          {hanahanLocation.query}
+        </Link>
+        , closer to the port terminals and bringing total capacity to 90,000+
         sq ft.
       </>
     ),

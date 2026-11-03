@@ -53,7 +53,7 @@ const LOCATIONS = [
     cityState: `${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}`,
     sqft: ladsonLocation.sqft,
     href: ladsonLocation.path,
-    detailsLabel: `${ladsonLocation.city} warehouse details`,
+    detailsLabel: ladsonLocation.query,
     highlights: [
       {
         label: "Size",
@@ -78,7 +78,7 @@ const LOCATIONS = [
     cityState: `${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}`,
     sqft: hanahanLocation.sqft,
     href: hanahanLocation.path,
-    detailsLabel: `${hanahanLocation.city} warehouse details`,
+    detailsLabel: hanahanLocation.query,
     highlights: [
       {
         label: "Size",
@@ -173,15 +173,22 @@ export default function FacilityPage() {
             }}
           >
             C&amp;C Warehouse operates out of two facilities in the
-            Charleston metro — a 60,000 sq ft primary location in Ladson and
-            a 30,000 sq ft facility in{" "}
+            Charleston metro — a {ladsonLocation.sqft} sq ft primary{" "}
+            <Link
+              href={ladsonLocation.path}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              {ladsonLocation.query}
+            </Link>{" "}
+            and a {hanahanLocation.sqft} sq ft{" "}
             <Link
               href={hanahanLocation.path}
               style={{ color: colors.accent, textDecoration: "underline" }}
             >
-              Hanahan
+              {hanahanLocation.query}
             </Link>
-            . Both are US Customs Bonded
+            . Those pages cover the operating warehouses, not commercial
+            listings of space for lease. Both are US Customs Bonded
             and sit within easy drayage range of Wando Welch, NCT, and Hugh
             K. Leatherman terminals. Per-building miles, including Inland
             Port Greer, are on the{" "}

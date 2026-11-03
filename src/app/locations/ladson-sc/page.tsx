@@ -14,6 +14,7 @@ import {
   fonts,
   hanahanLocation,
   ladsonLocation,
+  ladsonOperatingLine,
   serviceLinks,
   terminalsGuidePath,
 } from "../../components/styles";
@@ -22,8 +23,8 @@ const PATH = ladsonLocation.path;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = "Ladson SC Warehouse | 60,000 sq ft Bonded | C&C";
-const DESCRIPTION = `Warehouse in Ladson, SC at ${ladsonLocation.street}: ${ladsonLocation.sqft} sq ft, CBP Class 3 bonded and General Order. Terminal miles, hours, and phone. ${business.phoneDisplay}.`;
+const TITLE = `${ladsonLocation.heading} | ${ladsonLocation.warehousing} | C&C`;
+const DESCRIPTION = `Ladson SC warehouse at ${ladsonLocation.street}: ${ladsonLocation.sqft} sq ft operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${business.phoneDisplay}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -51,8 +52,12 @@ const [wando, nct, leatherman, greer] = ladsonLocation.drives;
 
 const FAQ: { q: string; a: string }[] = [
   {
-    q: "Where is the warehouse in Ladson, SC?",
-    a: `The primary ${business.name} building is ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. The building is ${ladsonLocation.sqft} sq ft. Hanahan is a separate address, covered on the facility page.`,
+    q: "Where is the Ladson SC warehouse?",
+    a: `Looking for a warehouse in Ladson, SC: the primary ${business.name} building is ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. The building is ${ladsonLocation.sqft} sq ft. The ${hanahanLocation.query} is a separate address.`,
+  },
+  {
+    q: "Is the Ladson SC warehouse space for lease?",
+    a: `No. ${business.name} operates the ${ladsonLocation.sqft} sq ft building at ${ladsonLocation.street} as a CBP Class 3 bonded warehouse and a CBP-designated General Order facility. The services listed on this page are the ones already published for this floor. The square footage is the building in use, not a commercial listing of space for lease.`,
   },
   {
     q: "Is there a bonded warehouse in Ladson, SC?",
@@ -160,9 +165,9 @@ export default function LadsonLocationPage() {
               maxWidth: 880,
             }}
           >
-            Warehouse in Ladson, SC
+            {ladsonLocation.heading}
           </h1>
-          <p
+          <h2
             style={{
               fontFamily: fonts.heading,
               fontSize: "clamp(20px, 2.4vw, 28px)",
@@ -173,9 +178,9 @@ export default function LadsonLocationPage() {
               maxWidth: 760,
             }}
           >
-            {ladsonLocation.sqft} sq ft at {ladsonLocation.street}. Bonded
-            storage and General Order, at the primary address.
-          </p>
+            {ladsonLocation.warehousing} — {ladsonLocation.sqft} sq ft at{" "}
+            {ladsonLocation.street}.
+          </h2>
           <p
             style={{
               fontFamily: fonts.body,
@@ -186,18 +191,28 @@ export default function LadsonLocationPage() {
               maxWidth: 760,
             }}
           >
-            {business.name}{" "}
-            keeps its main floor in Ladson. The building is a
-            CBP Class 3 bonded warehouse — an importer&rsquo;s private bonded
-            warehouse — and a CBP-designated General Order facility. The
-            company has been family-run since {business.foundedYear}, and the
-            team carries {business.teamExperienceYears}+ years of combined
-            warehouse experience. The{" "}
+            {ladsonOperatingLine}
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 18,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            The company has been family-run since {business.foundedYear}, and
+            the team carries {business.teamExperienceYears}+ years of combined
+            warehouse experience. From this address, {nct.name} is {nct.about}{" "}
+            and {leatherman.name} is {leatherman.about}, both on {nct.road}.{" "}
+            {wando.name} is {wando.about} on {wando.road}. {greer.name} is{" "}
+            {greer.about} on {greer.road}. The{" "}
             <Link href={hanahanLocation.path} style={linkStyle}>
-              Hanahan building
+              {hanahanLocation.query}
             </Link>{" "}
-            is separate; the
-            two-building overview lives on the{" "}
+            is a separate building. The two-building overview lives on the{" "}
             <Link href="/facility" style={linkStyle}>
               facility page
             </Link>
@@ -432,9 +447,9 @@ export default function LadsonLocationPage() {
             }}
           >
             These are the services already listed on the site. Ladson is the
-            primary building for that work. If a shipment is handled in{" "}
+            primary building for that work. If a shipment is handled at the{" "}
             <Link href={hanahanLocation.path} style={linkStyle}>
-              Hanahan
+              {hanahanLocation.query}
             </Link>{" "}
             instead, the list and the phone number do not change.
             Racked pallet positions are published as 3,000+ across both
@@ -514,7 +529,7 @@ export default function LadsonLocationPage() {
               maxWidth: 720,
             }}
           >
-            Published drive distances from Ladson.
+            Published drive distances from the {ladsonLocation.query}.
           </h2>
           <p
             style={{
@@ -531,9 +546,9 @@ export default function LadsonLocationPage() {
             Hanahan&rsquo;s shorter terminal runs are a different set of
             numbers on the{" "}
             <Link href={hanahanLocation.path} style={linkStyle}>
-              Hanahan warehouse page
-            </Link>
-            . Both buildings are still listed on the{" "}
+              {hanahanLocation.query}
+            </Link>{" "}
+            page. Both buildings are still listed on the{" "}
             <Link href="/facility" style={linkStyle}>
               facility page
             </Link>
@@ -611,7 +626,7 @@ export default function LadsonLocationPage() {
               maxWidth: 720,
             }}
           >
-            Ladson warehouse questions.
+            Questions about the {ladsonLocation.query}.
           </h2>
           <div
             style={{

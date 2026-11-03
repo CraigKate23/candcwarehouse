@@ -366,10 +366,12 @@ export default function ServicesPage() {
             cargo, devans containers by hand, reworks overweights into
             highway-legal loads, runs drayage off the SC Ports Authority
             terminals, and ships orders out of a WMS-tracked floor. The
-            primary building is the <LadsonLink>warehouse in Ladson, SC</LadsonLink>{" "}
-            at {ladsonLocation.street}. The secondary building is the{" "}
-            <HanahanLink>warehouse in Hanahan, SC</HanahanLink> at{" "}
-            {hanahanLocation.street}.
+            primary building is the <LadsonLink>{ladsonLocation.query}</LadsonLink>{" "}
+            at {ladsonLocation.street} — warehousing in {ladsonLocation.city},{" "}
+            {ladsonLocation.state}. The secondary building is the{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink> at{" "}
+            {hanahanLocation.street} — warehousing in {hanahanLocation.city},{" "}
+            {hanahanLocation.state}.
           </p>
 
           <div

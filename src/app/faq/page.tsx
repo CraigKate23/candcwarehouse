@@ -110,8 +110,8 @@ const LINKS: { href: string; label: string }[] = [
   { href: "/facility", label: "Facility" },
   { href: terminalsGuidePath, label: "Port of Charleston terminals" },
   { href: fbaGuidePath, label: "Port of Charleston to Amazon FBA" },
-  { href: ladsonLocation.path, label: "Ladson warehouse" },
-  { href: hanahanLocation.path, label: "Hanahan warehouse" },
+  { href: ladsonLocation.path, label: ladsonLocation.query },
+  { href: hanahanLocation.path, label: hanahanLocation.query },
   { href: "/contact", label: "Contact" },
 ];
 

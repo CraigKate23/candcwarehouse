@@ -108,8 +108,8 @@ const RELATED: { href: string; label: string }[] = [
   { href: "/services/devanning", label: "Devanning" },
   { href: "/services/bonded-storage", label: "Bonded storage" },
   { href: "/services/wms", label: "WMS-tracked inventory" },
-  { href: ladsonLocation.path, label: `${ladsonLocation.city} warehouse` },
-  { href: hanahanLocation.path, label: `${hanahanLocation.city} warehouse` },
+  { href: ladsonLocation.path, label: ladsonLocation.query },
+  { href: hanahanLocation.path, label: hanahanLocation.query },
   { href: terminalsGuidePath, label: "Terminal distances" },
   { href: "/quote", label: "Request a quote" },
 ];
@@ -290,16 +290,17 @@ export default function PortOfCharlestonToAmazonFbaPage() {
             }}
           >
             {business.name}, family-run since {business.foundedYear}, keeps
-            two buildings in the Charleston metro. The primary building is{" "}
-            {ladsonLocation.sqft} sq ft at{" "}
+            two buildings in the Charleston metro. The primary building is the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
-              {ladsonLocation.street}, {ladsonLocation.city}
+              {ladsonLocation.query}
             </Link>
-            . The secondary building is {hanahanLocation.sqft} sq ft at{" "}
+            , {ladsonLocation.sqft} sq ft at {ladsonLocation.street},{" "}
+            {ladsonLocation.city}. The secondary building is the{" "}
             <Link href={hanahanLocation.path} style={linkStyle}>
-              {hanahanLocation.street}, {hanahanLocation.city}
+              {hanahanLocation.query}
             </Link>
-            . Together the buildings are 90,000+ sq ft. Both are US Customs
+            , {hanahanLocation.sqft} sq ft at {hanahanLocation.street},{" "}
+            {hanahanLocation.city}. Together the buildings are 90,000+ sq ft. Both are US Customs
             Bonded: a CBP Class 3 bonded warehouse — an importer&apos;s
             private bonded warehouse — and a CBP-designated General Order
             facility. This walkthrough is for an importer whose container
@@ -658,13 +659,13 @@ export default function PortOfCharlestonToAmazonFbaPage() {
             </a>
             . On-hand, aging, in-and-out activity, and bond status are
             pulled on demand. Lot and serial numbers are tracked when the
-            product has them. Both{" "}
+            product has them. Both the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
-              {ladsonLocation.city}
+              {ladsonLocation.query}
             </Link>{" "}
-            and{" "}
+            and the{" "}
             <Link href={hanahanLocation.path} style={linkStyle}>
-              {hanahanLocation.city}
+              {hanahanLocation.query}
             </Link>{" "}
             are on the system. The facility page states 3,000+ racked
             pallet positions across the two buildings, plus floor-load

@@ -2,7 +2,9 @@ import {
   business,
   businessHours,
   hanahanLocation,
+  hanahanOperatingLine,
   ladsonLocation,
+  ladsonOperatingLine,
 } from "./styles";
 
 export const areaServed = [
@@ -57,6 +59,7 @@ export function ladsonBranchJsonLd(siteUrl: string) {
     "@type": ["LocalBusiness", "Place"] as ["LocalBusiness", "Place"],
     "@id": `${siteUrl}/#facility-ladson`,
     name: `${business.name} — Ladson Facility`,
+    description: ladsonOperatingLine,
     url: `${siteUrl}${ladsonLocation.path}`,
     telephone: business.phone,
     email: business.email,
@@ -78,6 +81,7 @@ export function hanahanBranchJsonLd(siteUrl: string) {
     "@type": ["LocalBusiness", "Place"] as ["LocalBusiness", "Place"],
     "@id": `${siteUrl}/#facility-hanahan`,
     name: `${business.name} — Hanahan Facility`,
+    description: hanahanOperatingLine,
     url: `${siteUrl}${hanahanLocation.path}`,
     telephone: business.phone,
     email: business.email,
