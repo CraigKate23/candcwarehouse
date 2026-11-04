@@ -111,7 +111,18 @@ const CAPABILITIES = [
   },
   {
     label: "30 containers/day",
-    body: "Peak throughput across both locations. Devanning, reworking, and cross-dock scaled by product mix.",
+    body: (
+      <>
+        Peak throughput across both locations.{" "}
+        <Link
+          href="/services/devanning"
+          style={{ color: colors.accent, textDecoration: "underline" }}
+        >
+          Container devanning in Charleston
+        </Link>
+        , reworking, and cross-dock scaled by product mix.
+      </>
+    ),
   },
   {
     label: "WMS-tracked inventory",

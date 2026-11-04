@@ -461,7 +461,12 @@ export default function LadsonLocationPage() {
             <Link href="/quote" style={linkStyle}>
               quote form
             </Link>{" "}
-            or by phone.
+            or by phone. Ocean containers on this floor go through{" "}
+            <Link href="/services/devanning" style={linkStyle}>
+              container devanning in Charleston
+            </Link>
+            : a piece-count audit and a signed tally, including a devan
+            under bond on the bonded floor.
           </p>
           <ul
             style={{

@@ -266,7 +266,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
           href="/services/devanning"
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
-          devanning
+          container devanning in Charleston
         </Link>
         ), and the freight moves directly to outbound staging for the
         carriers pulling that day. One handoff instead of three.
@@ -863,7 +863,7 @@ export default function CrossDockPage() {
                       textDecoration: "underline",
                     }}
                   >
-                    devanning
+                    container devanning in Charleston
                   </Link>{" "}
                   — container off the chassis, hand-unloaded on the
                   dock, sorted to outbound staging, gone same day.

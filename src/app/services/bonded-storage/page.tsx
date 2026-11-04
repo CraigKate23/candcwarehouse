@@ -640,7 +640,7 @@ export default function BondedStoragePage() {
               body="Direct moves from SC Ports Authority terminals (Wando Welch, NCT, Leatherman) so the container only changes hands once."
             />
             <CapCard
-              label="Devanning if you need it"
+              label="Unload under bond"
               body={
                 <>
                   Hand-unload bonded containers piece-by-piece with a
@@ -652,7 +652,7 @@ export default function BondedStoragePage() {
                       textDecoration: "underline",
                     }}
                   >
-                    devanning
+                    container devanning in Charleston
                   </Link>{" "}
                   for the full process.
                 </>

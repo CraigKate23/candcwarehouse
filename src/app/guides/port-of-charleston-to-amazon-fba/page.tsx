@@ -105,7 +105,7 @@ const hanahanMiles = buildingMiles(hanahanLocation.drives);
 const RELATED: { href: string; label: string }[] = [
   { href: "/services/fba-prep", label: "Amazon FBA prep" },
   { href: "/services/drayage", label: "Drayage" },
-  { href: "/services/devanning", label: "Devanning" },
+  { href: "/services/devanning", label: "Container devanning in Charleston" },
   { href: "/services/bonded-storage", label: "Bonded storage" },
   { href: "/services/wms", label: "WMS-tracked inventory" },
   { href: ladsonLocation.path, label: ladsonLocation.query },
@@ -311,7 +311,7 @@ export default function PortOfCharlestonToAmazonFbaPage() {
             </Link>
             ,{" "}
             <Link href="/services/devanning" style={linkStyle}>
-              devanning
+              container devanning in Charleston
             </Link>
             ,{" "}
             <Link href="/services/bonded-storage" style={linkStyle}>
@@ -499,9 +499,9 @@ export default function PortOfCharlestonToAmazonFbaPage() {
           <p style={ledeStyle}>
             The{" "}
             <Link href="/services/devanning" style={linkStyle}>
-              devanning page
+              container devanning in Charleston
             </Link>{" "}
-            defines the word the way this warehouse uses it: a hand-unload
+            page defines the word the way this warehouse uses it: a hand-unload
             at the warehouse, not at the terminal, with a piece-count audit
             and exception documentation against the bill of lading. The
             container is photographed, and the seal number is recorded
@@ -697,9 +697,13 @@ export default function PortOfCharlestonToAmazonFbaPage() {
           <div style={eyebrow}>Related pages</div>
           <h2 style={h2Style}>The pages this walkthrough is drawn from.</h2>
           <p style={ledeStyle}>
-            Drayage, devanning, bonded storage, and FBA prep each have
-            their own page. So do the two buildings, the published
-            terminal miles, and the quote form.
+            Drayage,{" "}
+            <Link href="/services/devanning" style={linkStyle}>
+              container devanning in Charleston
+            </Link>
+            , bonded storage, and FBA prep each have their own page. So do
+            the two buildings, the published terminal miles, and the quote
+            form.
           </p>
           <ul
             style={{

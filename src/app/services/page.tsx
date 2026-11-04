@@ -582,7 +582,9 @@ export default function ServicesPage() {
                       textDecoration: "none",
                     }}
                   >
-                    Full {s.title.toLowerCase()} details →
+                    {s.id === "devanning"
+                      ? "Container devanning in Charleston →"
+                      : `Full ${s.title.toLowerCase()} details →`}
                   </Link>
                 )}
               </article>

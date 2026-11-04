@@ -462,7 +462,13 @@ export default function HanahanLocationPage() {
             <Link href="/quote" style={linkStyle}>
               quote form
             </Link>{" "}
-            or by phone.
+            or by phone. When a load is handled at this building, the
+            ocean-container unload is{" "}
+            <Link href="/services/devanning" style={linkStyle}>
+              container devanning in Charleston
+            </Link>
+            : a piece-count audit and a signed tally, including a devan
+            under bond on the bonded floor.
           </p>
           <ul
             style={{
