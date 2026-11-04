@@ -524,7 +524,11 @@ export default function PortOfCharlestonTerminalsPage() {
           >
             Drayage from Wando Welch, NCT, and Leatherman is the short-haul
             between those terminals and the warehouse. Bonded storage,
-            General Order, devanning, overweight container reworking, and{" "}
+            General Order,{" "}
+            <Link href="/services/devanning" style={linkStyle}>
+              container devanning in Charleston
+            </Link>
+            , overweight container reworking, and{" "}
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock in Charleston
             </Link>{" "}
@@ -549,7 +553,14 @@ export default function PortOfCharlestonTerminalsPage() {
           >
             {relatedServices.map((service) => (
               <li key={service.href}>
-                <TextLink href={service.href} label={service.label} />
+                <TextLink
+                  href={service.href}
+                  label={
+                    service.href === "/services/devanning"
+                      ? "Container devanning in Charleston"
+                      : service.label
+                  }
+                />
               </li>
             ))}
             <li>

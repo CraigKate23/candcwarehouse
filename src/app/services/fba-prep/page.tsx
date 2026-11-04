@@ -161,7 +161,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
           href="/services/devanning"
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
-          Devanning details here.
+          Container devanning in Charleston
         </Link>
       </>
     ),
@@ -631,7 +631,7 @@ export default function FbaPrepPage() {
               body={
                 <>
                   Your import lands at Wando Welch, NCT, or Leatherman. We
-                  dray it, hand-unload it with a{" "}
+                  dray it, hand-unload it with a piece-count audit (
                   <Link
                     href="/services/devanning"
                     style={{
@@ -639,9 +639,9 @@ export default function FbaPrepPage() {
                       textDecoration: "underline",
                     }}
                   >
-                    piece-count audit
+                    container devanning in Charleston
                   </Link>
-                  , prep it, and forward it — no second warehouse, no
+                  ), prep it, and forward it — no second warehouse, no
                   freight leg between your devan provider and your prep
                   center.
                 </>

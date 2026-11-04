@@ -239,7 +239,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
           href="/services/devanning"
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
-          devanning
+          container devanning in Charleston
         </Link>{" "}
         for the unload-and-audit pattern.
       </>

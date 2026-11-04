@@ -101,12 +101,12 @@ export default function DeconsolidationPage() {
             <LadsonLink>Ladson</LadsonLink> or <HanahanLink>Hanahan</HanahanLink>, sort it by customer,
             store, or region, and
             tender separate outbound shipments. Floor-loaded boxes start
-            with a{" "}
+            with a piece-count unload —{" "}
             <Link
               href="/services/devanning"
               style={{ color: colors.accent, textDecoration: "underline" }}
             >
-              piece-count devan
+              container devanning in Charleston
             </Link>
             . Same-day turns that should not dwell at all belong on{" "}
             <Link

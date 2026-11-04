@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
+import { areaServed } from "../../components/structured-data";
 import {
   business,
   buttonPrimary,
@@ -10,6 +12,9 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
+  ladsonLocation,
+  terminalsGuidePath,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -33,12 +38,18 @@ const placeholder = {
 // detail, and FAQ. Devanning is one of the things C&C is best known for —
 // piece-count audits and damage documentation on hand-unloaded containers.
 
+// Absolute title so the layout template does not append another brand
+// suffix. The three query phrases lead: container devanning, Charleston, SC,
+// and the Port of Charleston.
+const TITLE = "Container Devanning in Charleston, SC | Port of Charleston";
+const DESCRIPTION =
+  "Container devanning in Charleston, SC near the Port of Charleston. Piece-count audit, signed tally, and bonded-floor unload at C&C Warehouse.";
+
 export const metadata: Metadata = {
   title: {
-    absolute: "Container Devanning Charleston SC | Piece-Count Audit | C&C",
+    absolute: TITLE,
   },
-  description:
-    "Hand-unload containers piece-by-piece at C&C Warehouse in Ladson, SC. Documented piece counts, photographed exceptions, and damage notes against your bill of lading — minutes from the Port of Charleston.",
+  description: DESCRIPTION,
   alternates: {
     canonical: "/services/devanning",
   },
@@ -47,9 +58,8 @@ export const metadata: Metadata = {
     siteName: business.name,
     locale: "en_US",
     url: "/services/devanning",
-    title: "Container Devanning Charleston SC | Piece-Count Audit | C&C",
-    description:
-      "Piece-by-piece container unload with documented counts, damage notes, and photographed exceptions — minutes from the Port of Charleston.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: [
       {
         url: "/images/og-default.jpg",
@@ -68,29 +78,15 @@ const serviceJsonLd = {
   "@type": "Service",
   "@id": "https://www.candcwarehouse.com/services/devanning#service",
   "serviceType": "Container Devanning",
-  "name": "Container Devanning at the Port of Charleston",
+  "name": "Container Devanning in Charleston, SC at the Port of Charleston",
+  "description": DESCRIPTION,
   "url": "https://www.candcwarehouse.com/services/devanning",
+  // Same #localbusiness node the root layout emits. That node's
+  // parentOrganization is the legal entity at #organization.
   "provider": {
     "@id": "https://www.candcwarehouse.com/#localbusiness"
   },
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Charleston"
-    },
-    {
-      "@type": "City",
-      "name": "North Charleston"
-    },
-    {
-      "@type": "City",
-      "name": "Mount Pleasant"
-    },
-    {
-      "@type": "AdministrativeArea",
-      "name": "South Carolina"
-    }
-  ],
+  "areaServed": areaServed,
   "audience": {
     "@type": "BusinessAudience",
     "name": "Importers, freight forwarders, and customs brokers using the Port of Charleston"
@@ -136,6 +132,46 @@ const WHEN_TO_USE: { label: string; body: string }[] = [
   {
     label: "Mixed-SKU consolidations",
     body: "Multi-SKU or multi-PO containers benefit from a sort-as-you-unload pass so each SKU lands on its own pallet (or rack location) instead of being broken back out later.",
+  },
+];
+
+type PublishedDrive = {
+  label: string;
+  name: string;
+  about: string;
+  route: string;
+  distance: string;
+};
+
+function oceanDrives(drives: readonly PublishedDrive[]) {
+  return drives.filter((drive) => drive.label !== "Inland Port Greer");
+}
+
+function oceanMilesSentence(drives: readonly PublishedDrive[]) {
+  return oceanDrives(drives)
+    .map((drive) => {
+      const route = drive.route.endsWith(".")
+        ? drive.route.slice(0, -1)
+        : drive.route;
+      return `${drive.name} is ${drive.about}, ${route}`;
+    })
+    .join(". ");
+}
+
+// Plain-text answers. The visible FAQ and the FAQPage JSON-LD both read
+// these strings, so the two copies cannot drift.
+const WHERE_ANSWER = `Container devanning in Charleston, SC is done at two buildings. The primary building is ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. The secondary building is ${hanahanLocation.sqft} sq ft at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. Ladson and Hanahan are in the Charleston metro, the same metro as North Charleston, Summerville, and Goose Creek. The unload is at those two warehouse addresses.`;
+
+const PORT_ANSWER = `Yes. We dray the container from Wando Welch, North Charleston Terminal, and Hugh K. Leatherman, then hand-unload it with a piece-count audit and a signed tally. Published drive distances from ${ladsonLocation.city}: ${oceanMilesSentence(ladsonLocation.drives)}. From ${hanahanLocation.city}: ${oceanMilesSentence(hanahanLocation.drives)}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals. Peak throughput is 30 containers/day, scaled by container type and product mix. Bonded containers can be devanned on the bonded floor without breaking the bond.`;
+
+const PORT_FAQS: { q: string; a: string }[] = [
+  {
+    q: "Where do you do container devanning in Charleston, SC?",
+    a: WHERE_ANSWER,
+  },
+  {
+    q: "Can you devan containers from the Port of Charleston?",
+    a: PORT_ANSWER,
   },
 ];
 
@@ -220,6 +256,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
       </>
     ),
   },
+  ...PORT_FAQS,
 ];
 
 // FAQPage JSON-LD built verbatim from the on-page FAQ copy below
@@ -301,7 +338,15 @@ const faqJsonLd = {
         "@type": "Answer",
         "text": "General merchandise — palletized goods, floor-loaded cartons, automotive parts, consumer goods, industrial equipment, drums and totes. We don't handle hazardous materials, cold-chain, or live animals. If you're not sure whether your cargo fits, call and we'll tell you straight."
       }
-    }
+    },
+    ...PORT_FAQS.map((item) => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a,
+      },
+    })),
   ]
 };
 
@@ -311,17 +356,17 @@ export default function DevanningPage() {
       <script
         type="application/ld+json"
         id="service-jsonld"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(serviceJsonLd) }}
       />
       <script
         type="application/ld+json"
         id="faq-jsonld"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(faqJsonLd) }}
       />
       <script
         type="application/ld+json"
         id="breadcrumb-jsonld"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(breadcrumbJsonLd) }}
       />
       {/* Hero */}
       <section
@@ -391,12 +436,15 @@ export default function DevanningPage() {
               maxWidth: 760,
             }}
           >
-            We devan ocean containers piece by piece, audit the count against
-            your bill of lading as we go, and photograph any exception we
-            find. You get a signed tally and a clean exception report the
-            same day — minutes from the Port of Charleston, since{" "}
-            {business.foundedYear}. The floor is our{" "}
-            <LadsonLink>warehouse in Ladson, SC</LadsonLink>.
+            Container devanning here is a hand-unload of ocean containers
+            piece by piece. We audit the count against your bill of lading
+            as we go and photograph any exception we find. You get a signed
+            tally and a clean exception report the same day — minutes from
+            the Port of Charleston, since {business.foundedYear}. The
+            primary floor is our{" "}
+            <LadsonLink>warehouse in Ladson, SC</LadsonLink>. The secondary
+            floor is the{" "}
+            <HanahanLink>{hanahanLocation.facilityName}</HanahanLink>.
           </p>
 
           <div
@@ -439,6 +487,119 @@ export default function DevanningPage() {
               value="Class 3 — devan under bond"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Charleston and the port — facts already published on /facility,
+          the location pages, and the terminals guide. */}
+      <section
+        style={{
+          padding: "56px 0",
+          borderTop: `1px solid ${colors.line}`,
+        }}
+      >
+        <div style={container}>
+          <div style={eyebrow}>Port of Charleston</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3vw, 34px)",
+              fontWeight: 700,
+              marginTop: 10,
+              maxWidth: 760,
+            }}
+          >
+            Container devanning in Charleston, SC, from both buildings.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            Container devanning in Charleston runs from two floors in the
+            Charleston metro, minutes from the Port of Charleston. The
+            primary building is the{" "}
+            <LadsonLink>{ladsonLocation.facilityName}</LadsonLink>,{" "}
+            {ladsonLocation.sqft} sq ft at {ladsonLocation.street},{" "}
+            {ladsonLocation.city}, {ladsonLocation.state}{" "}
+            {ladsonLocation.postal}. The secondary building is the{" "}
+            <HanahanLink>{hanahanLocation.facilityName}</HanahanLink>,{" "}
+            {hanahanLocation.sqft} sq ft at {hanahanLocation.street},{" "}
+            {hanahanLocation.city}, {hanahanLocation.state}{" "}
+            {hanahanLocation.postal}. Ladson and Hanahan are in that metro
+            with North Charleston, Summerville, and Goose Creek. The unload
+            is at those two warehouse addresses. Inbound{" "}
+            <Link
+              href="/services/drayage"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              drayage
+            </Link>{" "}
+            is from Wando Welch, North Charleston Terminal, and Hugh K.
+            Leatherman. Each container gets a piece-count audit against the
+            bill of lading and a signed tally. Bonded containers are
+            devanned on the bonded floor — see{" "}
+            <Link
+              href="/services/bonded-storage"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              bonded storage
+            </Link>
+            . The miles below are the per-building figures already published
+            on the{" "}
+            <Link
+              href="/facility"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              facility page
+            </Link>{" "}
+            and the{" "}
+            <Link
+              href={terminalsGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
+          </p>
+          <div
+            style={{
+              marginTop: 28,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 18,
+            }}
+          >
+            <OceanMiles
+              heading="Ladson — primary building"
+              href={ladsonLocation.path}
+              drives={ladsonLocation.drives}
+            />
+            <OceanMiles
+              heading="Hanahan — closer to the terminals"
+              href={hanahanLocation.path}
+              drives={hanahanLocation.drives}
+            />
+          </div>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 18,
+              maxWidth: 760,
+            }}
+          >
+            Both facilities sit within 25 miles of all three SC Ports
+            Authority ocean terminals. Peak throughput is 30 containers/day,
+            scaled by container type and product mix.
+          </p>
         </div>
       </section>
 
@@ -863,6 +1024,74 @@ export default function DevanningPage() {
         </div>
       </section>
     </>
+  );
+}
+
+function jsonLdHtml(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+function OceanMiles({
+  heading,
+  href,
+  drives,
+}: {
+  heading: string;
+  href: string;
+  drives: readonly PublishedDrive[];
+}) {
+  return (
+    <div
+      style={{
+        background: colors.paper,
+        border: `1px solid ${colors.line}`,
+        borderRadius: 12,
+        padding: 20,
+      }}
+    >
+      <h3
+        style={{
+          fontFamily: fonts.heading,
+          fontSize: 18,
+          fontWeight: 600,
+          margin: 0,
+        }}
+      >
+        <Link
+          href={href}
+          style={{ color: colors.ink, textDecoration: "underline" }}
+        >
+          {heading}
+        </Link>
+      </h3>
+      <dl style={{ margin: "14px 0 0" }}>
+        {oceanDrives(drives).map((drive) => (
+          <div key={drive.label} style={{ marginTop: 10 }}>
+            <dt
+              style={{
+                fontFamily: fonts.heading,
+                fontSize: 15,
+                fontWeight: 600,
+                color: colors.ink,
+              }}
+            >
+              {drive.name}
+            </dt>
+            <dd
+              style={{
+                margin: "4px 0 0",
+                fontFamily: fonts.body,
+                fontSize: 14.5,
+                lineHeight: 1.5,
+                color: colors.steel,
+              }}
+            >
+              {drive.distance} — {drive.route}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
 
