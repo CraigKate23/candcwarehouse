@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { business, ladsonLocation } from "./components/styles";
 import {
   areaServed,
+  facilityRefs,
   geoCoordinates,
   hanahanBranchJsonLd,
   ladsonBranchJsonLd,
@@ -109,9 +110,11 @@ export const viewport: Viewport = {
 // Two physical facilities — Ladson (primary) and Hanahan (secondary).
 // Both are CBP Class 3 Bonded and GO-designated. Schema-wise we expose
 // the parent Organization as the @id used across pages, with two
-// LocalBusiness branches keyed by their street addresses. Service-level
+// LocalBusiness branches keyed by their street addresses. Each branch
+// is a location and a sub-organization of that entity. Service-level
 // pages reference @id "#localbusiness" (the parent) as their provider so
 // the Service schema doesn't need to repeat addresses.
+const facilities = facilityRefs(SITE_URL);
 const ORG_ID = `${SITE_URL}/#organization`;
 const LOCAL_BIZ_ID = `${SITE_URL}/#localbusiness`;
 const sharedKnowsAbout = [
@@ -129,9 +132,9 @@ const ladsonBranch = ladsonBranchJsonLd(SITE_URL);
 const hanahanBranch = hanahanBranchJsonLd(SITE_URL);
 
 // Primary LocalBusiness node referenced by Service schema across the site
-// as `provider`. Points at the Ladson address (the primary facility),
-// with the Hanahan branch surfaced via `department` plus a separate
-// Place node above.
+// as `provider`. Points at the Ladson address (the primary facility).
+// Both buildings are departments of this node; each also has its own
+// Place node, linked below, and its own page.
 const localBusinessNode = {
   "@type": ["LocalBusiness", "Organization"],
   "@id": LOCAL_BIZ_ID,
@@ -150,7 +153,7 @@ const localBusinessNode = {
   openingHoursSpecification: openingHoursSpecification(),
   areaServed,
   knowsAbout: sharedKnowsAbout,
-  department: [{ "@id": `${SITE_URL}/#facility-hanahan` }],
+  department: facilities,
   parentOrganization: { "@id": ORG_ID },
 };
 
@@ -163,6 +166,8 @@ const organizationNode = {
   foundingDate: `${business.foundedYear}`,
   email: business.email,
   telephone: business.phone,
+  location: facilities,
+  subOrganization: facilities,
   contactPoint: [
     {
       "@type": "ContactPoint",

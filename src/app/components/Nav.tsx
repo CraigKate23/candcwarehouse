@@ -33,15 +33,19 @@ export default function Nav() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 64,
+          minHeight: 64,
+          flexWrap: "wrap",
           gap: 12,
+          paddingTop: 10,
+          paddingBottom: 10,
         }}
       >
         <div
           style={{
             display: "inline-flex",
             alignItems: "baseline",
-            gap: 10,
+            gap: 12,
+            flexWrap: "wrap",
           }}
         >
           <Link
@@ -60,30 +64,30 @@ export default function Nav() {
           <Link
             href={ladsonLocation.path}
             style={{
-              fontFamily: fonts.mono,
-              fontSize: 11,
+              fontFamily: fonts.body,
+              fontSize: 13,
+              fontWeight: 500,
               color: colors.accent,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
+              letterSpacing: "0.01em",
               textDecoration: "underline",
               textUnderlineOffset: 3,
             }}
           >
-            {ladsonLocation.city}, {ladsonLocation.state}
+            {ladsonLocation.query}
           </Link>
           <Link
             href={hanahanLocation.path}
             style={{
-              fontFamily: fonts.mono,
-              fontSize: 11,
+              fontFamily: fonts.body,
+              fontSize: 13,
+              fontWeight: 500,
               color: colors.accent,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
+              letterSpacing: "0.01em",
               textDecoration: "underline",
               textUnderlineOffset: 3,
             }}
           >
-            {hanahanLocation.city}, {hanahanLocation.state}
+            {hanahanLocation.query}
           </Link>
         </div>
 

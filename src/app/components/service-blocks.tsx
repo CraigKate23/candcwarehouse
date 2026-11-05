@@ -9,6 +9,7 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
   ladsonLocation,
 } from "./styles";
 
@@ -516,14 +517,23 @@ export function ServiceClose({
             <Fact label="Founded" value={`${business.foundedYear}`} />
             <Fact label="Ownership" value="Family-run" />
             <Fact
-              label="Location"
+              label="Locations"
               value={
-                <Link
-                  href={ladsonLocation.path}
-                  style={{ color: colors.ink, textDecoration: "underline" }}
-                >
-                  {business.city}, {business.state}
-                </Link>
+                <>
+                  <Link
+                    href={ladsonLocation.path}
+                    style={{ color: colors.ink, textDecoration: "underline" }}
+                  >
+                    {ladsonLocation.query}
+                  </Link>
+                  {" · "}
+                  <Link
+                    href={hanahanLocation.path}
+                    style={{ color: colors.ink, textDecoration: "underline" }}
+                  >
+                    {hanahanLocation.query}
+                  </Link>
+                </>
               }
             />
             <Fact label="CBP status" value="Class 3 Bonded" />

@@ -164,7 +164,7 @@ export default function Home() {
               <Stat label="Team experience" value={`${business.teamExperienceYears}+ yrs`} />
               <Stat
                 label="Location"
-                value={`${business.city}, ${business.state}`}
+                value={ladsonLocation.query}
                 href={ladsonLocation.path}
               />
               <Stat label="Ownership" value="Family-run" />

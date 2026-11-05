@@ -442,9 +442,8 @@ export default function DevanningPage() {
             tally and a clean exception report the same day — minutes from
             the Port of Charleston, since {business.foundedYear}. The
             primary floor is our{" "}
-            <LadsonLink>warehouse in Ladson, SC</LadsonLink>. The secondary
-            floor is the{" "}
-            <HanahanLink>{hanahanLocation.facilityName}</HanahanLink>.
+            <LadsonLink>{ladsonLocation.query}</LadsonLink>. The secondary
+            floor is the <HanahanLink>{hanahanLocation.query}</HanahanLink>.
           </p>
 
           <div
@@ -524,11 +523,11 @@ export default function DevanningPage() {
             Container devanning in Charleston runs from two floors in the
             Charleston metro, minutes from the Port of Charleston. The
             primary building is the{" "}
-            <LadsonLink>{ladsonLocation.facilityName}</LadsonLink>,{" "}
+            <LadsonLink>{ladsonLocation.query}</LadsonLink>,{" "}
             {ladsonLocation.sqft} sq ft at {ladsonLocation.street},{" "}
             {ladsonLocation.city}, {ladsonLocation.state}{" "}
             {ladsonLocation.postal}. The secondary building is the{" "}
-            <HanahanLink>{hanahanLocation.facilityName}</HanahanLink>,{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink>,{" "}
             {hanahanLocation.sqft} sq ft at {hanahanLocation.street},{" "}
             {hanahanLocation.city}, {hanahanLocation.state}{" "}
             {hanahanLocation.postal}. Ladson and Hanahan are in that metro
