@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
@@ -10,6 +11,8 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
+  ladsonLocation,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -390,8 +393,9 @@ export default function BondedStoragePage() {
             Hold imported cargo on bond so duty isn&rsquo;t owed until you&rsquo;re
             ready to enter it for consumption. C&amp;C is a CBP-designated
             Class 3 bonded warehouse — the importer&rsquo;s private bonded
-            classification — operating in <LadsonLink>Ladson, SC</LadsonLink> since{" "}
-            {business.foundedYear}.
+            classification — family-run since {business.foundedYear}. Bonded
+            storage runs at the <LadsonLink>{ladsonLocation.query}</LadsonLink>{" "}
+            and the <HanahanLink>{hanahanLocation.query}</HanahanLink>.
           </p>
 
           <div

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
-import { business, colors } from "../../components/styles";
+import { business, colors, hanahanLocation, ladsonLocation } from "../../components/styles";
 import {
   CardGrid,
   FactStrip,
@@ -97,7 +97,8 @@ export default function PickPackPage() {
         lede={
           <>
             Bulk lands at the Port of Charleston. Orders leave as parcel or
-            LTL from <LadsonLink>Ladson</LadsonLink> and <HanahanLink>Hanahan</HanahanLink>. Picks are routed off the{" "}
+            LTL from the <LadsonLink>{ladsonLocation.query}</LadsonLink> and the{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink>. Picks are routed off the{" "}
             <Link
               href="/services/wms"
               style={{ color: colors.accent, textDecoration: "underline" }}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
@@ -11,6 +12,8 @@ import {
   eyebrow,
   fbaGuidePath,
   fonts,
+  hanahanLocation,
+  ladsonLocation,
 } from "../../components/styles";
 
 // Sixth dedicated service sub-page. Mirrors the structure of
@@ -377,8 +380,10 @@ export default function FbaPrepPage() {
             inventory at its fulfillment centers — everything you send must
             arrive prepped. We inspect, label, bag, bundle, and forward your
             product to Amazon&rsquo;s network, from the same dock where your
-            container lands. Minutes from the Port of Charleston, inside a
-            CBP Class 3 bonded warehouse in <LadsonLink>Ladson, SC</LadsonLink>.
+            container lands. Minutes from the Port of Charleston, at the{" "}
+            <LadsonLink>{ladsonLocation.query}</LadsonLink> and the{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink>. C&amp;C is a
+            CBP Class 3 bonded warehouse in both cities.
           </p>
           <p
             style={{

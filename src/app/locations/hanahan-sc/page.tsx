@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JsonLd, faqJsonLd } from "../../components/service-blocks";
-import { hanahanBranchJsonLd } from "../../components/structured-data";
+import { locationPageJsonLd } from "../../components/structured-data";
 import {
   business,
   businessHours,
@@ -24,7 +24,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
 const TITLE = `${hanahanLocation.heading} | ${hanahanLocation.warehousing} | C&C`;
-const DESCRIPTION = `Hanahan SC warehouse at ${hanahanLocation.street}: operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${business.phoneDisplay}.`;
+const DESCRIPTION = `Hanahan SC warehouse at ${hanahanLocation.street}: ${hanahanLocation.sqft} sq ft, CBP Class 3 bonded and General Order, not space for lease. ${business.phoneDisplay}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -77,35 +77,10 @@ const FAQ: { q: string; a: string }[] = [
   },
 ];
 
-const breadcrumb = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: SITE_URL,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Facility",
-      item: `${SITE_URL}/facility`,
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Hanahan",
-      item: `${SITE_URL}${PATH}`,
-    },
-  ],
-};
-
-const placeJsonLd = {
-  "@context": "https://schema.org",
-  ...hanahanBranchJsonLd(SITE_URL),
-};
+const pageJsonLd = locationPageJsonLd(SITE_URL, "hanahan", {
+  name: TITLE,
+  description: DESCRIPTION,
+});
 
 const linkStyle = {
   color: colors.accent,
@@ -115,9 +90,8 @@ const linkStyle = {
 export default function HanahanLocationPage() {
   return (
     <>
-      <JsonLd id="place-jsonld" data={placeJsonLd} />
+      <JsonLd id="location-jsonld" data={pageJsonLd} />
       <JsonLd id="faq-jsonld" data={faqJsonLd(FAQ)} />
-      <JsonLd id="breadcrumb-jsonld" data={breadcrumb} />
 
       <section
         style={{
@@ -149,7 +123,7 @@ export default function HanahanLocationPage() {
               Facility
             </Link>
             <span style={{ margin: "0 10px", color: colors.line }}>/</span>
-            <span style={{ color: colors.accent }}>Hanahan</span>
+            <span style={{ color: colors.accent }}>{hanahanLocation.query}</span>
           </nav>
 
           <div style={eyebrow}>

@@ -484,9 +484,9 @@ export default function CrossDockPage() {
               maxWidth: 760,
             }}
           >
-            Same-day cross-dock in Charleston at our{" "}
-            <LadsonLink>Ladson</LadsonLink> and{" "}
-            <HanahanLink>Hanahan</HanahanLink> buildings — receive, sort,
+            Same-day cross-dock in Charleston at the{" "}
+            <LadsonLink>{ladsonLocation.query}</LadsonLink> and the{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink> — receive, sort,
             and tender freight back out without warehousing it in
             between. Inbound drayage runs from Wando Welch, North
             Charleston Terminal, and Hugh K. Leatherman. Built for retail
@@ -566,9 +566,9 @@ export default function CrossDockPage() {
           >
             Cross-dock in Charleston runs from both floors. The primary
             building is the{" "}
-            <LadsonLink>{ladsonLocation.facilityName}</LadsonLink>,{" "}
+            <LadsonLink>{ladsonLocation.query}</LadsonLink>,{" "}
             {ladsonLocation.sqft} sq ft at {ladsonLocation.street}. The{" "}
-            <HanahanLink>{hanahanLocation.facilityName}</HanahanLink>,{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink>,{" "}
             {hanahanLocation.sqft} sq ft at {hanahanLocation.street}, is
             closer to the port terminals — the shortest drayage runs in
             our network. Inventory moves between both buildings as needed.

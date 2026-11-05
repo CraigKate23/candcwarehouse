@@ -155,7 +155,7 @@ export default function ContactPage() {
                   href={f.path}
                   style={{ ...eyebrow, textDecoration: "underline" }}
                 >
-                  {f.label}
+                  {f.query}
                 </Link>
                 <h2
                   style={{

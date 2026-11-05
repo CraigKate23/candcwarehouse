@@ -167,7 +167,21 @@ export default function FaqPage() {
             Short answers from what this site already states. Square footage,
             terminal miles, and the service list match the facility and
             services pages. Fees that are not printed there are not printed
-            here either. Per-building terminal miles are also on the{" "}
+            here either. The buildings are the{" "}
+            <Link
+              href={ladsonLocation.path}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              {ladsonLocation.query}
+            </Link>{" "}
+            and the{" "}
+            <Link
+              href={hanahanLocation.path}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              {hanahanLocation.query}
+            </Link>
+            . Per-building terminal miles are also on the{" "}
             <Link
               href={terminalsGuidePath}
               style={{ color: colors.accent, textDecoration: "underline" }}

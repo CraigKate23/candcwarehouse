@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { JsonLd, faqJsonLd } from "../../components/service-blocks";
-import { ladsonBranchJsonLd } from "../../components/structured-data";
+import { locationPageJsonLd } from "../../components/structured-data";
 import {
   business,
   businessHours,
@@ -77,35 +77,10 @@ const FAQ: { q: string; a: string }[] = [
   },
 ];
 
-const breadcrumb = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: SITE_URL,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Facility",
-      item: `${SITE_URL}/facility`,
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Ladson",
-      item: `${SITE_URL}${PATH}`,
-    },
-  ],
-};
-
-const placeJsonLd = {
-  "@context": "https://schema.org",
-  ...ladsonBranchJsonLd(SITE_URL),
-};
+const pageJsonLd = locationPageJsonLd(SITE_URL, "ladson", {
+  name: TITLE,
+  description: DESCRIPTION,
+});
 
 const linkStyle = {
   color: colors.accent,
@@ -115,9 +90,8 @@ const linkStyle = {
 export default function LadsonLocationPage() {
   return (
     <>
-      <JsonLd id="place-jsonld" data={placeJsonLd} />
+      <JsonLd id="location-jsonld" data={pageJsonLd} />
       <JsonLd id="faq-jsonld" data={faqJsonLd(FAQ)} />
-      <JsonLd id="breadcrumb-jsonld" data={breadcrumb} />
 
       <section
         style={{
@@ -149,7 +123,7 @@ export default function LadsonLocationPage() {
               Facility
             </Link>
             <span style={{ margin: "0 10px", color: colors.line }}>/</span>
-            <span style={{ color: colors.accent }}>Ladson</span>
+            <span style={{ color: colors.accent }}>{ladsonLocation.query}</span>
           </nav>
 
           <div style={eyebrow}>

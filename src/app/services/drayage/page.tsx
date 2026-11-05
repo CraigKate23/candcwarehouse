@@ -11,6 +11,8 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
+  ladsonLocation,
   terminalsGuidePath,
 } from "../../components/styles";
 
@@ -153,7 +155,8 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
         terminal and a nearby destination — typically a warehouse, a
         rail ramp, or an inland DC. It&rsquo;s a separate leg from the
         long-haul outbound. We handle the port-to-warehouse leg out of
-        the SC Ports Authority terminals into our Ladson, SC facility.
+        the SC Ports Authority terminals into our Ladson and Hanahan
+        buildings.
       </>
     ),
   },
@@ -161,8 +164,8 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
     q: "How far is your facility from the terminals?",
     a: (
       <>
-        We have two facilities — one in <LadsonLink>Ladson</LadsonLink> and one in{" "}
-        <HanahanLink>Hanahan</HanahanLink> — both
+        We have two facilities — the <LadsonLink>{ladsonLocation.query}</LadsonLink> and the{" "}
+        <HanahanLink>{hanahanLocation.query}</HanahanLink> — both
         minutes from all three SC Ports Authority container terminals.
         Approximate drive distances: Wando Welch ~16–24 miles, North
         Charleston Terminal ~7–14 miles, and Hugh K. Leatherman ~6–14
@@ -284,7 +287,7 @@ const faqJsonLd = {
       "name": "What is drayage?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Drayage is the short-haul truck move between an ocean container terminal and a nearby destination — typically a warehouse, a rail ramp, or an inland DC. It's a separate leg from the long-haul outbound. We handle the port-to-warehouse leg out of the SC Ports Authority terminals into our Ladson, SC facility."
+        "text": "Drayage is the short-haul truck move between an ocean container terminal and a nearby destination — typically a warehouse, a rail ramp, or an inland DC. It's a separate leg from the long-haul outbound. We handle the port-to-warehouse leg out of the SC Ports Authority terminals into our Ladson and Hanahan buildings."
       }
     },
     {
@@ -292,7 +295,7 @@ const faqJsonLd = {
       "name": "How far is your facility from the terminals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We have two facilities — one in Ladson and one in Hanahan — both minutes from all three SC Ports Authority container terminals. Approximate drive distances: Wando Welch ~16-24 miles, North Charleston Terminal ~7-14 miles, and Hugh K. Leatherman ~6-14 miles. The short distances keep per-container drayage cost down vs. inland DCs that have to drag containers across the metro."
+        "text": "We have two facilities — the Ladson SC warehouse and the Hanahan SC warehouse — both minutes from all three SC Ports Authority container terminals. Approximate drive distances: Wando Welch ~16-24 miles, North Charleston Terminal ~7-14 miles, and Hugh K. Leatherman ~6-14 miles. The short distances keep per-container drayage cost down vs. inland DCs that have to drag containers across the metro."
       }
     },
     {
@@ -416,8 +419,9 @@ export default function DrayagePage() {
             }}
           >
             Short-haul container drayage between Wando Welch, North
-            Charleston Terminal, Hugh K. Leatherman, and our bonded
-            warehouse in <LadsonLink>Ladson, SC</LadsonLink>. In-bond capable, heavy-haul
+            Charleston Terminal, Hugh K. Leatherman, and our{" "}
+            <LadsonLink>{ladsonLocation.query}</LadsonLink> and{" "}
+            <HanahanLink>{hanahanLocation.query}</HanahanLink>. In-bond capable, heavy-haul
             chassis on call, same crew unloads at the dock — since{" "}
             {business.foundedYear}.
           </p>

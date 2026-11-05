@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
 import {
   business,
@@ -10,6 +11,8 @@ import {
   container,
   eyebrow,
   fonts,
+  hanahanLocation,
+  ladsonLocation,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -402,7 +405,8 @@ export default function OverweightReworkingPage() {
             and tendered with BOLs and weight tickets ready for the
             driver. One of the things C&amp;C is best known for, since{" "}
             {business.foundedYear}. The dock is our{" "}
-            <LadsonLink>warehouse in Ladson, SC</LadsonLink>.
+            <LadsonLink>{ladsonLocation.query}</LadsonLink>. A load can also
+            be handled at the <HanahanLink>{hanahanLocation.query}</HanahanLink>.
           </p>
 
           <div
