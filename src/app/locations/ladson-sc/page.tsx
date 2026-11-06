@@ -539,7 +539,12 @@ export default function LadsonLocationPage() {
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock in Charleston
             </Link>{" "}
-            on this floor. Both buildings&rsquo; miles, side by side, are on the{" "}
+            on this floor. When one inbound ocean container has to become
+            several outbound shipments, that split is{" "}
+            <Link href="/services/deconsolidation" style={linkStyle}>
+              container deconsolidation Charleston
+            </Link>
+            . Both buildings&rsquo; miles, side by side, are on the{" "}
             <Link href={terminalsGuidePath} style={linkStyle}>
               Port of Charleston terminals
             </Link>{" "}

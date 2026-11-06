@@ -354,7 +354,9 @@ export default function Home() {
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  {s.label}
+                  {s.href === "/services/deconsolidation"
+                    ? "Container deconsolidation Charleston"
+                    : s.label}
                 </Link>
               </li>
             ))}

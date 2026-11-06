@@ -103,7 +103,7 @@ const LINKS: { href: string; label: string }[] = [
   { href: "/services/overweight-reworking", label: "Overweight reworking" },
   { href: "/services/drayage", label: "Drayage" },
   { href: "/services/cross-dock", label: "Cross-dock" },
-  { href: "/services/deconsolidation", label: "Deconsolidation" },
+  { href: "/services/deconsolidation", label: "Container deconsolidation Charleston" },
   { href: "/services/wms", label: "WMS inventory" },
   { href: "/services/pick-pack", label: "Pick and pack" },
   { href: "/services/fba-prep", label: "FBA prep" },

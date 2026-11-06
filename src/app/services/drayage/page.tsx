@@ -669,6 +669,14 @@ export default function DrayagePage() {
                   >
                     cross-dock in Charleston
                   </Link>
+                  . A consolidated container that has to become several
+                  outbound shipments is{" "}
+                  <Link
+                    href="/services/deconsolidation"
+                    style={{ color: colors.accent, textDecoration: "underline" }}
+                  >
+                    Port of Charleston deconsolidation
+                  </Link>
                   .
                 </>
               }
