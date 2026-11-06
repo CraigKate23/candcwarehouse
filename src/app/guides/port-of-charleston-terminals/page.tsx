@@ -110,6 +110,7 @@ const RELATED_HREFS = [
   "/services/devanning",
   "/services/overweight-reworking",
   "/services/cross-dock",
+  "/services/deconsolidation",
 ];
 
 const relatedServices = RELATED_HREFS.map((href) => {
@@ -528,9 +529,13 @@ export default function PortOfCharlestonTerminalsPage() {
             <Link href="/services/devanning" style={linkStyle}>
               container devanning in Charleston
             </Link>
-            , overweight container reworking, and{" "}
+            , overweight container reworking,{" "}
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock in Charleston
+            </Link>
+            , and{" "}
+            <Link href="/services/deconsolidation" style={linkStyle}>
+              Port of Charleston deconsolidation
             </Link>{" "}
             are the related services on the services list. The
             two addresses have their own pages. Importers sending that
@@ -558,7 +563,9 @@ export default function PortOfCharlestonTerminalsPage() {
                   label={
                     service.href === "/services/devanning"
                       ? "Container devanning in Charleston"
-                      : service.label
+                      : service.href === "/services/deconsolidation"
+                        ? "Port of Charleston deconsolidation"
+                        : service.label
                   }
                 />
               </li>

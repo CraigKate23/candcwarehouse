@@ -220,7 +220,7 @@ export default function PickPackPage() {
                   href="/services/deconsolidation"
                   style={{ color: colors.accent, textDecoration: "underline" }}
                 >
-                  deconsolidation
+                  container deconsolidation Charleston
                 </Link>
                 .
               </>

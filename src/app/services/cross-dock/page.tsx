@@ -866,7 +866,19 @@ export default function CrossDockPage() {
                     container devanning in Charleston
                   </Link>{" "}
                   — container off the chassis, hand-unloaded on the
-                  dock, sorted to outbound staging, gone same day.
+                  dock, sorted to outbound staging, gone same day. When
+                  one inbound container has to become several house BOLs,
+                  that split is{" "}
+                  <Link
+                    href="/services/deconsolidation"
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    Port of Charleston deconsolidation
+                  </Link>
+                  .
                 </>
               }
             />

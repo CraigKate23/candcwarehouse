@@ -538,7 +538,12 @@ export default function HanahanLocationPage() {
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock in Charleston
             </Link>{" "}
-            at this building. Both buildings&rsquo; miles, side by side, are on the{" "}
+            at this building. A consolidated container split into separate
+            outbound shipments is{" "}
+            <Link href="/services/deconsolidation" style={linkStyle}>
+              Port of Charleston deconsolidation
+            </Link>
+            . Both buildings&rsquo; miles, side by side, are on the{" "}
             <Link href={terminalsGuidePath} style={linkStyle}>
               Port of Charleston terminals
             </Link>{" "}

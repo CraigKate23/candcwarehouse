@@ -584,7 +584,9 @@ export default function ServicesPage() {
                   >
                     {s.id === "devanning"
                       ? "Container devanning in Charleston →"
-                      : `Full ${s.title.toLowerCase()} details →`}
+                      : s.id === "deconsolidation"
+                        ? "Container deconsolidation Charleston →"
+                        : `Full ${s.title.toLowerCase()} details →`}
                   </Link>
                 )}
               </article>
