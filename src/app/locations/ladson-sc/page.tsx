@@ -23,8 +23,8 @@ const PATH = ladsonLocation.path;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = `${ladsonLocation.heading} | ${ladsonLocation.warehousing} | C&C`;
-const DESCRIPTION = `Ladson SC warehouse at ${ladsonLocation.street}: ${ladsonLocation.sqft} sq ft operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${business.phoneDisplay}.`;
+const TITLE = `${ladsonLocation.heading} | Operating Bonded & General Order | C&C`;
+const DESCRIPTION = `${ladsonLocation.query}: operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}. ${business.phoneDisplay}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -52,24 +52,24 @@ const [wando, nct, leatherman, greer] = ladsonLocation.drives;
 
 const FAQ: { q: string; a: string }[] = [
   {
+    q: "Is the Ladson SC warehouse space for lease?",
+    a: `No. ${ladsonOperatingLine}`,
+  },
+  {
+    q: "What does C&C do in Ladson?",
+    a: `${business.name} operates the ${ladsonLocation.sqft} sq ft primary building at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal} as a CBP Class 3 bonded warehouse — an importer's private bonded warehouse — and a CBP-designated General Order facility. The company has been family-run since ${business.foundedYear}. Services at this address: ${serviceLinks.map((s) => s.label).join(", ")}. Those are the services already listed on the site. Customer inventory is on ${business.portalHost}. Hanahan is the other building when a load is handled there; the phone number is the same.`,
+  },
+  {
+    q: "How far is the Ladson SC warehouse from Wando Welch, NCT, and Leatherman?",
+    a: `Published drive distances from this address: ${wando.name} is ${wando.about}, ${nct.name} is ${nct.about}, and ${leatherman.name} is ${leatherman.about}. ${greer.name} is ${greer.about}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`,
+  },
+  {
     q: "Where is the Ladson SC warehouse?",
     a: `Looking for a warehouse in Ladson, SC: the primary ${business.name} building is ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. The building is ${ladsonLocation.sqft} sq ft. The ${hanahanLocation.query} is a separate address.`,
   },
   {
-    q: "Is the Ladson SC warehouse space for lease?",
-    a: `No. ${business.name} operates the ${ladsonLocation.sqft} sq ft building at ${ladsonLocation.street} as a CBP Class 3 bonded warehouse and a CBP-designated General Order facility. The services listed on this page are the ones already published for this floor. The square footage is the building in use, not a commercial listing of space for lease.`,
-  },
-  {
     q: "Is there a bonded warehouse in Ladson, SC?",
     a: `Yes. This Ladson building is a CBP Class 3 bonded warehouse — an importer's private bonded warehouse — and a CBP-designated General Order facility. ${business.name} has been family-run since ${business.foundedYear}.`,
-  },
-  {
-    q: "How far is the Ladson warehouse from the port terminals?",
-    a: `Published drive distances from this address: ${wando.name} is ${wando.about}, ${nct.name} is ${nct.about}, ${leatherman.name} is ${leatherman.about}, and ${greer.name} is ${greer.about}.`,
-  },
-  {
-    q: "Which services run from the Ladson facility?",
-    a: `${serviceLinks.map((s) => s.label).join(", ")}. Customer inventory is on ${business.portalHost}. Hanahan is the other building when a load is handled there; the phone number is the same.`,
   },
   {
     q: "What are the hours and phone number?",
