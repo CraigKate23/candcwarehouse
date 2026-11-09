@@ -23,8 +23,8 @@ const PATH = hanahanLocation.path;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = `${hanahanLocation.heading} | ${hanahanLocation.warehousing} | C&C`;
-const DESCRIPTION = `Hanahan SC warehouse at ${hanahanLocation.street}: ${hanahanLocation.sqft} sq ft, CBP Class 3 bonded and General Order, not space for lease. ${business.phoneDisplay}.`;
+const TITLE = `${hanahanLocation.heading} | Operating Bonded & General Order | C&C`;
+const DESCRIPTION = `${hanahanLocation.query}: operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${hanahanLocation.sqft} sq ft at ${hanahanLocation.street}. ${business.phoneDisplay}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -52,24 +52,24 @@ const [wando, nct, leatherman, greer] = hanahanLocation.drives;
 
 const FAQ: { q: string; a: string }[] = [
   {
+    q: "Is the Hanahan SC warehouse space for lease?",
+    a: `No. ${hanahanOperatingLine}`,
+  },
+  {
+    q: "What does C&C do in Hanahan?",
+    a: `${business.name} operates the ${hanahanLocation.sqft} sq ft secondary building at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. Both facilities are US Customs Bonded. ${business.name} is a CBP Class 3 bonded warehouse and a CBP-designated General Order facility in ${ladsonLocation.city} and ${hanahanLocation.city}, closer to the port terminals. The company has been family-run since ${business.foundedYear}. Services at this address: ${serviceLinks.map((s) => s.label).join(", ")}. Those are the services already listed on the site. If a load is handled in Hanahan instead of Ladson, the list and the phone number do not change.`,
+  },
+  {
+    q: "How far is the Hanahan SC warehouse from Wando Welch, NCT, and Leatherman?",
+    a: `Published drive distances from this address: ${wando.name} is ${wando.about}, ${nct.name} is ${nct.about}, and ${leatherman.name} is ${leatherman.about}. ${greer.name} is ${greer.about}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`,
+  },
+  {
     q: "Where is the Hanahan SC warehouse?",
     a: `Looking for a warehouse in Hanahan, SC: the secondary ${business.name} building is ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. The building is ${hanahanLocation.sqft} sq ft. The ${ladsonLocation.query}, at ${ladsonLocation.street}, is the primary address.`,
   },
   {
-    q: "Is the Hanahan SC warehouse space for lease?",
-    a: `No. ${business.name} operates the ${hanahanLocation.sqft} sq ft building at ${hanahanLocation.street} as additional warehouse capacity, closer to the port terminals. Both facilities are US Customs Bonded. ${business.name} is a CBP Class 3 bonded warehouse and a CBP-designated General Order facility in ${ladsonLocation.city} and ${hanahanLocation.city}. When a load is handled here, it is the services already listed on this page — not a commercial listing of space for lease.`,
-  },
-  {
     q: "Is there a bonded warehouse in Hanahan, SC?",
     a: `Both facilities are US Customs Bonded. ${business.name} is a CBP Class 3 bonded warehouse — an importer's private bonded warehouse — and a CBP-designated General Order facility in ${ladsonLocation.city} and ${hanahanLocation.city}. The company has been family-run since ${business.foundedYear}.`,
-  },
-  {
-    q: "How far is the Hanahan warehouse from the port terminals?",
-    a: `Published drive distances from this address: ${wando.name} is ${wando.about}, ${nct.name} is ${nct.about}, ${leatherman.name} is ${leatherman.about}, and ${greer.name} is ${greer.about}.`,
-  },
-  {
-    q: "Which services run from the Hanahan facility?",
-    a: `${serviceLinks.map((s) => s.label).join(", ")}. Those are the services already listed on the site. If a load is handled in Hanahan instead of Ladson, the list and the phone number do not change. Customer inventory is on ${business.portalHost}.`,
   },
   {
     q: "What are the hours and phone number?",
