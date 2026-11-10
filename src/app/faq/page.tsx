@@ -9,6 +9,7 @@ import {
   eyebrow,
   fbaGuidePath,
   fonts,
+  goGuidePath,
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
@@ -96,6 +97,9 @@ const breadcrumb = {
   ],
 };
 
+const GO_QUESTION =
+  "What is General Order, and how is it different from bonded storage?";
+
 const LINKS: { href: string; label: string }[] = [
   { href: "/services/bonded-storage", label: "Bonded storage" },
   { href: "/services/general-order", label: "General Order" },
@@ -110,6 +114,7 @@ const LINKS: { href: string; label: string }[] = [
   { href: "/facility", label: "Facility" },
   { href: terminalsGuidePath, label: "Port of Charleston terminals" },
   { href: fbaGuidePath, label: "Port of Charleston to Amazon FBA" },
+  { href: goGuidePath, label: "General Order cargo, Port of Charleston" },
   { href: ladsonLocation.path, label: ladsonLocation.query },
   { href: hanahanLocation.path, label: hanahanLocation.query },
   { href: "/contact", label: "Contact" },
@@ -229,6 +234,22 @@ export default function FaqPage() {
                   }}
                 >
                   {f.a}
+                  {f.q === GO_QUESTION ? (
+                    <>
+                      {" "}
+                      A plain-language walkthrough is the{" "}
+                      <Link
+                        href={goGuidePath}
+                        style={{
+                          color: colors.accent,
+                          textDecoration: "underline",
+                        }}
+                      >
+                        General Order cargo guide
+                      </Link>
+                      .
+                    </>
+                  ) : null}
                 </p>
               </details>
             ))}

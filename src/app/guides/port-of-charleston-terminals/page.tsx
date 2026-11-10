@@ -11,6 +11,7 @@ import {
   eyebrow,
   fbaGuidePath,
   fonts,
+  goGuidePath,
   hanahanLocation,
   ladsonLocation,
   serviceLinks,
@@ -543,6 +544,10 @@ export default function PortOfCharlestonTerminalsPage() {
             <Link href={fbaGuidePath} style={linkStyle}>
               Port of Charleston to Amazon FBA
             </Link>{" "}
+            guide. What happens when freight goes unclaimed is the{" "}
+            <Link href={goGuidePath} style={linkStyle}>
+              General Order cargo
+            </Link>{" "}
             guide.
           </p>
           <ul
@@ -589,6 +594,12 @@ export default function PortOfCharlestonTerminalsPage() {
               <TextLink
                 href={fbaGuidePath}
                 label="Port of Charleston to Amazon FBA"
+              />
+            </li>
+            <li>
+              <TextLink
+                href={goGuidePath}
+                label="General Order cargo"
               />
             </li>
           </ul>

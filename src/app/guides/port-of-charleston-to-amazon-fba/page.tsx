@@ -11,6 +11,7 @@ import {
   eyebrow,
   fbaGuidePath,
   fonts,
+  goGuidePath,
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
@@ -111,6 +112,7 @@ const RELATED: { href: string; label: string }[] = [
   { href: ladsonLocation.path, label: ladsonLocation.query },
   { href: hanahanLocation.path, label: hanahanLocation.query },
   { href: terminalsGuidePath, label: "Terminal distances" },
+  { href: goGuidePath, label: "General Order cargo" },
   { href: "/quote", label: "Request a quote" },
 ];
 
@@ -556,7 +558,11 @@ export default function PortOfCharlestonToAmazonFbaPage() {
             unclaimed past the 15-day window can be moved by CBP to a
             GO-designated facility. {business.name} handles both. This
             guide is the voluntary hold, used before freight becomes
-            unclaimed.
+            unclaimed. The involuntary path is the{" "}
+            <Link href={goGuidePath} style={linkStyle}>
+              General Order cargo guide
+            </Link>
+            .
           </p>
           <p style={ledeStyle}>
             Class 3 is the importer&apos;s private bonded warehouse
