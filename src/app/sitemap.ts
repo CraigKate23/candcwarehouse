@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import {
   fbaGuidePath,
+  goGuidePath,
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
@@ -36,6 +37,7 @@ const ROUTES: Entry[] = [
   { path: hanahanLocation.path, changeFrequency: "monthly", priority: 0.85 },
   { path: terminalsGuidePath, changeFrequency: "monthly", priority: 0.7 },
   { path: fbaGuidePath, changeFrequency: "monthly", priority: 0.7 },
+  { path: goGuidePath, changeFrequency: "monthly", priority: 0.7 },
   { path: "/facility", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/faq", changeFrequency: "monthly", priority: 0.6 },

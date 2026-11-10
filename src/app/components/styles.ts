@@ -229,6 +229,12 @@ export const terminalsGuidePath = "/guides/port-of-charleston-terminals";
 // using only facts already published on the service and location pages.
 export const fbaGuidePath = "/guides/port-of-charleston-to-amazon-fba";
 
+// Guide that explains General Order in plain language, using only facts
+// already published on /services/general-order, /services/bonded-storage,
+// /faq, and the rest of the site. No fee is added here.
+export const goGuidePath =
+  "/guides/general-order-cargo-port-of-charleston";
+
 // The ten services on the homepage, in that order.
 export const serviceLinks: { label: string; href: string }[] = [
   { label: "Bonded storage", href: "/services/bonded-storage" },

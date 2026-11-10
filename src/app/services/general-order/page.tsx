@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { HanahanLink } from "../../components/HanahanLink";
 import { LadsonLink } from "../../components/LadsonLink";
-import { business, colors, hanahanLocation, ladsonLocation } from "../../components/styles";
+import {
+  business,
+  colors,
+  goGuidePath,
+  hanahanLocation,
+  ladsonLocation,
+} from "../../components/styles";
 import {
   CardGrid,
   FactStrip,
@@ -110,6 +116,14 @@ export default function GeneralOrderPage() {
               style={{ color: colors.accent, textDecoration: "underline" }}
             >
               voluntary Class 3 bonded storage
+            </Link>
+            . A plain-language walkthrough of the 15-day window, release,
+            and the six-month clock is the{" "}
+            <Link
+              href={goGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              General Order cargo guide
             </Link>
             .
           </>
