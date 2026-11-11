@@ -813,7 +813,18 @@ export default function DevanningPage() {
                   </Link>{" "}
                   to your outbound carrier, or palletized per your SOP —
                   sorted by SKU as it comes off so no double-handling later.
-                  When one container has to leave as separate shipments by
+                  When the freight moves straight to outbound staging with
+                  no put-away, that handoff is{" "}
+                  <Link
+                    href="/services/cross-dock"
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    transloading
+                  </Link>
+                  . When one container has to leave as separate shipments by
                   customer, store, or region, that next step is{" "}
                   <Link
                     href="/services/deconsolidation"

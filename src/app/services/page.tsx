@@ -37,7 +37,7 @@ type Service = {
   id: string;
   title: string;
   eyebrow: string;
-  intro: string;
+  intro: React.ReactNode;
   highlights: { label: string; body: React.ReactNode }[];
 };
 
@@ -155,8 +155,22 @@ const SERVICES: Service[] = [
     id: "cross-dock",
     title: "Cross-dock",
     eyebrow: "In, sorted, out",
-    intro:
-      "Receive freight on one dock, sort it, and tender it back out the other side without warehousing it in between. Right when transit time matters more than storage cost — DC bypass, tight retailer windows, time-defined consolidations.",
+    intro: (
+      <>
+        Receive freight on one dock, sort it, and tender it back out the
+        other side without warehousing it in between. Container{" "}
+        <Link
+          href="/services/cross-dock"
+          style={{ color: colors.accent, textDecoration: "underline" }}
+        >
+          transloading
+        </Link>{" "}
+        is the port-direct version: container off the chassis, devanned on
+        the dock, freight straight to outbound staging, no put-away. Right
+        when transit time matters more than storage cost — DC bypass, tight
+        retailer windows, time-defined consolidations.
+      </>
+    ),
     highlights: [
       {
         label: "Speed",
