@@ -40,9 +40,9 @@ const placeholder = {
 // transit time matters more than storage cost. Pairs naturally with
 // drayage on the inbound side and pick-pack / parcel on the outbound.
 
-const TITLE = "Charleston Cross Dock | Port of Charleston | C&C";
+const TITLE = "Charleston Cross Dock & Transload | Port of Charleston | C&C";
 const DESCRIPTION =
-  "Charleston cross dock at Ladson and Hanahan, near the Port of Charleston terminals. Same-day sort and tender. Drayage from Wando Welch, NCT, and Leatherman.";
+  "Charleston cross dock and transloading at Ladson and Hanahan, near the Port of Charleston. Same-day tender. Drayage from Wando Welch, NCT, and Leatherman.";
 
 export const metadata: Metadata = {
   title: {
@@ -78,6 +78,10 @@ const serviceJsonLd = {
   "@id": "https://www.candcwarehouse.com/services/cross-dock#service",
   "serviceType": "Cross-Dock Services",
   "name": "Charleston Cross Dock at the Port of Charleston",
+  "alternateName": [
+    "Charleston transload",
+    "Container transloading in Charleston"
+  ],
   "description": DESCRIPTION,
   "url": "https://www.candcwarehouse.com/services/cross-dock",
   "provider": {
@@ -203,6 +207,25 @@ const PORT_ANSWER = `Yes. Drayage from Wando Welch, North Charleston Terminal, a
 
 const CLOSER_ANSWER = `Hanahan. That building is closer to the port terminals — the shortest drayage runs in our network. Hugh K. Leatherman is ${hanahanLeatherman.about} — the closest terminal to the Hanahan facility. North Charleston Terminal is ${hanahanNct.about}. Wando Welch is ${hanahanWando.about}. Ladson is the primary building, with published runs of ${ladsonWando.about} to Wando Welch, ${ladsonNct.about} to North Charleston Terminal, and ${ladsonLeatherman.about} to Hugh K. Leatherman.`;
 
+// Transloading is the port-direct devan + cross-dock already described
+// above — same buildings, same crew pattern, same bond rule. Plain
+// strings so the visible FAQ and the FAQPage JSON-LD stay identical.
+const TRANSLOAD_WHAT =
+  "Container transloading in Charleston is the port-direct devan and cross-dock. The container comes off the chassis, is devanned on the dock, and the freight moves straight to outbound staging — no put-away, no rack pull, no second touch. It pairs with the same-crew drayage and devan pattern. The cargo touches the warehouse floor, but it doesn't dwell.";
+
+const TRANSLOAD_WHERE = `Transloading runs from both buildings. The primary floor is the ${ladsonLocation.facilityName} at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state}. The ${hanahanLocation.facilityName} at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} is closer to the port terminals — the shortest drayage runs in our network. Drayage from Wando Welch, North Charleston Terminal, and Hugh K. Leatherman is the inbound leg. Same-day when the inbound and outbound windows align. When the outbound carrier doesn't pull until the following day we stage on the floor (not in rack) and tender at the booked appointment. Peak throughput across both locations is 30 containers/day. Devanning, reworking, and cross-dock are scaled by product mix. When the inbound is in-bond and the outbound is also a bonded move, we can cross-dock under bond without breaking the status.`;
+
+const TRANSLOAD_FAQS: { q: string; a: string }[] = [
+  {
+    q: "What is container transloading in Charleston?",
+    a: TRANSLOAD_WHAT,
+  },
+  {
+    q: "Can you transload a container from the Port of Charleston?",
+    a: `Yes. ${TRANSLOAD_WHERE}`,
+  },
+];
+
 const PORT_FAQS: { q: string; a: string }[] = [
   {
     q: "Where do you cross-dock in Charleston, SC?",
@@ -232,6 +255,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
       </>
     ),
   },
+  ...TRANSLOAD_FAQS,
   {
     q: "How fast can you turn a cross-dock?",
     a: SPEED_ANSWER,
@@ -348,6 +372,14 @@ const faqJsonLd = {
         "text": "Cross-docking is when freight comes in on one dock, gets sorted and immediately tendered back out on another dock — without being put away into rack storage in between. The cargo touches the warehouse floor, but it doesn't dwell. It's the right shape when transit time matters more than storage cost."
       }
     },
+    ...TRANSLOAD_FAQS.map((item) => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a,
+      },
+    })),
     {
       "@type": "Question",
       "name": "How fast can you turn a cross-dock?",
@@ -491,7 +523,9 @@ export default function CrossDockPage() {
             between. Inbound drayage runs from Wando Welch, North
             Charleston Terminal, and Hugh K. Leatherman. Built for retail
             compliance windows, DC-bypass moves, and time-defined
-            consolidations since {business.foundedYear}.
+            consolidations since {business.foundedYear}. Container
+            transloading is the port-direct version: container off the
+            chassis, devanned on the dock, straight to outbound staging.
           </p>
 
           <div
@@ -630,6 +664,41 @@ export default function CrossDockPage() {
             Authority ocean terminals. Peak throughput across both
             locations is 30 containers/day. Devanning, reworking, and
             cross-dock are scaled by product mix.
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="transloading"
+        style={{
+          padding: "56px 0",
+          borderTop: `1px solid ${colors.line}`,
+        }}
+      >
+        <div style={container}>
+          <div style={eyebrow}>Transloading</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3vw, 34px)",
+              fontWeight: 700,
+              marginTop: 10,
+              maxWidth: 720,
+            }}
+          >
+            Container transloading in Charleston.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            {TRANSLOAD_WHAT}
           </p>
         </div>
       </section>
