@@ -13,6 +13,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  transloadGuidePath,
 } from "../components/styles";
 import { JsonLd, faqJsonLd } from "../components/service-blocks";
 
@@ -115,6 +116,7 @@ const LINKS: { href: string; label: string }[] = [
   { href: terminalsGuidePath, label: "Port of Charleston terminals" },
   { href: fbaGuidePath, label: "Port of Charleston to Amazon FBA" },
   { href: goGuidePath, label: "General Order cargo, Port of Charleston" },
+  { href: transloadGuidePath, label: "Transloading, Port of Charleston" },
   { href: ladsonLocation.path, label: ladsonLocation.query },
   { href: hanahanLocation.path, label: hanahanLocation.query },
   { href: "/contact", label: "Contact" },

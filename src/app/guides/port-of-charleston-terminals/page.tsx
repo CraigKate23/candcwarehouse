@@ -16,6 +16,7 @@ import {
   ladsonLocation,
   serviceLinks,
   terminalsGuidePath,
+  transloadGuidePath,
 } from "../../components/styles";
 
 // Distances, routes, and "about N miles" lines come from
@@ -548,6 +549,11 @@ export default function PortOfCharlestonTerminalsPage() {
             <Link href={goGuidePath} style={linkStyle}>
               General Order cargo
             </Link>{" "}
+            guide. Container transloading — the port-direct devan and
+            cross-dock — is the{" "}
+            <Link href={transloadGuidePath} style={linkStyle}>
+              transloading Charleston
+            </Link>{" "}
             guide.
           </p>
           <ul
@@ -600,6 +606,12 @@ export default function PortOfCharlestonTerminalsPage() {
               <TextLink
                 href={goGuidePath}
                 label="General Order cargo"
+              />
+            </li>
+            <li>
+              <TextLink
+                href={transloadGuidePath}
+                label="Transloading Charleston"
               />
             </li>
           </ul>

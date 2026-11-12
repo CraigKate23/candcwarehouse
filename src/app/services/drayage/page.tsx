@@ -14,6 +14,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  transloadGuidePath,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -424,6 +425,28 @@ export default function DrayagePage() {
             <HanahanLink>{hanahanLocation.query}</HanahanLink>. In-bond capable, heavy-haul
             chassis on call, same crew unloads at the dock — since{" "}
             {business.foundedYear}.
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 18,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 16,
+              maxWidth: 760,
+            }}
+          >
+            When that container is devanned on the dock and the freight
+            moves straight to outbound staging, with no put-away, the
+            cross-dock page calls that handoff container transloading. The
+            walkthrough is the{" "}
+            <Link
+              href={transloadGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              Port of Charleston transloading
+            </Link>{" "}
+            guide.
           </p>
 
           <div
