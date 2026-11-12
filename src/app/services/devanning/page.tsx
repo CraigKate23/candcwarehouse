@@ -15,6 +15,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  transloadGuidePath,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -824,7 +825,17 @@ export default function DevanningPage() {
                   >
                     transloading
                   </Link>
-                  . When one container has to leave as separate shipments by
+                  . The plain-language page for that handoff is the{" "}
+                  <Link
+                    href={transloadGuidePath}
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    transloading Charleston
+                  </Link>{" "}
+                  guide. When one container has to leave as separate shipments by
                   customer, store, or region, that next step is{" "}
                   <Link
                     href="/services/deconsolidation"

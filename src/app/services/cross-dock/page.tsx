@@ -14,6 +14,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  transloadGuidePath,
 } from "../../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -699,6 +700,28 @@ export default function CrossDockPage() {
             }}
           >
             {TRANSLOAD_WHAT}
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 760,
+            }}
+          >
+            A plain-language walkthrough of that handoff — how it differs
+            from cross-dock, devanning, and deconsolidation, and how the
+            container moves from Wando Welch, North Charleston Terminal, and
+            Hugh K. Leatherman — is the{" "}
+            <Link
+              href={transloadGuidePath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              transloading Charleston
+            </Link>{" "}
+            guide.
           </p>
         </div>
       </section>

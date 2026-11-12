@@ -235,6 +235,14 @@ export const fbaGuidePath = "/guides/port-of-charleston-to-amazon-fba";
 export const goGuidePath =
   "/guides/general-order-cargo-port-of-charleston";
 
+// Guide that explains container transloading at the Port of Charleston
+// in plain language, using only facts already published on
+// /services/cross-dock, /services/devanning, /services/deconsolidation,
+// /services/drayage, /facility, /faq, and the location pages.
+// No rate is added here.
+export const transloadGuidePath =
+  "/guides/transloading-port-of-charleston";
+
 // The ten services on the homepage, in that order.
 export const serviceLinks: { label: string; href: string }[] = [
   { label: "Bonded storage", href: "/services/bonded-storage" },
