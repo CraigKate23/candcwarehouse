@@ -239,7 +239,14 @@ export default function AboutPage() {
               <Fact label="Ownership" value="Family-run" />
               <Fact
                 label="Location"
-                value={`${business.city}, ${business.state}`}
+                value={
+                  <Link
+                    href={ladsonLocation.path}
+                    style={{ color: colors.accent, textDecoration: "underline" }}
+                  >
+                    {business.city}, {business.state}
+                  </Link>
+                }
               />
               <Fact
                 label="Team experience"
@@ -482,7 +489,13 @@ export default function AboutPage() {
   );
 }
 
-function Fact({ label, value }: { label: string; value: string }) {
+function Fact({
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+}) {
   return (
     <div>
       <dt
