@@ -8,6 +8,7 @@ import {
   fbaGuidePath,
   fonts,
   goGuidePath,
+  locationsPath,
   terminalsGuidePath,
   transloadGuidePath,
 } from "./styles";
@@ -60,6 +61,7 @@ export default function Footer() {
         <FooterCol title="Company">
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/facility">Facility</FooterLink>
+          <FooterLink href={locationsPath}>Locations</FooterLink>
           <FooterLink href={terminalsGuidePath}>Terminal distances</FooterLink>
           <FooterLink href={fbaGuidePath}>Port to Amazon FBA</FooterLink>
           <FooterLink href={goGuidePath}>General Order cargo</FooterLink>

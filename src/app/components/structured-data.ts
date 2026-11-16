@@ -5,6 +5,7 @@ import {
   hanahanOperatingLine,
   ladsonLocation,
   ladsonOperatingLine,
+  locationsPath,
 } from "./styles";
 
 export const areaServed = [
@@ -127,8 +128,8 @@ export function hanahanBranchJsonLd(siteUrl: string) {
 }
 
 // Page graph for one location URL. The WebPage names that building as
-// its main entity, and the breadcrumb uses the city query as the current
-// crumb so it matches the visible trail.
+// its main entity, and the breadcrumb matches the visible trail:
+// Home, then Locations, then this page.
 export function locationPageJsonLd(
   siteUrl: string,
   which: "ladson" | "hanahan",
@@ -174,8 +175,8 @@ export function locationPageJsonLd(
           {
             "@type": "ListItem",
             position: 2,
-            name: "Facility",
-            item: `${siteUrl}/facility`,
+            name: "Locations",
+            item: `${siteUrl}${locationsPath}`,
           },
           {
             "@type": "ListItem",
@@ -186,6 +187,70 @@ export function locationPageJsonLd(
         ],
       },
       branch,
+    ],
+  };
+}
+
+// Hub for both buildings. ItemList entries point at the facility @ids
+// the root layout already emits, so this graph does not repeat those nodes.
+export function locationsHubJsonLd(
+  siteUrl: string,
+  page: { name: string; description: string; listName: string },
+) {
+  const pageUrl = `${siteUrl}${locationsPath}`;
+  const pageId = `${pageUrl}#webpage`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+  const listId = `${pageUrl}#locations`;
+  const [ladsonRef, hanahanRef] = facilityRefs(siteUrl);
+  const items = [
+    { location: ladsonLocation, ref: ladsonRef },
+    { location: hanahanLocation, ref: hanahanRef },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": pageId,
+        url: pageUrl,
+        name: page.name,
+        description: page.description,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: items.map((item) => item.ref),
+        mainEntity: { "@id": listId },
+        breadcrumb: { "@id": breadcrumbId },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Locations",
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        "@id": listId,
+        name: page.listName,
+        numberOfItems: items.length,
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.location.query,
+          item: item.ref,
+        })),
+      },
     ],
   };
 }
