@@ -15,6 +15,7 @@ import {
   hanahanLocation,
   hanahanOperatingLine,
   ladsonLocation,
+  locationsPath,
   serviceLinks,
   terminalsGuidePath,
 } from "../../components/styles";
@@ -117,10 +118,10 @@ export default function HanahanLocationPage() {
             </Link>
             <span style={{ margin: "0 10px", color: colors.line }}>/</span>
             <Link
-              href="/facility"
+              href={locationsPath}
               style={{ color: colors.steel, textDecoration: "none" }}
             >
-              Facility
+              Locations
             </Link>
             <span style={{ margin: "0 10px", color: colors.line }}>/</span>
             <span style={{ color: colors.accent }}>{hanahanLocation.query}</span>

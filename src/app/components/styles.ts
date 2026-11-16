@@ -221,6 +221,9 @@ export const hanahanLocation = {
   ],
 };
 
+// Hub for the two operating warehouses. Location breadcrumbs use this path.
+export const locationsPath = "/locations";
+
 // Guide that restates the terminal miles already published on /facility
 // and /faq. Distances stay on the location objects above.
 export const terminalsGuidePath = "/guides/port-of-charleston-terminals";

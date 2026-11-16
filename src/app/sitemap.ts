@@ -4,6 +4,7 @@ import {
   goGuidePath,
   hanahanLocation,
   ladsonLocation,
+  locationsPath,
   terminalsGuidePath,
   transloadGuidePath,
 } from "./components/styles";
@@ -34,6 +35,7 @@ const ROUTES: Entry[] = [
   { path: "/services/pick-pack", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/fba-prep", changeFrequency: "monthly", priority: 0.85 },
   { path: "/quote", changeFrequency: "monthly", priority: 0.9 },
+  { path: locationsPath, changeFrequency: "monthly", priority: 0.8 },
   { path: ladsonLocation.path, changeFrequency: "monthly", priority: 0.85 },
   { path: hanahanLocation.path, changeFrequency: "monthly", priority: 0.85 },
   { path: terminalsGuidePath, changeFrequency: "monthly", priority: 0.7 },
