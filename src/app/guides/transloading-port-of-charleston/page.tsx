@@ -29,9 +29,9 @@ const PATH = transloadGuidePath;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = "Transloading Charleston SC | Port of Charleston | C&C";
+const TITLE = "How Transloading at the Port of Charleston Works | C&C";
 const DESCRIPTION =
-  "Port of Charleston transload warehouse for container transloading in Charleston, SC. Off the chassis, devanned on the dock, quoted from the documents.";
+  "Importer guide: how transloading at the Port of Charleston works. A container off the chassis, devanned on the dock, and straight to outbound staging.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -308,11 +308,12 @@ export default function TransloadingPortOfCharlestonPage() {
             {hanahanLocation.city}. Together the buildings are 90,000+ sq ft.
             Both are US Customs Bonded: a CBP Class 3 bonded warehouse — an
             importer&apos;s private bonded warehouse — and a CBP-designated
-            General Order facility. This page restates the{" "}
+            General Order facility. This guide explains how transloading at
+            the Port of Charleston works. The service page is{" "}
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock
             </Link>
-            ,{" "}
+            . This page restates that page,{" "}
             <Link href="/services/devanning" style={linkStyle}>
               container devanning in Charleston
             </Link>
@@ -323,8 +324,8 @@ export default function TransloadingPortOfCharlestonPage() {
             , and{" "}
             <Link href="/services/drayage" style={linkStyle}>
               drayage
-            </Link>{" "}
-            pages. It does not publish a rate. Quotes come from the documents
+            </Link>
+            . It does not publish a rate. Quotes come from the documents
             on that shipment. Use the{" "}
             <Link href="/quote" style={linkStyle}>
               quote form
