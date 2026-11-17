@@ -1,12 +1,10 @@
 import type { MetadataRoute } from "next";
 import {
-  fbaGuidePath,
-  goGuidePath,
+  guides,
+  guidesPath,
   hanahanLocation,
   ladsonLocation,
   locationsPath,
-  terminalsGuidePath,
-  transloadGuidePath,
 } from "./components/styles";
 
 // List only routes that are actually live. As new pages ship (facility,
@@ -38,10 +36,14 @@ const ROUTES: Entry[] = [
   { path: locationsPath, changeFrequency: "monthly", priority: 0.8 },
   { path: ladsonLocation.path, changeFrequency: "monthly", priority: 0.85 },
   { path: hanahanLocation.path, changeFrequency: "monthly", priority: 0.85 },
-  { path: terminalsGuidePath, changeFrequency: "monthly", priority: 0.7 },
-  { path: fbaGuidePath, changeFrequency: "monthly", priority: 0.7 },
-  { path: goGuidePath, changeFrequency: "monthly", priority: 0.7 },
-  { path: transloadGuidePath, changeFrequency: "monthly", priority: 0.7 },
+  { path: guidesPath, changeFrequency: "monthly", priority: 0.8 },
+  ...guides.map(
+    (guide): Entry => ({
+      path: guide.path,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  ),
   { path: "/facility", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/faq", changeFrequency: "monthly", priority: 0.6 },
