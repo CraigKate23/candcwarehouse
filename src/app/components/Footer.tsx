@@ -5,12 +5,10 @@ import {
   business,
   colors,
   container,
-  fbaGuidePath,
   fonts,
-  goGuidePath,
+  guides,
+  guidesPath,
   locationsPath,
-  terminalsGuidePath,
-  transloadGuidePath,
 } from "./styles";
 
 export default function Footer() {
@@ -62,10 +60,12 @@ export default function Footer() {
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/facility">Facility</FooterLink>
           <FooterLink href={locationsPath}>Locations</FooterLink>
-          <FooterLink href={terminalsGuidePath}>Terminal distances</FooterLink>
-          <FooterLink href={fbaGuidePath}>Port to Amazon FBA</FooterLink>
-          <FooterLink href={goGuidePath}>General Order cargo</FooterLink>
-          <FooterLink href={transloadGuidePath}>Transloading Charleston</FooterLink>
+          <FooterLink href={guidesPath}>Guides</FooterLink>
+          {guides.map((guide) => (
+            <FooterLink key={guide.path} href={guide.path}>
+              {guide.footerLabel}
+            </FooterLink>
+          ))}
           <FooterLink href="/services">Services</FooterLink>
           <FooterLink href="/faq">FAQ</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>

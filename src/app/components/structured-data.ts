@@ -1,6 +1,8 @@
 import {
   business,
   businessHours,
+  guides,
+  guidesPath,
   hanahanLocation,
   hanahanOperatingLine,
   ladsonLocation,
@@ -249,6 +251,65 @@ export function locationsHubJsonLd(
           position: index + 1,
           name: item.location.query,
           item: item.ref,
+        })),
+      },
+    ],
+  };
+}
+
+// Hub for the importer guides. ItemList entries are the guide URLs from
+// `guides`, so a guide added there is included here without a second list.
+export function guidesHubJsonLd(
+  siteUrl: string,
+  page: { name: string; description: string; listName: string },
+) {
+  const pageUrl = `${siteUrl}${guidesPath}`;
+  const pageId = `${pageUrl}#webpage`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+  const listId = `${pageUrl}#guides`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": pageId,
+        url: pageUrl,
+        name: page.name,
+        description: page.description,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: organizationRef(siteUrl),
+        mainEntity: { "@id": listId },
+        breadcrumb: { "@id": breadcrumbId },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Guides",
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        "@id": listId,
+        name: page.listName,
+        numberOfItems: guides.length,
+        itemListElement: guides.map((guide, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: guide.title,
+          item: `${siteUrl}${guide.path}`,
         })),
       },
     ],

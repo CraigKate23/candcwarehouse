@@ -224,6 +224,12 @@ export const hanahanLocation = {
 // Hub for the two operating warehouses. Location breadcrumbs use this path.
 export const locationsPath = "/locations";
 
+// Hub for the importer guides. Cards, JSON-LD, the sitemap, and the
+// footer read `guides` below so a new guide is listed when it is added
+// there. Individual guide breadcrumbs stay pointed at the page they
+// already name (a service or the facility page).
+export const guidesPath = "/guides";
+
 // Guide that restates the terminal miles already published on /facility
 // and /faq. Distances stay on the location objects above.
 export const terminalsGuidePath = "/guides/port-of-charleston-terminals";
@@ -259,6 +265,52 @@ export const serviceLinks: { label: string; href: string }[] = [
   { label: "Pick & pack", href: "/services/pick-pack" },
   { label: "Amazon FBA prep", href: "/services/fba-prep" },
 ];
+
+function serviceByHref(href: string) {
+  const service = serviceLinks.find((item) => item.href === href);
+  if (!service) {
+    throw new Error(`Missing service link ${href}`);
+  }
+  return service;
+}
+
+// One record per live guide. `title` is that guide's H1. `summary` is
+// one or two sentences already printed on that guide — do not add facts
+// here. `footerLabel` is the label the footer already uses.
+export const guides = [
+  {
+    path: terminalsGuidePath,
+    title: "Warehouse distances to the Port of Charleston terminals",
+    summary:
+      "Published miles from Ladson and Hanahan to Wando Welch, North Charleston Terminal, Hugh K. Leatherman, and Inland Port Greer. The facility page states that both sit within 25 miles of all three SC Ports Authority ocean terminals — Wando Welch, North Charleston Terminal (NCT), and Hugh K. Leatherman.",
+    footerLabel: "Terminal distances",
+    service: serviceByHref("/services/drayage"),
+  },
+  {
+    path: fbaGuidePath,
+    title: "From the Port of Charleston to Amazon FBA",
+    summary:
+      "Terminal pickup, a piece-count devan, an optional bond hold, then the prep and forwarding already listed for FBA. This walkthrough is for an importer whose container lands at the Port of Charleston and whose goods are headed to Amazon FBA.",
+    footerLabel: "Port to Amazon FBA",
+    service: serviceByHref("/services/fba-prep"),
+  },
+  {
+    path: goGuidePath,
+    title: "What happens when cargo goes to General Order",
+    summary:
+      "Unclaimed freight at the Port of Charleston, the 15-day window, and how a release works. General Order is what happens when freight goes unclaimed.",
+    footerLabel: "General Order cargo",
+    service: serviceByHref("/services/general-order"),
+  },
+  {
+    path: transloadGuidePath,
+    title: "What transloading is at the Port of Charleston",
+    summary:
+      "A container off the chassis, devanned on the dock, and straight to outbound staging. Container transloading in Charleston is the port-direct devan and cross-dock.",
+    footerLabel: "Transloading Charleston",
+    service: serviceByHref("/services/cross-dock"),
+  },
+] as const;
 
 export const business = {
   name: "C&C Warehouse",
