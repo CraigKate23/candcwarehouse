@@ -41,9 +41,9 @@ const placeholder = {
 // transit time matters more than storage cost. Pairs naturally with
 // drayage on the inbound side and pick-pack / parcel on the outbound.
 
-const TITLE = "Charleston Cross Dock & Transload | Port of Charleston | C&C";
+const TITLE = "Cross Docking Services in Charleston, SC | C&C";
 const DESCRIPTION =
-  "Charleston cross dock and transloading at Ladson and Hanahan, near the Port of Charleston. Same-day tender. Drayage from Wando Welch, NCT, and Leatherman.";
+  "Charleston cross dock with same-day cross docking at Ladson and Hanahan, near the Port of Charleston. Drayage from Wando Welch, NCT, and Leatherman.";
 
 export const metadata: Metadata = {
   title: {
@@ -481,7 +481,7 @@ export default function CrossDockPage() {
             <span style={{ color: colors.accent }}>Cross-dock</span>
           </nav>
 
-          <div style={eyebrow}>Cross-dock services</div>
+          <div style={eyebrow}>Cross docking services</div>
           <h1
             style={{
               fontFamily: fonts.heading,
@@ -492,7 +492,7 @@ export default function CrossDockPage() {
               maxWidth: 880,
             }}
           >
-            Cross-Dock Services in Charleston, SC
+            Cross Docking Services in Charleston, SC
           </h1>
           <p
             style={{
@@ -517,7 +517,7 @@ export default function CrossDockPage() {
               maxWidth: 760,
             }}
           >
-            Same-day cross-dock in Charleston at the{" "}
+            Same-day cross docking in Charleston at the{" "}
             <LadsonLink>{ladsonLocation.query}</LadsonLink> and the{" "}
             <HanahanLink>{hanahanLocation.query}</HanahanLink> — receive, sort,
             and tender freight back out without warehousing it in
@@ -587,7 +587,7 @@ export default function CrossDockPage() {
               maxWidth: 720,
             }}
           >
-            Port of Charleston cross dock, from both buildings.
+            Charleston cross dock, from both buildings.
           </h2>
           <p
             style={{
