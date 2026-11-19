@@ -13,6 +13,7 @@ import {
   fonts,
   hanahanLocation,
   ladsonLocation,
+  threePlPath,
 } from "../components/styles";
 
 // Marker style for facts Greg still needs to confirm. Mirrors the
@@ -386,6 +387,25 @@ export default function ServicesPage() {
             <HanahanLink>{hanahanLocation.query}</HanahanLink> at{" "}
             {hanahanLocation.street} — warehousing in {hanahanLocation.city},{" "}
             {hanahanLocation.state}.
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 18,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 16,
+              maxWidth: 760,
+            }}
+          >
+            Looking for a full 3PL in Charleston? The{" "}
+            <Link
+              href={threePlPath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              3PL warehouse in Charleston
+            </Link>{" "}
+            page lists the same ten services in one place.
           </p>
 
           <div

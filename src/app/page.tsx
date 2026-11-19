@@ -13,6 +13,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   serviceLinks,
+  threePlPath,
 } from "./components/styles";
 
 const VALUES = [
@@ -408,7 +409,15 @@ export default function Home() {
               {hanahanLocation.query}
             </Link>{" "}
             at {hanahanLocation.street}, {hanahanLocation.sqft} sq ft, closer
-            to the port terminals.
+            to the port terminals. The ten services, from both buildings, are
+            the{" "}
+            <Link
+              href={threePlPath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              3PL warehouse in Charleston
+            </Link>
+            .
           </p>
         </div>
       </section>

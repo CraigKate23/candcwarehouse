@@ -8,6 +8,7 @@ import {
   ladsonLocation,
   ladsonOperatingLine,
   locationsPath,
+  threePlPath,
 } from "./styles";
 
 export const areaServed = [
@@ -311,6 +312,78 @@ export function guidesHubJsonLd(
           name: guide.title,
           item: `${siteUrl}${guide.path}`,
         })),
+      },
+    ],
+  };
+}
+
+// Keyword page for the Charleston 3PL query. WebPage, BreadcrumbList, and
+// Service live in one graph. provider and about point at the LocalBusiness
+// @id the root layout already emits. This graph does not repeat Organization
+// or the two facility nodes.
+export function threePlPageJsonLd(
+  siteUrl: string,
+  page: {
+    name: string;
+    description: string;
+    crumb: string;
+    serviceName: string;
+  },
+) {
+  const pageUrl = `${siteUrl}${threePlPath}`;
+  const pageId = `${pageUrl}#webpage`;
+  const breadcrumbId = `${pageUrl}#breadcrumb`;
+  const serviceId = `${pageUrl}#service`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": pageId,
+        url: pageUrl,
+        name: page.name,
+        description: page.description,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: { "@id": `${siteUrl}/#localbusiness` },
+        mainEntity: { "@id": serviceId },
+        breadcrumb: { "@id": breadcrumbId },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/images/og-default.jpg`,
+        },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: page.crumb,
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": serviceId,
+        serviceType: "Third-Party Logistics Warehouse",
+        name: page.serviceName,
+        url: pageUrl,
+        description: page.description,
+        provider: { "@id": `${siteUrl}/#localbusiness` },
+        areaServed,
+        audience: {
+          "@type": "BusinessAudience",
+          name: "Importers shipping through the Port of Charleston",
+        },
       },
     ],
   };

@@ -9,6 +9,7 @@ import {
   guides,
   guidesPath,
   locationsPath,
+  threePlPath,
 } from "./styles";
 
 export default function Footer() {
@@ -67,6 +68,7 @@ export default function Footer() {
             </FooterLink>
           ))}
           <FooterLink href="/services">Services</FooterLink>
+          <FooterLink href={threePlPath}>3PL warehouse in Charleston</FooterLink>
           <FooterLink href="/faq">FAQ</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="https://warehousingcosts.com/charleston-warehousing">
