@@ -5,6 +5,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   locationsPath,
+  threePlPath,
 } from "./components/styles";
 
 // List only routes that are actually live. As new pages ship (facility,
@@ -22,6 +23,7 @@ type Entry = {
 const ROUTES: Entry[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/services", changeFrequency: "monthly", priority: 0.9 },
+  { path: threePlPath, changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/bonded-storage", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/general-order", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/devanning", changeFrequency: "monthly", priority: 0.85 },

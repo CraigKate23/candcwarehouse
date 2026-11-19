@@ -18,6 +18,7 @@ import {
   locationsPath,
   serviceLinks,
   terminalsGuidePath,
+  threePlPath,
 } from "../../components/styles";
 
 const PATH = hanahanLocation.path;
@@ -428,8 +429,12 @@ export default function HanahanLocationPage() {
             </Link>{" "}
             says inventory moves between both buildings as needed — same WMS,
             same crew, same phone number. Racked pallet positions are published
-            as 3,000+ across both buildings, not as a Hanahan-only count. The
-            primary building is the{" "}
+            as 3,000+ across both buildings, not as a Hanahan-only count. That
+            operation is the{" "}
+            <Link href={threePlPath} style={linkStyle}>
+              3PL warehouse in Charleston
+            </Link>
+            . The primary building is the{" "}
             <Link href={ladsonLocation.path} style={linkStyle}>
               {ladsonLocation.query}
             </Link>

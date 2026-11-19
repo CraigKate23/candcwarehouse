@@ -18,6 +18,7 @@ import {
   locationsPath,
   serviceLinks,
   terminalsGuidePath,
+  threePlPath,
 } from "../../components/styles";
 
 const PATH = ladsonLocation.path;
@@ -432,7 +433,12 @@ export default function LadsonLocationPage() {
             <Link href="/facility" style={linkStyle}>
               facility page
             </Link>{" "}
-            for that combined figure. Fees are not listed here. Ask on the{" "}
+            for that combined figure. The same services, run as one operation,
+            are the{" "}
+            <Link href={threePlPath} style={linkStyle}>
+              3PL warehouse in Charleston
+            </Link>
+            . Fees are not listed here. Ask on the{" "}
             <Link href="/quote" style={linkStyle}>
               quote form
             </Link>{" "}

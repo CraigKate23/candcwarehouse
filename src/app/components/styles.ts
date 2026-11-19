@@ -224,6 +224,11 @@ export const hanahanLocation = {
 // Hub for the two operating warehouses. Location breadcrumbs use this path.
 export const locationsPath = "/locations";
 
+// Keyword page for "3PL warehouse Charleston SC". It sits beside the ten
+// service URLs rather than replacing one of them. Footer, sitemap, and
+// the in-body links read this path.
+export const threePlPath = "/3pl-charleston-sc";
+
 // Hub for the importer guides. Cards, JSON-LD, the sitemap, and the
 // footer read `guides` below so a new guide is listed when it is added
 // there. Individual guide breadcrumbs stay pointed at the page they
