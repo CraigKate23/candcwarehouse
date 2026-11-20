@@ -817,7 +817,7 @@ export default function DevanningPage() {
                   When the freight moves straight to outbound staging with
                   no put-away, that handoff is{" "}
                   <Link
-                    href="/services/cross-dock"
+                    href="/services/transloading"
                     style={{
                       color: colors.accent,
                       textDecoration: "underline",

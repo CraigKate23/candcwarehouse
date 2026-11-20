@@ -437,9 +437,15 @@ export default function DrayagePage() {
             }}
           >
             When that container is devanned on the dock and the freight
-            moves straight to outbound staging, with no put-away, the
-            cross-dock page calls that handoff container transloading. The
-            walkthrough is the{" "}
+            moves straight to outbound staging, with no put-away, that
+            handoff is{" "}
+            <Link
+              href="/services/transloading"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              container transloading
+            </Link>
+            . The walkthrough is the{" "}
             <Link
               href={transloadGuidePath}
               style={{ color: colors.accent, textDecoration: "underline" }}

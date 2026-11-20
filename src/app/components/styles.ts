@@ -257,6 +257,10 @@ export const goGuidePath =
 export const transloadGuidePath =
   "/guides/transloading-port-of-charleston";
 
+// Dedicated service URL for that same handoff. It is the port-direct
+// version of cross-dock, so it stays off the ten-item `serviceLinks` list.
+export const transloadServicePath = "/services/transloading";
+
 // The ten services on the homepage, in that order.
 export const serviceLinks: { label: string; href: string }[] = [
   { label: "Bonded storage", href: "/services/bonded-storage" },
@@ -313,7 +317,10 @@ export const guides = [
     summary:
       "A container off the chassis, devanned on the dock, and straight to outbound staging. Container transloading in Charleston is the port-direct devan and cross-dock.",
     footerLabel: "Transloading Charleston",
-    service: serviceByHref("/services/cross-dock"),
+    service: {
+      label: "Container transloading",
+      href: transloadServicePath,
+    },
   },
 ] as const;
 
