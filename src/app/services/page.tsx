@@ -161,7 +161,7 @@ const SERVICES: Service[] = [
         Receive freight on one dock, sort it, and tender it back out the
         other side without warehousing it in between. Container{" "}
         <Link
-          href="/services/cross-dock"
+          href="/services/transloading"
           style={{ color: colors.accent, textDecoration: "underline" }}
         >
           transloading

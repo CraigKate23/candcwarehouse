@@ -10,6 +10,7 @@ import {
   guidesPath,
   locationsPath,
   threePlPath,
+  transloadServicePath,
 } from "./styles";
 
 export default function Footer() {
@@ -68,6 +69,7 @@ export default function Footer() {
             </FooterLink>
           ))}
           <FooterLink href="/services">Services</FooterLink>
+          <FooterLink href={transloadServicePath}>Transloading</FooterLink>
           <FooterLink href={threePlPath}>3PL warehouse in Charleston</FooterLink>
           <FooterLink href="/faq">FAQ</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>

@@ -107,7 +107,8 @@ const ladsonMiles = buildingMiles(ladsonLocation.drives);
 const hanahanMiles = buildingMiles(hanahanLocation.drives);
 
 const RELATED: { href: string; label: string }[] = [
-  { href: "/services/cross-dock", label: "Cross-dock and transload" },
+  { href: "/services/transloading", label: "Container transloading" },
+  { href: "/services/cross-dock", label: "Cross-dock" },
   { href: "/services/devanning", label: "Container devanning in Charleston" },
   { href: "/services/deconsolidation", label: "Port of Charleston deconsolidation" },
   { href: "/services/drayage", label: "Drayage" },
@@ -310,10 +311,14 @@ export default function TransloadingPortOfCharlestonPage() {
             importer&apos;s private bonded warehouse — and a CBP-designated
             General Order facility. This guide explains how transloading at
             the Port of Charleston works. The service page is{" "}
+            <Link href="/services/transloading" style={linkStyle}>
+              container transloading
+            </Link>
+            . This page restates{" "}
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock
             </Link>
-            . This page restates that page,{" "}
+            ,{" "}
             <Link href="/services/devanning" style={linkStyle}>
               container devanning in Charleston
             </Link>
@@ -806,6 +811,10 @@ export default function TransloadingPortOfCharlestonPage() {
           <h2 style={h2Style}>The pages this walkthrough is drawn from.</h2>
           <p style={ledeStyle}>
             The service page is{" "}
+            <Link href="/services/transloading" style={linkStyle}>
+              container transloading
+            </Link>
+            . Freight in one side and out the other is{" "}
             <Link href="/services/cross-dock" style={linkStyle}>
               cross-dock
             </Link>

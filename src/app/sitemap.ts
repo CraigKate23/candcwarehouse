@@ -6,6 +6,7 @@ import {
   ladsonLocation,
   locationsPath,
   threePlPath,
+  transloadServicePath,
 } from "./components/styles";
 
 // List only routes that are actually live. As new pages ship (facility,
@@ -30,6 +31,7 @@ const ROUTES: Entry[] = [
   { path: "/services/overweight-reworking", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/drayage", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/cross-dock", changeFrequency: "monthly", priority: 0.85 },
+  { path: transloadServicePath, changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/deconsolidation", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/wms", changeFrequency: "monthly", priority: 0.85 },
   { path: "/services/pick-pack", changeFrequency: "monthly", priority: 0.85 },

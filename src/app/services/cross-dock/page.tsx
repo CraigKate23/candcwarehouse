@@ -79,10 +79,6 @@ const serviceJsonLd = {
   "@id": "https://www.candcwarehouse.com/services/cross-dock#service",
   "serviceType": "Cross-Dock Services",
   "name": "Charleston Cross Dock at the Port of Charleston",
-  "alternateName": [
-    "Charleston transload",
-    "Container transloading in Charleston"
-  ],
   "description": DESCRIPTION,
   "url": "https://www.candcwarehouse.com/services/cross-dock",
   "provider": {
@@ -711,10 +707,17 @@ export default function CrossDockPage() {
               maxWidth: 760,
             }}
           >
-            A plain-language walkthrough of that handoff — how it differs
-            from cross-dock, devanning, and deconsolidation, and how the
-            container moves from Wando Welch, North Charleston Terminal, and
-            Hugh K. Leatherman — is the{" "}
+            The service page for that handoff is{" "}
+            <Link
+              href="/services/transloading"
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              container transloading
+            </Link>
+            . A plain-language walkthrough — how it differs from cross-dock,
+            devanning, and deconsolidation, and how the container moves from
+            Wando Welch, North Charleston Terminal, and Hugh K. Leatherman —
+            is the{" "}
             <Link
               href={transloadGuidePath}
               style={{ color: colors.accent, textDecoration: "underline" }}
