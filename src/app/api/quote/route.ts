@@ -252,14 +252,14 @@ function deliveryRows(data: QuotePayload): string {
       ${rowAlways("Delivery city", data.deliveryCity)}
       ${rowAlways("Delivery state", data.deliveryState)}
       ${rowAlways("Delivery ZIP", data.deliveryZip)}
-      ${rowAlways("Business or residential", data.deliveryLocation)}
-      ${rowAlways("Dock or forklift available", data.dockOrForklift)}
-      ${rowAlways("Liftgate needed", data.liftgate)}
-      ${rowAlways("Appointment needed", data.appointment)}
-      ${rowAlways("IT number", data.itNumber)}
-      ${rowAlways("Pallet count", data.palletCount)}
-      ${rowAlways("Pallet dimensions", data.palletDimensions)}
-      ${rowAlways("Total weight", data.totalWeight)}`;
+      ${row("Business or residential", data.deliveryLocation)}
+      ${row("Dock or forklift available", data.dockOrForklift)}
+      ${row("Liftgate needed", data.liftgate)}
+      ${row("Appointment needed", data.appointment)}
+      ${row("IT number", data.itNumber)}
+      ${row("Pallet count", data.palletCount)}
+      ${row("Pallet dimensions", data.palletDimensions)}
+      ${row("Total weight", data.totalWeight)}`;
 }
 
 function buildHtml(data: QuotePayload): string {
@@ -327,22 +327,20 @@ function buildText(data: QuotePayload): string {
     lines.push(`City:                   ${data.deliveryCity}`);
     lines.push(`State:                  ${data.deliveryState}`);
     lines.push(`ZIP:                    ${data.deliveryZip}`);
-    lines.push(
-      `Business or residential: ${data.deliveryLocation || "Not provided"}`,
-    );
-    lines.push(
-      `Dock or forklift:        ${data.dockOrForklift || "Not provided"}`,
-    );
-    lines.push(`Liftgate needed:        ${data.liftgate || "Not provided"}`);
-    lines.push(
-      `Appointment needed:      ${data.appointment || "Not provided"}`,
-    );
-    lines.push(`IT number:              ${data.itNumber || "Not provided"}`);
-    lines.push(`Pallet count:           ${data.palletCount || "Not provided"}`);
-    lines.push(
-      `Pallet dimensions:       ${data.palletDimensions || "Not provided"}`,
-    );
-    lines.push(`Total weight:           ${data.totalWeight || "Not provided"}`);
+    if (data.deliveryLocation)
+      lines.push(`Business or residential: ${data.deliveryLocation}`);
+    if (data.dockOrForklift)
+      lines.push(`Dock or forklift:        ${data.dockOrForklift}`);
+    if (data.liftgate) lines.push(`Liftgate needed:        ${data.liftgate}`);
+    if (data.appointment)
+      lines.push(`Appointment needed:      ${data.appointment}`);
+    if (data.itNumber) lines.push(`IT number:              ${data.itNumber}`);
+    if (data.palletCount)
+      lines.push(`Pallet count:           ${data.palletCount}`);
+    if (data.palletDimensions)
+      lines.push(`Pallet dimensions:       ${data.palletDimensions}`);
+    if (data.totalWeight)
+      lines.push(`Total weight:           ${data.totalWeight}`);
   }
   if (data.notes) {
     lines.push("");

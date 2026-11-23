@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import {
   buttonPrimary,
   buttonSecondary,
@@ -13,11 +14,11 @@ import {
 } from "../components/styles";
 import {
   DELIVERY_LOCATION_OPTIONS,
+  FINAL_DELIVERY_QUOTE_HREF,
   FINAL_DELIVERY_SERVICE,
   QUOTE_INBOX,
   YES_NO_UNSURE_OPTIONS,
   finalDeliveryFieldErrors,
-  nextServices,
 } from "./final-delivery";
 import type { FinalDeliveryFieldErrors } from "./final-delivery";
 
@@ -36,7 +37,6 @@ const SERVICES = [
   "Deconsolidation",
   "WMS / inventory",
   "Pick & pack",
-  FINAL_DELIVERY_SERVICE,
 ] as const;
 
 const CARGO_TYPES = [
@@ -250,16 +250,45 @@ function generalPayload(form: FormState) {
   };
 }
 
+function deliveryPayload(form: FormState) {
+  return {
+    name: form.name,
+    company: form.company,
+    email: form.email,
+    phone: form.phone,
+    services: [FINAL_DELIVERY_SERVICE],
+    cargoTypes: [] as string[],
+    volume: "",
+    timing: "",
+    terminal: "",
+    notes: form.notes,
+    deliveryStreet: form.deliveryStreet,
+    deliveryCity: form.deliveryCity,
+    deliveryState: form.deliveryState,
+    deliveryZip: form.deliveryZip,
+    deliveryLocation: form.deliveryLocation,
+    dockOrForklift: form.dockOrForklift,
+    liftgate: form.liftgate,
+    appointment: form.appointment,
+    itNumber: form.itNumber,
+    palletCount: form.palletCount,
+    palletDimensions: form.palletDimensions,
+    totalWeight: form.totalWeight,
+  };
+}
+
 export default function QuoteForm({
   preselectFinalDelivery = false,
 }: {
   preselectFinalDelivery?: boolean;
 }) {
-  const [form, setForm] = useState<FormState>(() =>
-    preselectFinalDelivery
-      ? { ...EMPTY, services: [FINAL_DELIVERY_SERVICE] }
-      : EMPTY,
+  const router = useRouter();
+  const priorServices = useRef<string[] | null>(null);
+  const [mode, setMode] = useState<"quote" | "delivery">(
+    preselectFinalDelivery ? "delivery" : "quote",
   );
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [form, setForm] = useState<FormState>(EMPTY);
   const [fieldErrors, setFieldErrors] = useState<FinalDeliveryFieldErrors>({});
   const [formError, setFormError] = useState("");
   const [status, setStatus] = useState<
@@ -279,24 +308,43 @@ export default function QuoteForm({
   };
 
   const toggleMulti = (key: "services" | "cargoTypes", value: string) => {
-    if (key === "services") {
-      setFieldErrors({});
-      setFormError("");
-      setForm((prev) => ({ ...prev, services: nextServices(prev.services, value) }));
-      return;
-    }
     setForm((prev) => {
-      const set = new Set(prev.cargoTypes);
+      const set = new Set(prev[key]);
       if (set.has(value)) set.delete(value);
       else set.add(value);
-      return { ...prev, cargoTypes: Array.from(set) };
+      return { ...prev, [key]: Array.from(set) };
     });
   };
 
   const setSingle = (key: SingleField, value: string) =>
     setForm((prev) => ({ ...prev, [key]: prev[key] === value ? "" : value }));
 
-  const finalDelivery = form.services.includes(FINAL_DELIVERY_SERVICE);
+  const finalDelivery = mode === "delivery";
+
+  const enterDelivery = () => {
+    setForm((prev) => {
+      priorServices.current = prev.services.filter(
+        (service) => service !== FINAL_DELIVERY_SERVICE,
+      );
+      return prev;
+    });
+    setMode("delivery");
+    setFieldErrors({});
+    setFormError("");
+    router.replace(FINAL_DELIVERY_QUOTE_HREF, { scroll: false });
+  };
+
+  const leaveDelivery = () => {
+    setForm((prev) => ({
+      ...prev,
+      services: priorServices.current ?? prev.services,
+    }));
+    priorServices.current = null;
+    setMode("quote");
+    setFieldErrors({});
+    setFormError("");
+    router.replace("/quote", { scroll: false });
+  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -329,7 +377,7 @@ export default function QuoteForm({
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalDelivery ? form : generalPayload(form)),
+        body: JSON.stringify(finalDelivery ? deliveryPayload(form) : generalPayload(form)),
       });
       let body: { ok?: unknown } | null = null;
       try {
@@ -379,6 +427,352 @@ export default function QuoteForm({
     );
   }
 
+  const sendError =
+    status === "error" && errorMsg ? (
+      <div
+        id="quote-send-error"
+        role="alert"
+        style={{ flexBasis: "100%", display: "grid", gap: 12 }}
+      >
+        <p style={{ ...errorText, marginTop: 0 }}>{errorMsg}</p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            type="submit"
+            className="cta-secondary"
+            style={{ ...buttonSecondary, minHeight: 48 }}
+          >
+            Retry
+          </button>
+          <a
+            href={`mailto:${QUOTE_INBOX}`}
+            className="footer-link"
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 15,
+              fontWeight: 600,
+              color: colors.accentDeep,
+            }}
+          >
+            {QUOTE_INBOX}
+          </a>
+        </div>
+      </div>
+    ) : null;
+
+  if (finalDelivery) {
+    return (
+      <form
+        onSubmit={onSubmit}
+        style={{
+          ...cardStyle,
+          padding: 28,
+          display: "grid",
+          gap: 28,
+          border: `1px solid ${colors.accent}`,
+          borderTop: `4px solid ${colors.accent}`,
+        }}
+        noValidate
+      >
+        <div>
+          <div style={eyebrow}>Freight already coming through C&amp;C</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: 26,
+              fontWeight: 700,
+              marginTop: 8,
+            }}
+          >
+            Final delivery
+          </h2>
+          <p style={{ ...sectionHint, fontSize: 15, maxWidth: 560 }}>
+            A short request. Name, email, and the full delivery address are
+            required. Everything else can wait.
+          </p>
+          <button
+            type="button"
+            id="back-to-general-quote"
+            onClick={leaveDelivery}
+            style={{
+              marginTop: 12,
+              padding: 0,
+              border: 0,
+              background: "transparent",
+              fontFamily: fonts.body,
+              fontSize: 15,
+              fontWeight: 600,
+              color: colors.accentDeep,
+              cursor: "pointer",
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
+            }}
+          >
+            Back to a general quote
+          </button>
+        </div>
+
+        <fieldset style={fieldsetStyle}>
+          <legend style={{ ...sectionTitle, marginBottom: 4 }}>
+            Contact and destination
+          </legend>
+          <div
+            className="quote-grid-2"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 16,
+              marginTop: 18,
+            }}
+          >
+            <DeliveryInput
+              id="name"
+              label="Full name"
+              required
+              autoComplete="name"
+              value={form.name}
+              error={fieldErrors.name}
+              onChange={(value) => update("name", value)}
+            />
+            <DeliveryInput
+              id="email"
+              label="Email"
+              required
+              type="email"
+              autoComplete="email"
+              value={form.email}
+              error={fieldErrors.email}
+              onChange={(value) => update("email", value)}
+            />
+            <DeliveryInput
+              id="company"
+              label="Company"
+              autoComplete="organization"
+              value={form.company}
+              onChange={(value) => update("company", value)}
+            />
+            <DeliveryInput
+              id="phone"
+              label="Phone"
+              type="tel"
+              autoComplete="tel"
+              value={form.phone}
+              onChange={(value) => update("phone", value)}
+            />
+          </div>
+          <div style={{ display: "grid", gap: 16, marginTop: 16 }}>
+            <DeliveryInput
+              id="delivery-street"
+              label="Street address"
+              required
+              autoComplete="street-address"
+              value={form.deliveryStreet}
+              error={fieldErrors.deliveryStreet}
+              onChange={(value) => update("deliveryStreet", value)}
+            />
+            <div
+              className="quote-grid-address"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.4fr 0.6fr 0.8fr",
+                gap: 16,
+              }}
+            >
+              <DeliveryInput
+                id="delivery-city"
+                label="City"
+                required
+                autoComplete="address-level2"
+                value={form.deliveryCity}
+                error={fieldErrors.deliveryCity}
+                onChange={(value) => update("deliveryCity", value)}
+              />
+              <DeliveryInput
+                id="delivery-state"
+                label="State"
+                required
+                autoComplete="address-level1"
+                value={form.deliveryState}
+                error={fieldErrors.deliveryState}
+                onChange={(value) => update("deliveryState", value)}
+              />
+              <DeliveryInput
+                id="delivery-zip"
+                label="ZIP"
+                required
+                autoComplete="postal-code"
+                value={form.deliveryZip}
+                error={fieldErrors.deliveryZip}
+                onChange={(value) => update("deliveryZip", value)}
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset style={fieldsetStyle}>
+          <legend style={{ ...sectionTitle, marginBottom: 4 }}>
+            At the delivery site
+          </legend>
+          <p style={sectionHint}>Optional. Not sure is a fine answer.</p>
+          <div style={{ display: "grid", gap: 16, marginTop: 18 }}>
+            <ChoiceGroup
+              label="Business or residential"
+              options={DELIVERY_LOCATION_OPTIONS}
+              value={form.deliveryLocation}
+              onToggle={(value) => setSingle("deliveryLocation", value)}
+            />
+            <ChoiceGroup
+              label="Dock or forklift available"
+              options={YES_NO_UNSURE_OPTIONS}
+              value={form.dockOrForklift}
+              onToggle={(value) => setSingle("dockOrForklift", value)}
+            />
+            <ChoiceGroup
+              label="Liftgate needed"
+              options={YES_NO_UNSURE_OPTIONS}
+              value={form.liftgate}
+              onToggle={(value) => setSingle("liftgate", value)}
+            />
+            <ChoiceGroup
+              label="Appointment needed"
+              options={YES_NO_UNSURE_OPTIONS}
+              value={form.appointment}
+              onToggle={(value) => setSingle("appointment", value)}
+            />
+          </div>
+        </fieldset>
+
+        <div>
+          <button
+            type="button"
+            id="shipment-details-toggle"
+            aria-expanded={detailsOpen}
+            aria-controls="shipment-details"
+            onClick={() => setDetailsOpen((open) => !open)}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              minHeight: 48,
+              padding: "12px 14px",
+              fontFamily: fonts.heading,
+              fontSize: 15,
+              fontWeight: 600,
+              color: colors.ink,
+              background: colors.paperDeep,
+              border: `1px solid ${colors.line}`,
+              borderRadius: radii.md,
+              cursor: "pointer",
+              textAlign: "left",
+            }}
+          >
+            <span>
+              Shipment details
+              <span style={{ ...optionalMark, display: "inline" }}>
+                optional
+              </span>
+            </span>
+            <span aria-hidden="true">{detailsOpen ? "Hide" : "Add"}</span>
+          </button>
+          {detailsOpen ? (
+            <div
+              id="shipment-details"
+              role="region"
+              aria-labelledby="shipment-details-toggle"
+              style={{ display: "grid", gap: 16, marginTop: 16 }}
+            >
+              <div
+                className="quote-grid-2"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 16,
+                }}
+              >
+                <DeliveryInput
+                  id="it-number"
+                  label="IT number"
+                  autoComplete="off"
+                  value={form.itNumber}
+                  onChange={(value) => update("itNumber", value)}
+                />
+                <DeliveryInput
+                  id="pallet-count"
+                  label="Pallet count"
+                  inputMode="numeric"
+                  value={form.palletCount}
+                  onChange={(value) => update("palletCount", value)}
+                />
+                <DeliveryInput
+                  id="pallet-dimensions"
+                  label="Pallet dimensions"
+                  value={form.palletDimensions}
+                  onChange={(value) => update("palletDimensions", value)}
+                />
+                <DeliveryInput
+                  id="total-weight"
+                  label="Total weight"
+                  value={form.totalWeight}
+                  onChange={(value) => update("totalWeight", value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="delivery-notes" style={labelStyle}>
+                  Notes
+                  <span style={optionalMark}>optional</span>
+                </label>
+                <textarea
+                  id="delivery-notes"
+                  value={form.notes}
+                  onChange={(e) => update("notes", e.target.value)}
+                  rows={4}
+                  style={{ ...inputStyle, resize: "vertical", minHeight: 96 }}
+                />
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            type="submit"
+            className="cta-primary"
+            disabled={status === "submitting"}
+            style={{
+              ...buttonPrimary,
+              minHeight: 48,
+              opacity: status === "submitting" ? 0.7 : 1,
+              cursor: status === "submitting" ? "wait" : "pointer",
+            }}
+          >
+            {status === "submitting" ? "Sending…" : "Request delivery quote"}
+          </button>
+          {formError ? (
+            <span id="quote-form-error" role="alert" style={errorText}>
+              {formError}
+            </span>
+          ) : null}
+          {sendError}
+        </div>
+      </form>
+    );
+  }
+
   return (
     <form
       onSubmit={onSubmit}
@@ -390,6 +784,36 @@ export default function QuoteForm({
       }}
       noValidate
     >
+      <div
+        style={{
+          background: colors.paperDeep,
+          borderLeft: `4px solid ${colors.accent}`,
+          borderRadius: radii.md,
+          padding: "16px 18px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+          flexWrap: "wrap",
+        }}
+      >
+        <div>
+          <div style={eyebrow}>Freight already coming through C&amp;C</div>
+          <p style={{ ...sectionHint, marginTop: 6 }}>
+            Request final delivery instead of a warehousing quote.
+          </p>
+        </div>
+        <button
+          type="button"
+          id="switch-to-final-delivery"
+          className="cta-secondary"
+          onClick={enterDelivery}
+          style={{ ...buttonSecondary, minHeight: 48 }}
+        >
+          Request final delivery
+        </button>
+      </div>
+
       {/* Contact section */}
       <fieldset style={fieldsetStyle}>
         <legend style={{ ...sectionTitle, marginBottom: 4 }}>
@@ -511,128 +935,6 @@ export default function QuoteForm({
         </div>
       </fieldset>
 
-      {finalDelivery ? (
-        <fieldset id="final-delivery-fields" style={fieldsetStyle}>
-          <legend style={{ ...sectionTitle, marginBottom: 4 }}>
-            Final delivery
-          </legend>
-          <p style={sectionHint}>
-            For freight already coming through C&amp;C. Street, city, state,
-            and ZIP are required. IT number, pallet count, dimensions, and
-            weight can be left blank. Choosing another service above switches
-            back to a regular quote.
-          </p>
-
-          <div style={{ display: "grid", gap: 16, marginTop: 18 }}>
-            <DeliveryInput
-              id="delivery-street"
-              label="Street address"
-              required
-              autoComplete="street-address"
-              value={form.deliveryStreet}
-              error={fieldErrors.deliveryStreet}
-              onChange={(value) => update("deliveryStreet", value)}
-            />
-            <div
-              className="quote-grid-address"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1.4fr 0.6fr 0.8fr",
-                gap: 16,
-              }}
-            >
-              <DeliveryInput
-                id="delivery-city"
-                label="City"
-                required
-                autoComplete="address-level2"
-                value={form.deliveryCity}
-                error={fieldErrors.deliveryCity}
-                onChange={(value) => update("deliveryCity", value)}
-              />
-              <DeliveryInput
-                id="delivery-state"
-                label="State"
-                required
-                autoComplete="address-level1"
-                value={form.deliveryState}
-                error={fieldErrors.deliveryState}
-                onChange={(value) => update("deliveryState", value)}
-              />
-              <DeliveryInput
-                id="delivery-zip"
-                label="ZIP"
-                required
-                autoComplete="postal-code"
-                value={form.deliveryZip}
-                error={fieldErrors.deliveryZip}
-                onChange={(value) => update("deliveryZip", value)}
-              />
-            </div>
-
-            <ChoiceGroup
-              label="Business or residential"
-              options={DELIVERY_LOCATION_OPTIONS}
-              value={form.deliveryLocation}
-              onToggle={(value) => setSingle("deliveryLocation", value)}
-            />
-            <ChoiceGroup
-              label="Dock or forklift available"
-              options={YES_NO_UNSURE_OPTIONS}
-              value={form.dockOrForklift}
-              onToggle={(value) => setSingle("dockOrForklift", value)}
-            />
-            <ChoiceGroup
-              label="Liftgate needed"
-              options={YES_NO_UNSURE_OPTIONS}
-              value={form.liftgate}
-              onToggle={(value) => setSingle("liftgate", value)}
-            />
-            <ChoiceGroup
-              label="Appointment needed"
-              options={YES_NO_UNSURE_OPTIONS}
-              value={form.appointment}
-              onToggle={(value) => setSingle("appointment", value)}
-            />
-
-            <div
-              className="quote-grid-2"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 16,
-              }}
-            >
-              <DeliveryInput
-                id="it-number"
-                label="IT number"
-                autoComplete="off"
-                value={form.itNumber}
-                onChange={(value) => update("itNumber", value)}
-              />
-              <DeliveryInput
-                id="pallet-count"
-                label="Pallet count"
-                inputMode="numeric"
-                value={form.palletCount}
-                onChange={(value) => update("palletCount", value)}
-              />
-              <DeliveryInput
-                id="pallet-dimensions"
-                label="Pallet dimensions"
-                value={form.palletDimensions}
-                onChange={(value) => update("palletDimensions", value)}
-              />
-              <DeliveryInput
-                id="total-weight"
-                label="Total weight"
-                value={form.totalWeight}
-                onChange={(value) => update("totalWeight", value)}
-              />
-            </div>
-          </div>
-        </fieldset>
-      ) : null}
 
       {/* Cargo type */}
       <fieldset style={fieldsetStyle}>
@@ -791,43 +1093,7 @@ export default function QuoteForm({
             {formError}
           </span>
         ) : null}
-        {status === "error" && errorMsg ? (
-          <div
-            id="quote-send-error"
-            role="alert"
-            style={{ flexBasis: "100%", display: "grid", gap: 12 }}
-          >
-            <p style={{ ...errorText, marginTop: 0 }}>{errorMsg}</p>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                flexWrap: "wrap",
-              }}
-            >
-              <button
-                type="submit"
-                className="cta-secondary"
-                style={{ ...buttonSecondary, minHeight: 48 }}
-              >
-                Retry
-              </button>
-              <a
-                href={`mailto:${QUOTE_INBOX}`}
-                className="footer-link"
-                style={{
-                  fontFamily: fonts.body,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: colors.accentDeep,
-                }}
-              >
-                {QUOTE_INBOX}
-              </a>
-            </div>
-          </div>
-        ) : null}
+        {sendError}
       </div>
     </form>
   );
@@ -842,6 +1108,7 @@ function DeliveryInput({
   error,
   autoComplete,
   inputMode,
+  type = "text",
 }: {
   id: string;
   label: string;
@@ -850,7 +1117,8 @@ function DeliveryInput({
   required?: boolean;
   error?: string;
   autoComplete?: string;
-  inputMode?: "numeric" | "text";
+  inputMode?: "numeric" | "text" | "email" | "tel";
+  type?: "text" | "email" | "tel";
 }) {
   return (
     <div>
@@ -860,7 +1128,7 @@ function DeliveryInput({
       </label>
       <input
         id={id}
-        type="text"
+        type={type}
         required={required}
         maxLength={200}
         autoComplete={autoComplete}

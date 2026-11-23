@@ -135,10 +135,7 @@ export default async function QuotePage({
             alignItems: "start",
           }}
         >
-          <QuoteForm
-            key={preselectFinalDelivery ? "final-delivery" : "quote"}
-            preselectFinalDelivery={preselectFinalDelivery}
-          />
+          <QuoteForm preselectFinalDelivery={preselectFinalDelivery} />
 
           <aside style={{ display: "grid", gap: 20 }}>
             <div
