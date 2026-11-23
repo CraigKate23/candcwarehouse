@@ -16,6 +16,7 @@ import {
   ladsonLocation,
   locationsPath,
   terminalsGuidePath,
+  threePlPath,
 } from "../components/styles";
 
 const PATH = locationsPath;
@@ -165,6 +166,10 @@ export default function LocationsPage() {
             guide. The services already listed on the site are on the{" "}
             <Link href="/services" style={linkStyle}>
               services page
+            </Link>
+            . Third-party logistics at both buildings is the{" "}
+            <Link href={threePlPath} style={linkStyle}>
+              3PL warehouse in Charleston, SC
             </Link>
             . To ask about a load, use the{" "}
             <Link href="/quote" style={linkStyle}>

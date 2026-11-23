@@ -14,6 +14,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  threePlPath,
   transloadGuidePath,
 } from "../../components/styles";
 
@@ -523,6 +524,14 @@ export default function CrossDockPage() {
             consolidations since {business.foundedYear}. Container
             transloading is the port-direct version: container off the
             chassis, devanned on the dock, straight to outbound staging.
+            Both floors are the{" "}
+            <Link
+              href={threePlPath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              3PL warehouse in Charleston, SC
+            </Link>
+            .
           </p>
 
           <div
