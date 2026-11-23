@@ -5,6 +5,7 @@ import {
   DELIVERY_LOCATION_OPTIONS,
   FINAL_DELIVERY_SERVICE,
   FINAL_DELIVERY_SUBJECT,
+  QUOTE_INBOX,
   YES_NO_UNSURE_OPTIONS,
 } from "../../quote/final-delivery";
 
@@ -22,7 +23,7 @@ import {
 //                      for inbox placement. Once `candcwarehouse.com`
 //                      DNS is verified in Resend, swap this to e.g.
 //                      "C&C Warehouse <quotes@candcwarehouse.com>".
-//   QUOTE_TO        — optional. Defaults to information@candcwarehouse.com.
+//   QUOTE_TO        — optional. Defaults to ashlee@candcwarehouse.com.
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
@@ -376,11 +377,8 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    // No API key set in this environment — log the lead so it lands in
-    // the Vercel function logs and Greg can pull it manually if needed,
-    // and tell the client we couldn't send. The form already falls back
-    // to a "Got it" success state on non-2xx, so the user still sees
-    // the phone number and email rather than a dead end.
+    // No API key in this environment. Log the lead for the function logs
+    // and tell the form the message was not sent.
     console.warn(
       "[api/quote] RESEND_API_KEY not set — lead not emailed:",
       JSON.stringify(data),
@@ -393,7 +391,7 @@ export async function POST(request: Request) {
 
   const from =
     process.env.RESEND_FROM || "C&C Warehouse <onboarding@resend.dev>";
-  const to = process.env.QUOTE_TO || business.email;
+  const to = process.env.QUOTE_TO || QUOTE_INBOX;
 
   const subject = isFinalDelivery(data)
     ? FINAL_DELIVERY_SUBJECT
@@ -403,7 +401,9 @@ export async function POST(request: Request) {
 
   try {
     const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
+    // Resend resolves with { data, error } on API, domain, and auth
+    // failures. It does not throw for those. Success requires an id.
+    const { data: sent, error } = await resend.emails.send({
       from,
       to: [to],
       replyTo: data.email,
@@ -411,8 +411,8 @@ export async function POST(request: Request) {
       html: buildHtml(data),
       text: buildText(data),
     });
-    if (error) {
-      console.error("[api/quote] resend error:", error);
+    if (error || !sent?.id) {
+      console.error("[api/quote] resend rejected:", error ?? "missing id");
       return NextResponse.json(
         { ok: false, error: "Email send failed." },
         { status: 502 },

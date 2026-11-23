@@ -7,7 +7,7 @@ import {
   eyebrow,
   fonts,
 } from "../components/styles";
-import { isFinalDeliveryParam } from "./final-delivery";
+import { QUOTE_INBOX, isFinalDeliveryParam } from "./final-delivery";
 import QuoteForm from "./QuoteForm";
 
 const PAGE_PATH = "/quote";
@@ -233,11 +233,11 @@ export default async function QuotePage({
               >
                 Mon–Fri, business hours Eastern. Or email{" "}
                 <a
-                  href={`mailto:${business.email}`}
+                  href={`mailto:${QUOTE_INBOX}`}
                   className="footer-link"
                   style={{ color: colors.accentDeep, fontWeight: 600 }}
                 >
-                  {business.email}
+                  {QUOTE_INBOX}
                 </a>
                 .
               </div>

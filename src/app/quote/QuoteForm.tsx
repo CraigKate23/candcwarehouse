@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 import {
   buttonPrimary,
+  buttonSecondary,
   cardStyle,
   colors,
   eyebrow,
@@ -13,6 +14,7 @@ import {
 import {
   DELIVERY_LOCATION_OPTIONS,
   FINAL_DELIVERY_SERVICE,
+  QUOTE_INBOX,
   YES_NO_UNSURE_OPTIONS,
   finalDeliveryFieldErrors,
   nextServices,
@@ -316,26 +318,32 @@ export default function QuoteForm({
     setStatus("submitting");
     setErrorMsg("");
 
-    // /api/quote isn't wired up yet (see PROGRESS.md backlog item 3 — wire to
-    // Resend, mirror FreightFigures pattern). Until then, POST optimistically:
-    // if the endpoint 404s we still surface a useful fallback so a real
-    // visitor never hits a dead end.
+    // Form state is left as the visitor typed it. Success replaces the
+    // form; a failed send stays on this screen with those values.
+    const fail = (message: string) => {
+      setStatus("error");
+      setErrorMsg(message);
+    };
+
     try {
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(finalDelivery ? form : generalPayload(form)),
       });
-      if (!res.ok) {
-        // Endpoint not yet live — show the success state but in fallback
-        // mode so we don't lose the lead. The visitor still gets the phone
-        // number and email in the sidebar.
-        setStatus("submitted");
+      let body: { ok?: unknown } | null = null;
+      try {
+        body = (await res.json()) as { ok?: unknown };
+      } catch {
+        body = null;
+      }
+      if (!res.ok || !body || body.ok !== true) {
+        fail("We couldn't send this request. Your details are still here.");
         return;
       }
       setStatus("submitted");
     } catch {
-      setStatus("submitted");
+      fail("We couldn't send this request. Your details are still here.");
     }
   };
 
@@ -784,16 +792,41 @@ export default function QuoteForm({
           </span>
         ) : null}
         {status === "error" && errorMsg ? (
-          <span
+          <div
+            id="quote-send-error"
             role="alert"
-            style={{
-              fontFamily: fonts.body,
-              fontSize: 13.5,
-              color: colors.accentDeep,
-            }}
+            style={{ flexBasis: "100%", display: "grid", gap: 12 }}
           >
-            {errorMsg}
-          </span>
+            <p style={{ ...errorText, marginTop: 0 }}>{errorMsg}</p>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                flexWrap: "wrap",
+              }}
+            >
+              <button
+                type="submit"
+                className="cta-secondary"
+                style={{ ...buttonSecondary, minHeight: 48 }}
+              >
+                Retry
+              </button>
+              <a
+                href={`mailto:${QUOTE_INBOX}`}
+                className="footer-link"
+                style={{
+                  fontFamily: fonts.body,
+                  fontSize: 15,
+                  fontWeight: 600,
+                  color: colors.accentDeep,
+                }}
+              >
+                {QUOTE_INBOX}
+              </a>
+            </div>
+          </div>
         ) : null}
       </div>
     </form>

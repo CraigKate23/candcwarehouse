@@ -10,6 +10,9 @@ export const FINAL_DELIVERY_QUOTE_HREF = "/quote?service=final-delivery";
 // Exact subject for this request type. Regular quotes keep their own subject.
 export const FINAL_DELIVERY_SUBJECT = "Final Delivery Quote";
 
+// Sole inbox for website rate quotes when QUOTE_TO is not set.
+export const QUOTE_INBOX = "ashlee@candcwarehouse.com";
+
 export const DELIVERY_LOCATION_OPTIONS = [
   "Business",
   "Residential",
