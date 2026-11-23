@@ -15,6 +15,7 @@ import {
   serviceLinks,
   threePlPath,
 } from "./components/styles";
+import { FINAL_DELIVERY_QUOTE_HREF } from "./quote/final-delivery";
 
 const VALUES = [
   {
@@ -47,6 +48,36 @@ const SERVICES = serviceLinks;
 export default function Home() {
   return (
     <>
+      <section
+        aria-label="Customer actions"
+        className="home-quick-bar"
+        style={{
+          background: colors.paper,
+          borderBottom: `1px solid ${colors.line}`,
+          padding: "18px 0",
+        }}
+      >
+        <div style={container} className="home-quick-actions">
+          <Link
+            href={FINAL_DELIVERY_QUOTE_HREF}
+            className="cta-primary home-quick-action"
+            style={buttonPrimary}
+          >
+            Request Final Delivery
+          </Link>
+          <a
+            href={`${business.portalUrl}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-secondary home-quick-action"
+            style={buttonSecondary}
+            aria-label="Track Your IPI Shipment (opens in a new tab)"
+          >
+            Track Your IPI Shipment
+          </a>
+        </div>
+      </section>
+
       {/* Hero */}
       <section
         style={{

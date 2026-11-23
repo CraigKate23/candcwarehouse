@@ -10,6 +10,14 @@ import {
   fonts,
   radii,
 } from "../components/styles";
+import {
+  DELIVERY_LOCATION_OPTIONS,
+  FINAL_DELIVERY_SERVICE,
+  YES_NO_UNSURE_OPTIONS,
+  finalDeliveryFieldErrors,
+  nextServices,
+} from "./final-delivery";
+import type { FinalDeliveryFieldErrors } from "./final-delivery";
 
 // Chip selectors — these are the structured fields that turn a vague
 // "we have some cargo coming" inquiry into a quote we can actually price.
@@ -26,6 +34,7 @@ const SERVICES = [
   "Deconsolidation",
   "WMS / inventory",
   "Pick & pack",
+  FINAL_DELIVERY_SERVICE,
 ] as const;
 
 const CARGO_TYPES = [
@@ -110,6 +119,21 @@ const sectionHint: CSSProperties = {
   marginTop: 4,
 };
 
+const errorText: CSSProperties = {
+  fontFamily: fonts.body,
+  fontSize: 13,
+  color: colors.accentDeep,
+  marginTop: 6,
+};
+
+const optionalMark: CSSProperties = {
+  textTransform: "none",
+  letterSpacing: "0.01em",
+  fontWeight: 500,
+  color: colors.mute,
+  marginLeft: 8,
+};
+
 type ChipProps = {
   label: string;
   selected: boolean;
@@ -152,6 +176,18 @@ type FormState = {
   timing: string;
   terminal: string;
   notes: string;
+  deliveryStreet: string;
+  deliveryCity: string;
+  deliveryState: string;
+  deliveryZip: string;
+  deliveryLocation: string;
+  dockOrForklift: string;
+  liftgate: string;
+  appointment: string;
+  itNumber: string;
+  palletCount: string;
+  palletDimensions: string;
+  totalWeight: string;
 };
 
 const EMPTY: FormState = {
@@ -165,31 +201,118 @@ const EMPTY: FormState = {
   timing: "",
   terminal: "",
   notes: "",
+  deliveryStreet: "",
+  deliveryCity: "",
+  deliveryState: "",
+  deliveryZip: "",
+  deliveryLocation: "",
+  dockOrForklift: "",
+  liftgate: "",
+  appointment: "",
+  itNumber: "",
+  palletCount: "",
+  palletDimensions: "",
+  totalWeight: "",
 };
 
-export default function QuoteForm() {
-  const [form, setForm] = useState<FormState>(EMPTY);
+const FIELD_IDS: Record<keyof FinalDeliveryFieldErrors, string> = {
+  name: "name",
+  email: "email",
+  deliveryStreet: "delivery-street",
+  deliveryCity: "delivery-city",
+  deliveryState: "delivery-state",
+  deliveryZip: "delivery-zip",
+};
+
+type SingleField =
+  | "volume"
+  | "timing"
+  | "terminal"
+  | "deliveryLocation"
+  | "dockOrForklift"
+  | "liftgate"
+  | "appointment";
+
+function generalPayload(form: FormState) {
+  return {
+    name: form.name,
+    company: form.company,
+    email: form.email,
+    phone: form.phone,
+    services: form.services,
+    cargoTypes: form.cargoTypes,
+    volume: form.volume,
+    timing: form.timing,
+    terminal: form.terminal,
+    notes: form.notes,
+  };
+}
+
+export default function QuoteForm({
+  preselectFinalDelivery = false,
+}: {
+  preselectFinalDelivery?: boolean;
+}) {
+  const [form, setForm] = useState<FormState>(() =>
+    preselectFinalDelivery
+      ? { ...EMPTY, services: [FINAL_DELIVERY_SERVICE] }
+      : EMPTY,
+  );
+  const [fieldErrors, setFieldErrors] = useState<FinalDeliveryFieldErrors>({});
+  const [formError, setFormError] = useState("");
   const [status, setStatus] = useState<
     "idle" | "submitting" | "submitted" | "error"
   >("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const update = <K extends keyof FormState>(key: K, value: FormState[K]) =>
+  const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
+    setFieldErrors((prev) => {
+      const field = key as keyof FinalDeliveryFieldErrors;
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
 
-  const toggleMulti = (key: "services" | "cargoTypes", value: string) =>
+  const toggleMulti = (key: "services" | "cargoTypes", value: string) => {
+    if (key === "services") {
+      setFieldErrors({});
+      setFormError("");
+      setForm((prev) => ({ ...prev, services: nextServices(prev.services, value) }));
+      return;
+    }
     setForm((prev) => {
-      const set = new Set(prev[key]);
+      const set = new Set(prev.cargoTypes);
       if (set.has(value)) set.delete(value);
       else set.add(value);
-      return { ...prev, [key]: Array.from(set) };
+      return { ...prev, cargoTypes: Array.from(set) };
     });
+  };
 
-  const setSingle = (key: "volume" | "timing" | "terminal", value: string) =>
+  const setSingle = (key: SingleField, value: string) =>
     setForm((prev) => ({ ...prev, [key]: prev[key] === value ? "" : value }));
+
+  const finalDelivery = form.services.includes(FINAL_DELIVERY_SERVICE);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (finalDelivery) {
+      const errors = finalDeliveryFieldErrors(form);
+      if (Object.keys(errors).length > 0) {
+        setFieldErrors(errors);
+        setFormError(
+          "Add your name, email, and the full delivery address to send this request.",
+        );
+        setStatus("idle");
+        const first = (Object.keys(errors) as (keyof FinalDeliveryFieldErrors)[])[0];
+        document.getElementById(FIELD_IDS[first])?.focus();
+        return;
+      }
+    }
+    setFieldErrors({});
+    setFormError("");
     setStatus("submitting");
     setErrorMsg("");
 
@@ -201,7 +324,7 @@ export default function QuoteForm() {
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(finalDelivery ? form : generalPayload(form)),
       });
       if (!res.ok) {
         // Endpoint not yet live — show the success state but in fallback
@@ -287,8 +410,19 @@ export default function QuoteForm() {
               autoComplete="name"
               value={form.name}
               onChange={(e) => update("name", e.target.value)}
-              style={inputStyle}
+              aria-invalid={fieldErrors.name ? true : undefined}
+              aria-describedby={fieldErrors.name ? "name-error" : undefined}
+              style={
+                fieldErrors.name
+                  ? { ...inputStyle, borderColor: colors.accentDeep }
+                  : inputStyle
+              }
             />
+            {fieldErrors.name ? (
+              <p id="name-error" style={errorText}>
+                {fieldErrors.name}
+              </p>
+            ) : null}
           </div>
           <div>
             <label htmlFor="company" style={labelStyle}>
@@ -314,8 +448,19 @@ export default function QuoteForm() {
               autoComplete="email"
               value={form.email}
               onChange={(e) => update("email", e.target.value)}
-              style={inputStyle}
+              aria-invalid={fieldErrors.email ? true : undefined}
+              aria-describedby={fieldErrors.email ? "email-error" : undefined}
+              style={
+                fieldErrors.email
+                  ? { ...inputStyle, borderColor: colors.accentDeep }
+                  : inputStyle
+              }
             />
+            {fieldErrors.email ? (
+              <p id="email-error" style={errorText}>
+                {fieldErrors.email}
+              </p>
+            ) : null}
           </div>
           <div>
             <label htmlFor="phone" style={labelStyle}>
@@ -357,6 +502,129 @@ export default function QuoteForm() {
           ))}
         </div>
       </fieldset>
+
+      {finalDelivery ? (
+        <fieldset id="final-delivery-fields" style={fieldsetStyle}>
+          <legend style={{ ...sectionTitle, marginBottom: 4 }}>
+            Final delivery
+          </legend>
+          <p style={sectionHint}>
+            For freight already coming through C&amp;C. Street, city, state,
+            and ZIP are required. IT number, pallet count, dimensions, and
+            weight can be left blank. Choosing another service above switches
+            back to a regular quote.
+          </p>
+
+          <div style={{ display: "grid", gap: 16, marginTop: 18 }}>
+            <DeliveryInput
+              id="delivery-street"
+              label="Street address"
+              required
+              autoComplete="street-address"
+              value={form.deliveryStreet}
+              error={fieldErrors.deliveryStreet}
+              onChange={(value) => update("deliveryStreet", value)}
+            />
+            <div
+              className="quote-grid-address"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.4fr 0.6fr 0.8fr",
+                gap: 16,
+              }}
+            >
+              <DeliveryInput
+                id="delivery-city"
+                label="City"
+                required
+                autoComplete="address-level2"
+                value={form.deliveryCity}
+                error={fieldErrors.deliveryCity}
+                onChange={(value) => update("deliveryCity", value)}
+              />
+              <DeliveryInput
+                id="delivery-state"
+                label="State"
+                required
+                autoComplete="address-level1"
+                value={form.deliveryState}
+                error={fieldErrors.deliveryState}
+                onChange={(value) => update("deliveryState", value)}
+              />
+              <DeliveryInput
+                id="delivery-zip"
+                label="ZIP"
+                required
+                autoComplete="postal-code"
+                value={form.deliveryZip}
+                error={fieldErrors.deliveryZip}
+                onChange={(value) => update("deliveryZip", value)}
+              />
+            </div>
+
+            <ChoiceGroup
+              label="Business or residential"
+              options={DELIVERY_LOCATION_OPTIONS}
+              value={form.deliveryLocation}
+              onToggle={(value) => setSingle("deliveryLocation", value)}
+            />
+            <ChoiceGroup
+              label="Dock or forklift available"
+              options={YES_NO_UNSURE_OPTIONS}
+              value={form.dockOrForklift}
+              onToggle={(value) => setSingle("dockOrForklift", value)}
+            />
+            <ChoiceGroup
+              label="Liftgate needed"
+              options={YES_NO_UNSURE_OPTIONS}
+              value={form.liftgate}
+              onToggle={(value) => setSingle("liftgate", value)}
+            />
+            <ChoiceGroup
+              label="Appointment needed"
+              options={YES_NO_UNSURE_OPTIONS}
+              value={form.appointment}
+              onToggle={(value) => setSingle("appointment", value)}
+            />
+
+            <div
+              className="quote-grid-2"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 16,
+              }}
+            >
+              <DeliveryInput
+                id="it-number"
+                label="IT number"
+                autoComplete="off"
+                value={form.itNumber}
+                onChange={(value) => update("itNumber", value)}
+              />
+              <DeliveryInput
+                id="pallet-count"
+                label="Pallet count"
+                inputMode="numeric"
+                value={form.palletCount}
+                onChange={(value) => update("palletCount", value)}
+              />
+              <DeliveryInput
+                id="pallet-dimensions"
+                label="Pallet dimensions"
+                value={form.palletDimensions}
+                onChange={(value) => update("palletDimensions", value)}
+              />
+              <DeliveryInput
+                id="total-weight"
+                label="Total weight"
+                value={form.totalWeight}
+                onChange={(value) => update("totalWeight", value)}
+              />
+            </div>
+          </div>
+        </fieldset>
+      ) : null}
 
       {/* Cargo type */}
       <fieldset style={fieldsetStyle}>
@@ -510,6 +778,11 @@ export default function QuoteForm() {
         >
           We&apos;ll only use this to reply to your quote.
         </span>
+        {formError ? (
+          <span id="quote-form-error" role="alert" style={errorText}>
+            {formError}
+          </span>
+        ) : null}
         {status === "error" && errorMsg ? (
           <span
             role="alert"
@@ -524,5 +797,91 @@ export default function QuoteForm() {
         ) : null}
       </div>
     </form>
+  );
+}
+
+function DeliveryInput({
+  id,
+  label,
+  value,
+  onChange,
+  required,
+  error,
+  autoComplete,
+  inputMode,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  error?: string;
+  autoComplete?: string;
+  inputMode?: "numeric" | "text";
+}) {
+  return (
+    <div>
+      <label htmlFor={id} style={labelStyle}>
+        {label}
+        <span style={optionalMark}>{required ? "required" : "optional"}</span>
+      </label>
+      <input
+        id={id}
+        type="text"
+        required={required}
+        maxLength={200}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
+        style={
+          error ? { ...inputStyle, borderColor: colors.accentDeep } : inputStyle
+        }
+      />
+      {error ? (
+        <p id={`${id}-error`} style={errorText}>
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function ChoiceGroup({
+  label,
+  options,
+  value,
+  onToggle,
+}: {
+  label: string;
+  options: readonly string[];
+  value: string;
+  onToggle: (value: string) => void;
+}) {
+  return (
+    <div>
+      <div style={labelStyle}>
+        {label}
+        <span style={optionalMark}>optional</span>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 8,
+        }}
+      >
+        {options.map((option) => (
+          <Chip
+            key={option}
+            label={option}
+            selected={value === option}
+            onToggle={() => onToggle(option)}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

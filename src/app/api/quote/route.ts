@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { business } from "../../components/styles";
+import {
+  DELIVERY_LOCATION_OPTIONS,
+  FINAL_DELIVERY_SERVICE,
+  FINAL_DELIVERY_SUBJECT,
+  YES_NO_UNSURE_OPTIONS,
+} from "../../quote/final-delivery";
 
 // POST /api/quote — receives the structured quote form payload from
 // `src/app/quote/QuoteForm.tsx`, validates it, and emails it to Greg via
@@ -38,6 +44,18 @@ type QuotePayload = {
   timing: string;
   terminal: string;
   notes: string;
+  deliveryStreet: string;
+  deliveryCity: string;
+  deliveryState: string;
+  deliveryZip: string;
+  deliveryLocation: string;
+  dockOrForklift: string;
+  liftgate: string;
+  appointment: string;
+  itNumber: string;
+  palletCount: string;
+  palletDimensions: string;
+  totalWeight: string;
 };
 
 // Same allow-lists the form uses to populate its chip selectors. Any
@@ -53,7 +71,11 @@ const SERVICES = new Set([
   "Deconsolidation",
   "WMS / inventory",
   "Pick & pack",
+  FINAL_DELIVERY_SERVICE,
 ]);
+
+const DELIVERY_LOCATIONS = new Set<string>(DELIVERY_LOCATION_OPTIONS);
+const YES_NO_UNSURE = new Set<string>(YES_NO_UNSURE_OPTIONS);
 
 const CARGO_TYPES = new Set([
   "General",
@@ -135,6 +157,27 @@ function validate(raw: unknown): ValidationResult {
     return { ok: false, error: "A valid email is required." };
   }
 
+  const services = pickAllowedArray(r.services, SERVICES);
+  const finalDelivery = services.includes(FINAL_DELIVERY_SERVICE);
+
+  // Address is required only for Final Delivery. A regular quote never
+  // reaches these checks, so its validation result is unchanged.
+  const deliveryStreet = finalDelivery
+    ? pickString(r.deliveryStreet, MAX_SHORT)
+    : "";
+  const deliveryCity = finalDelivery ? pickString(r.deliveryCity, MAX_SHORT) : "";
+  const deliveryState = finalDelivery
+    ? pickString(r.deliveryState, MAX_SHORT)
+    : "";
+  const deliveryZip = finalDelivery ? pickString(r.deliveryZip, MAX_SHORT) : "";
+  if (finalDelivery) {
+    if (!deliveryStreet)
+      return { ok: false, error: "Street address is required." };
+    if (!deliveryCity) return { ok: false, error: "City is required." };
+    if (!deliveryState) return { ok: false, error: "State is required." };
+    if (!deliveryZip) return { ok: false, error: "ZIP code is required." };
+  }
+
   return {
     ok: true,
     data: {
@@ -142,12 +185,34 @@ function validate(raw: unknown): ValidationResult {
       email,
       company: pickString(r.company, MAX_SHORT),
       phone: pickString(r.phone, MAX_SHORT),
-      services: pickAllowedArray(r.services, SERVICES),
+      services,
       cargoTypes: pickAllowedArray(r.cargoTypes, CARGO_TYPES),
       volume: pickAllowedSingle(r.volume, VOLUMES),
       timing: pickAllowedSingle(r.timing, TIMINGS),
       terminal: pickAllowedSingle(r.terminal, TERMINALS),
       notes: pickString(r.notes, MAX_NOTES),
+      deliveryStreet,
+      deliveryCity,
+      deliveryState,
+      deliveryZip,
+      deliveryLocation: finalDelivery
+        ? pickAllowedSingle(r.deliveryLocation, DELIVERY_LOCATIONS)
+        : "",
+      dockOrForklift: finalDelivery
+        ? pickAllowedSingle(r.dockOrForklift, YES_NO_UNSURE)
+        : "",
+      liftgate: finalDelivery
+        ? pickAllowedSingle(r.liftgate, YES_NO_UNSURE)
+        : "",
+      appointment: finalDelivery
+        ? pickAllowedSingle(r.appointment, YES_NO_UNSURE)
+        : "",
+      itNumber: finalDelivery ? pickString(r.itNumber, MAX_SHORT) : "",
+      palletCount: finalDelivery ? pickString(r.palletCount, MAX_SHORT) : "",
+      palletDimensions: finalDelivery
+        ? pickString(r.palletDimensions, MAX_SHORT)
+        : "",
+      totalWeight: finalDelivery ? pickString(r.totalWeight, MAX_SHORT) : "",
     },
   };
 }
@@ -171,6 +236,31 @@ function row(label: string, value: string): string {
   </tr>`;
 }
 
+function rowAlways(label: string, value: string): string {
+  return row(label, value || "Not provided");
+}
+
+function isFinalDelivery(data: QuotePayload): boolean {
+  return data.services.includes(FINAL_DELIVERY_SERVICE);
+}
+
+function deliveryRows(data: QuotePayload): string {
+  if (!isFinalDelivery(data)) return "";
+  return `<tr><td colspan="2" style="padding:16px 0 4px;color:#0b1a2b;font-weight:700;">Final delivery — freight already coming through C&amp;C</td></tr>
+      ${rowAlways("Delivery street", data.deliveryStreet)}
+      ${rowAlways("Delivery city", data.deliveryCity)}
+      ${rowAlways("Delivery state", data.deliveryState)}
+      ${rowAlways("Delivery ZIP", data.deliveryZip)}
+      ${rowAlways("Business or residential", data.deliveryLocation)}
+      ${rowAlways("Dock or forklift available", data.dockOrForklift)}
+      ${rowAlways("Liftgate needed", data.liftgate)}
+      ${rowAlways("Appointment needed", data.appointment)}
+      ${rowAlways("IT number", data.itNumber)}
+      ${rowAlways("Pallet count", data.palletCount)}
+      ${rowAlways("Pallet dimensions", data.palletDimensions)}
+      ${rowAlways("Total weight", data.totalWeight)}`;
+}
+
 function buildHtml(data: QuotePayload): string {
   const services = data.services.length ? data.services.join(", ") : "";
   const cargo = data.cargoTypes.length ? data.cargoTypes.join(", ") : "";
@@ -179,12 +269,13 @@ function buildHtml(data: QuotePayload): string {
         data.notes,
       )}</div>`
     : "";
+  const kicker = isFinalDelivery(data) ? FINAL_DELIVERY_SUBJECT : "New quote request";
 
   return `<!doctype html>
 <html><body style="margin:0;padding:0;background:#fafaf7;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;color:#0b1a2b;">
   <div style="max-width:640px;margin:0 auto;padding:32px 28px;">
     <div style="font-family:'Space Grotesk',Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#d96a2c;font-weight:600;">
-      New quote request &middot; ${esc(business.name)}
+      ${esc(kicker)} &middot; ${esc(business.name)}
     </div>
     <h1 style="font-family:'Space Grotesk',Helvetica,Arial,sans-serif;font-size:24px;font-weight:700;margin:8px 0 20px;color:#0b1a2b;">
       ${esc(data.name)}${data.company ? ` &middot; ${esc(data.company)}` : ""}
@@ -198,6 +289,7 @@ function buildHtml(data: QuotePayload): string {
       ${row("Volume", data.volume)}
       ${row("Timing", data.timing)}
       ${row("Terminal", data.terminal)}
+      ${deliveryRows(data)}
     </table>
     ${notesBlock}
     <hr style="border:0;border-top:1px solid #e7e2d6;margin:28px 0;" />
@@ -211,7 +303,9 @@ function buildHtml(data: QuotePayload): string {
 
 function buildText(data: QuotePayload): string {
   const lines = [
-    `New quote request — ${business.name}`,
+    isFinalDelivery(data)
+      ? `${FINAL_DELIVERY_SUBJECT} — ${business.name}`
+      : `New quote request — ${business.name}`,
     "",
     `Name:     ${data.name}`,
     `Email:    ${data.email}`,
@@ -225,6 +319,30 @@ function buildText(data: QuotePayload): string {
   if (data.volume) lines.push(`Volume:   ${data.volume}`);
   if (data.timing) lines.push(`Timing:   ${data.timing}`);
   if (data.terminal) lines.push(`Terminal: ${data.terminal}`);
+  if (isFinalDelivery(data)) {
+    lines.push("");
+    lines.push("Final delivery — freight already coming through C&C:");
+    lines.push(`Street:                 ${data.deliveryStreet}`);
+    lines.push(`City:                   ${data.deliveryCity}`);
+    lines.push(`State:                  ${data.deliveryState}`);
+    lines.push(`ZIP:                    ${data.deliveryZip}`);
+    lines.push(
+      `Business or residential: ${data.deliveryLocation || "Not provided"}`,
+    );
+    lines.push(
+      `Dock or forklift:        ${data.dockOrForklift || "Not provided"}`,
+    );
+    lines.push(`Liftgate needed:        ${data.liftgate || "Not provided"}`);
+    lines.push(
+      `Appointment needed:      ${data.appointment || "Not provided"}`,
+    );
+    lines.push(`IT number:              ${data.itNumber || "Not provided"}`);
+    lines.push(`Pallet count:           ${data.palletCount || "Not provided"}`);
+    lines.push(
+      `Pallet dimensions:       ${data.palletDimensions || "Not provided"}`,
+    );
+    lines.push(`Total weight:           ${data.totalWeight || "Not provided"}`);
+  }
   if (data.notes) {
     lines.push("");
     lines.push("Notes:");
@@ -277,9 +395,11 @@ export async function POST(request: Request) {
     process.env.RESEND_FROM || "C&C Warehouse <onboarding@resend.dev>";
   const to = process.env.QUOTE_TO || business.email;
 
-  const subject = `Quote request — ${data.name}${
-    data.company ? ` · ${data.company}` : ""
-  }`;
+  const subject = isFinalDelivery(data)
+    ? FINAL_DELIVERY_SUBJECT
+    : `Quote request — ${data.name}${
+        data.company ? ` · ${data.company}` : ""
+      }`;
 
   try {
     const resend = new Resend(apiKey);

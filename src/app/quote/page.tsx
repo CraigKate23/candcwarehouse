@@ -7,6 +7,7 @@ import {
   eyebrow,
   fonts,
 } from "../components/styles";
+import { isFinalDeliveryParam } from "./final-delivery";
 import QuoteForm from "./QuoteForm";
 
 const PAGE_PATH = "/quote";
@@ -63,7 +64,14 @@ const WHY_US = [
   },
 ];
 
-export default function QuotePage() {
+export default async function QuotePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ service?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const preselectFinalDelivery = isFinalDeliveryParam(params.service);
+
   return (
     <>
       {/* Hero */}
@@ -76,7 +84,11 @@ export default function QuotePage() {
         }}
       >
         <div style={container}>
-          <div style={eyebrow}>Step 1 · Tell us about your cargo</div>
+          <div style={eyebrow}>
+            {preselectFinalDelivery
+              ? "Final delivery · Freight already coming through C&C"
+              : "Step 1 · Tell us about your cargo"}
+          </div>
           <h1
             style={{
               fontFamily: fonts.heading,
@@ -87,7 +99,7 @@ export default function QuotePage() {
               maxWidth: 820,
             }}
           >
-            Request a quote.
+            {preselectFinalDelivery ? "Request final delivery." : "Request a quote."}
           </h1>
           <p
             style={{
@@ -99,9 +111,9 @@ export default function QuotePage() {
               maxWidth: 720,
             }}
           >
-            The more you can tell us up front, the tighter the quote. If
-            you&apos;re not sure of a number, leave it blank — we&apos;d
-            rather call you and ask than guess.
+            {preselectFinalDelivery
+              ? "Tell us where the freight should go. If you don't know the IT number, pallet count, dimensions, or weight, leave those blank."
+              : "The more you can tell us up front, the tighter the quote. If you're not sure of a number, leave it blank — we'd rather call you and ask than guess."}
           </p>
         </div>
       </section>
@@ -123,7 +135,10 @@ export default function QuotePage() {
             alignItems: "start",
           }}
         >
-          <QuoteForm />
+          <QuoteForm
+            key={preselectFinalDelivery ? "final-delivery" : "quote"}
+            preselectFinalDelivery={preselectFinalDelivery}
+          />
 
           <aside style={{ display: "grid", gap: 20 }}>
             <div
