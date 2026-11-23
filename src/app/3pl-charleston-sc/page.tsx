@@ -29,10 +29,10 @@ const PATH = threePlPath;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = "3PL Warehouse in Charleston, SC | Bonded & GO | C&C";
+const TITLE = "3PL Warehouse Charleston SC | Third-Party Logistics | C&C";
 const H1 = "3PL Warehouse in Charleston, SC";
 const CRUMB = "3PL warehouse in Charleston";
-const DESCRIPTION = `Family-run 3PL warehouse near the Port of Charleston since ${business.foundedYear}. CBP Class 3 bonded and GO storage in ${ladsonLocation.city} and ${hanahanLocation.city}, SC. Call ${business.phoneDisplay}.`;
+const DESCRIPTION = `3PL warehouse in Charleston, SC. Third-party logistics, family-run since ${business.foundedYear}. CBP Class 3 bonded and General Order storage in ${ladsonLocation.city} and ${hanahanLocation.city}. ${business.phoneDisplay}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -126,12 +126,20 @@ const FAQ: { q: string; a: string }[] = [
     a: `${business.name} is a third-party logistics warehouse near the Port of Charleston. The company has been family-run since ${business.foundedYear}. It is a CBP Class 3 bonded warehouse — an importer's private bonded warehouse — and a CBP-designated General Order facility in ${ladsonLocation.city} and ${hanahanLocation.city}. The phone number is ${business.phoneDisplay}.`,
   },
   {
+    q: "How long has this third-party logistics warehouse been family-run?",
+    a: `${business.name} has been family-run since ${business.foundedYear}, and the team carries ${business.teamExperienceYears}+ years of combined warehouse experience.`,
+  },
+  {
     q: "Where are the Charleston warehouse buildings?",
     a: `Two buildings. The primary is ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. The secondary is ${hanahanLocation.sqft} sq ft at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}. Together that is 90,000+ sq ft, with 3,000+ racked pallet positions across both buildings, plus floor-load capacity for oversized cargo. These are operating warehouses, not commercial listings of space for lease. Inventory moves between both buildings as needed. Same WMS, same crew, same phone number.`,
   },
   {
     q: "Which services does this Charleston 3PL run?",
     a: `Ten, already listed on the site: ${serviceLinks.map((service) => service.label).join(", ")}. Peak throughput across both locations is 30 containers/day. Devanning, reworking, and cross-dock are scaled by product mix.`,
+  },
+  {
+    q: "Does this 3PL warehouse in Charleston, SC transload containers from the port?",
+    a: `The port-direct version of cross-dock — container off the chassis, devanned on the dock, freight straight to outbound staging — is container transloading near the Port of Charleston. It runs at the buildings in ${ladsonLocation.city} and ${hanahanLocation.city}.`,
   },
   {
     q: "How does drayage from the Port of Charleston terminals work?",

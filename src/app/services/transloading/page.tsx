@@ -13,6 +13,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  threePlPath,
   transloadGuidePath,
   transloadServicePath,
 } from "../../components/styles";
@@ -202,6 +203,11 @@ export default function TransloadingPage() {
               cross-dock in Charleston
             </Link>
             . {business.name} has been family-run since {business.foundedYear}.
+            The same buildings are the{" "}
+            <Link href={threePlPath} style={linkStyle}>
+              3PL warehouse in Charleston, SC
+            </Link>
+            .
           </>
         }
       />

@@ -15,6 +15,7 @@ import {
   hanahanLocation,
   ladsonLocation,
   terminalsGuidePath,
+  threePlPath,
   transloadGuidePath,
 } from "../../components/styles";
 
@@ -445,6 +446,14 @@ export default function DevanningPage() {
             primary floor is our{" "}
             <LadsonLink>{ladsonLocation.query}</LadsonLink>. The secondary
             floor is the <HanahanLink>{hanahanLocation.query}</HanahanLink>.
+            Together they are the{" "}
+            <Link
+              href={threePlPath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              3PL warehouse in Charleston, SC
+            </Link>
+            .
           </p>
 
           <div

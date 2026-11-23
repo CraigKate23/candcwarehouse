@@ -14,6 +14,7 @@ import {
   fonts,
   hanahanLocation,
   ladsonLocation,
+  threePlPath,
 } from "../../components/styles";
 
 // Sixth dedicated service sub-page. Mirrors the structure of
@@ -383,7 +384,15 @@ export default function FbaPrepPage() {
             container lands. Minutes from the Port of Charleston, at the{" "}
             <LadsonLink>{ladsonLocation.query}</LadsonLink> and the{" "}
             <HanahanLink>{hanahanLocation.query}</HanahanLink>. C&amp;C is a
-            CBP Class 3 bonded warehouse in both cities.
+            CBP Class 3 bonded warehouse in both cities. That operation is
+            the{" "}
+            <Link
+              href={threePlPath}
+              style={{ color: colors.accent, textDecoration: "underline" }}
+            >
+              3PL warehouse in Charleston, SC
+            </Link>
+            .
           </p>
           <p
             style={{
