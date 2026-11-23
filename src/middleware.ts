@@ -3,26 +3,18 @@ import { NextRequest, NextResponse } from "next/server";
 const PRODUCTION_HOST = "www.candcwarehouse.com";
 
 /**
- * Redirect the public Vercel alias (candcwarehouse.vercel.app) to www so
- * Google does not index a duplicate host. Branch aliases and deployment
- * URLs on this team stay put so a PR preview is the branch, not production.
- * Those hosts are recognized by name only. Do not read process.env here:
- * a runtime VERCEL_ENV read in this Edge middleware failed the Vercel build.
+ * Redirect the public Vercel alias (candcwarehouse.vercel.app) to the
+ * canonical production URL so Google does not index a duplicate host.
+ * Branch aliases and deployment URLs for this team end in
+ * "-craigkate23s-projects.vercel.app" and are served as themselves.
  *
  * Apex (candcwarehouse.com) → www is a permanent redirect. next.config.ts
  * emits 308 when the request reaches Next.js. This middleware repeats
  * that 308 in case the request is handled here first. Vercel's domain
  * setting can still answer with 307 before either of those runs.
  */
-
-// candcwarehouse-git-<branch>-craigkate23s-projects.vercel.app
-// candcwarehouse-<deployment>-craigkate23s-projects.vercel.app
-// The public alias candcwarehouse.vercel.app does not use this suffix.
-const TEAM_DEPLOYMENT_SUFFIX = "-craigkate23s-projects.vercel.app";
-
 export function middleware(request: NextRequest) {
   const { hostname, pathname, search } = request.nextUrl;
-  const host = hostname.toLowerCase();
 
   // Force HTTPS. Vercel normally upgrades http→https at the edge, but a
   // plain-HTTP 200 was observed on the homepage (2026-07-15 SEO report),
@@ -36,9 +28,12 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Public *.vercel.app hosts → production. Team preview and deployment
-  // hosts are the exception and are served as themselves.
-  if (host.endsWith(".vercel.app") && !host.endsWith(TEAM_DEPLOYMENT_SUFFIX)) {
+  // Public *.vercel.app hosts → production. The team suffix is the
+  // branch alias and the deployment URL, which must stay on that host.
+  if (
+    hostname.endsWith(".vercel.app") &&
+    !hostname.endsWith("-craigkate23s-projects.vercel.app")
+  ) {
     return NextResponse.redirect(
       `https://${PRODUCTION_HOST}${pathname}${search}`,
       308
@@ -46,7 +41,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Apex → www. 308 matches the permanent redirect in next.config.ts.
-  if (host === "candcwarehouse.com") {
+  if (hostname === "candcwarehouse.com") {
     return NextResponse.redirect(
       `https://${PRODUCTION_HOST}${pathname}${search}`,
       308
