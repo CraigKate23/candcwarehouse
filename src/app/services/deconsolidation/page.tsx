@@ -9,6 +9,7 @@ import {
   eyebrow,
   fonts,
   hanahanLocation,
+  deconsolidationGuidePath,
   ladsonLocation,
   terminalsGuidePath,
 } from "../../components/styles";
@@ -302,7 +303,11 @@ export default function DeconsolidationPage() {
             <Link href="/services/bonded-storage" style={linkStyle}>
               bonded storage
             </Link>
-            .
+            . A longer walkthrough of the split is the{" "}
+            <Link href={deconsolidationGuidePath} style={linkStyle}>
+              container deconsolidation Charleston
+            </Link>{" "}
+            guide.
           </p>
         </div>
       </section>

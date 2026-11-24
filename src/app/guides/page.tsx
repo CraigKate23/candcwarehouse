@@ -24,7 +24,7 @@ const SITE_URL =
 
 const TITLE = "Port of Charleston Importer Guides | C&C Warehouse";
 const DESCRIPTION =
-  "Importer guides for the Port of Charleston: terminal distances, Amazon FBA, General Order cargo, and transloading at C&C Warehouse.";
+  "Importer guides for the Port of Charleston: terminal distances, Amazon FBA, General Order, transloading, and container deconsolidation at C&C.";
 const H1 = "Port of Charleston importer guides";
 
 export const metadata: Metadata = {
