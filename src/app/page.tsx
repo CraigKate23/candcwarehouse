@@ -344,10 +344,11 @@ export default function Home() {
           </div>
 
           <ul
+            className="home-service-list"
             style={{
               marginTop: 36,
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
               gap: 0,
               listStyle: "none",
               padding: 0,
@@ -365,6 +366,7 @@ export default function Home() {
               >
                 <Link
                   href={s.href}
+                  className="home-service-link"
                   style={{
                     padding: "18px 8px",
                     fontFamily: fonts.heading,
@@ -375,6 +377,7 @@ export default function Home() {
                     gap: 12,
                     color: "inherit",
                     textDecoration: "none",
+                    minWidth: 0,
                   }}
                 >
                   <span

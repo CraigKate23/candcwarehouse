@@ -122,6 +122,38 @@ img {
   nav[aria-label="Primary"] {
     gap: 14px !important;
   }
+  .home-service-list {
+    grid-template-columns: 1fr !important;
+  }
+  .home-service-list > li {
+    border-right: none !important;
+    min-width: 0;
+  }
+}
+
+/* Phone: the primary nav and the two-column footer are wider than 320px
+   when their items refuse to wrap. Let them wrap or stack instead of
+   clipping the page. */
+.footer-grid > * {
+  min-width: 0;
+}
+.footer-grid a,
+.footer-legal span {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 360px) {
+  nav[aria-label="Primary"] {
+    flex-wrap: wrap !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    row-gap: 8px !important;
+  }
+}
+@media (max-width: 384px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* /services — TOC link hover and mobile stacking */

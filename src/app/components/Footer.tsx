@@ -126,11 +126,14 @@ export default function Footer() {
         }}
       >
         <div
+          className="footer-legal"
           style={{
             ...container,
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            gap: 12,
+            flexWrap: "wrap",
             fontFamily: fonts.mono,
             fontSize: 12,
             letterSpacing: "0.08em",
