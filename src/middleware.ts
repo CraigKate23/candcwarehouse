@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 const PRODUCTION_HOST = "www.candcwarehouse.com";
 
 /**
- * Redirect any request hitting the Vercel preview domain
- * (candcwarehouse.vercel.app) to the canonical production URL.
- * This prevents Google from indexing the duplicate .vercel.app host.
+ * Redirect the public Vercel alias (candcwarehouse.vercel.app) to the
+ * canonical production URL so Google does not index a duplicate host.
+ * Branch aliases and deployment URLs for this team end in
+ * "-craigkate23s-projects.vercel.app" and are served as themselves.
  *
  * Apex (candcwarehouse.com) → www is a permanent redirect. next.config.ts
  * emits 308 when the request reaches Next.js. This middleware repeats
@@ -27,8 +28,12 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Redirect vercel.app preview domain → production (308 permanent)
-  if (hostname.endsWith(".vercel.app")) {
+  // Public *.vercel.app hosts → production. The team suffix is the
+  // branch alias and the deployment URL, which must stay on that host.
+  if (
+    hostname.endsWith(".vercel.app") &&
+    !hostname.endsWith("-craigkate23s-projects.vercel.app")
+  ) {
     return NextResponse.redirect(
       `https://${PRODUCTION_HOST}${pathname}${search}`,
       308
