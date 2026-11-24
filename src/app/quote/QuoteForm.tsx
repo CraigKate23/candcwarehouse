@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -192,6 +192,48 @@ type FormState = {
   totalWeight: string;
 };
 
+// Contact typed on /quote has to survive a navigation to
+// /quote?service=final-delivery. That navigation can remount the form,
+// so the four fields are kept in this tab only.
+const CONTACT_DRAFT_KEY = "ccw-quote-contact";
+
+type ContactDraft = Pick<FormState, "name" | "company" | "email" | "phone">;
+
+const EMPTY_CONTACT: ContactDraft = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+};
+
+function readContactDraft(): ContactDraft {
+  if (typeof window === "undefined") return EMPTY_CONTACT;
+  try {
+    const raw = window.sessionStorage.getItem(CONTACT_DRAFT_KEY);
+    if (!raw) return EMPTY_CONTACT;
+    const parsed = JSON.parse(raw) as Partial<ContactDraft>;
+    return {
+      name: typeof parsed.name === "string" ? parsed.name : "",
+      company: typeof parsed.company === "string" ? parsed.company : "",
+      email: typeof parsed.email === "string" ? parsed.email : "",
+      phone: typeof parsed.phone === "string" ? parsed.phone : "",
+    };
+  } catch {
+    return EMPTY_CONTACT;
+  }
+}
+
+function rememberContact(key: keyof ContactDraft, value: string) {
+  if (typeof window === "undefined") return;
+  const next = { ...readContactDraft(), [key]: value };
+  window.sessionStorage.setItem(CONTACT_DRAFT_KEY, JSON.stringify(next));
+}
+
+function clearContactDraft() {
+  if (typeof window === "undefined") return;
+  window.sessionStorage.removeItem(CONTACT_DRAFT_KEY);
+}
+
 const EMPTY: FormState = {
   name: "",
   company: "",
@@ -287,8 +329,24 @@ export default function QuoteForm({
   const [mode, setMode] = useState<"quote" | "delivery">(
     preselectFinalDelivery ? "delivery" : "quote",
   );
+  // The page can change ?service= without remounting this form. Follow that
+  // flag only. Contact fields, chips, and the shipment-details toggle stay.
+  useEffect(() => {
+    setMode(preselectFinalDelivery ? "delivery" : "quote");
+  }, [preselectFinalDelivery]);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [form, setForm] = useState<FormState>(EMPTY);
+  useEffect(() => {
+    const saved = readContactDraft();
+    if (!saved.name && !saved.company && !saved.email && !saved.phone) return;
+    setForm((prev) => ({
+      ...prev,
+      name: prev.name || saved.name,
+      company: prev.company || saved.company,
+      email: prev.email || saved.email,
+      phone: prev.phone || saved.phone,
+    }));
+  }, []);
   const [fieldErrors, setFieldErrors] = useState<FinalDeliveryFieldErrors>({});
   const [formError, setFormError] = useState("");
   const [status, setStatus] = useState<
@@ -297,6 +355,14 @@ export default function QuoteForm({
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
+    if (
+      key === "name" ||
+      key === "company" ||
+      key === "email" ||
+      key === "phone"
+    ) {
+      rememberContact(key, String(value));
+    }
     setForm((prev) => ({ ...prev, [key]: value }));
     setFieldErrors((prev) => {
       const field = key as keyof FinalDeliveryFieldErrors;
@@ -389,6 +455,7 @@ export default function QuoteForm({
         fail("We couldn't send this request. Your details are still here.");
         return;
       }
+      clearContactDraft();
       setStatus("submitted");
     } catch {
       fail("We couldn't send this request. Your details are still here.");
