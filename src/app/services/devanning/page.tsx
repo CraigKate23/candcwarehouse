@@ -14,6 +14,7 @@ import {
   fonts,
   hanahanLocation,
   ladsonLocation,
+  deconsolidationGuidePath,
   terminalsGuidePath,
   threePlPath,
   transloadGuidePath,
@@ -855,7 +856,17 @@ export default function DevanningPage() {
                   >
                     container deconsolidation Charleston
                   </Link>
-                  .
+                  . The plain-language page for that split is the{" "}
+                  <Link
+                    href={deconsolidationGuidePath}
+                    style={{
+                      color: colors.accent,
+                      textDecoration: "underline",
+                    }}
+                  >
+                    container deconsolidation Charleston
+                  </Link>{" "}
+                  guide.
                 </>
               }
             />

@@ -261,6 +261,14 @@ export const transloadGuidePath =
 // version of cross-dock, so it stays off the ten-item `serviceLinks` list.
 export const transloadServicePath = "/services/transloading";
 
+// Guide that explains container deconsolidation at the Port of Charleston
+// in plain language, using only facts already published on
+// /services/deconsolidation, /services/devanning, /services/cross-dock,
+// /services/transloading, /services/bonded-storage, /services/drayage,
+// /facility, /faq, and the location pages. No rate is added here.
+export const deconsolidationGuidePath =
+  "/guides/container-deconsolidation-port-of-charleston";
+
 // The ten services on the homepage, in that order.
 export const serviceLinks: { label: string; href: string }[] = [
   { label: "Bonded storage", href: "/services/bonded-storage" },
@@ -321,6 +329,14 @@ export const guides = [
       label: "Container transloading",
       href: transloadServicePath,
     },
+  },
+  {
+    path: deconsolidationGuidePath,
+    title: "What container deconsolidation is at the Port of Charleston",
+    summary:
+      "Break a single inbound container or trailer into multiple outbound shipments — by customer, by store, by region. Especially useful for importers consolidating overseas to save ocean freight, then needing the cargo split once it lands.",
+    footerLabel: "Deconsolidation Charleston",
+    service: serviceByHref("/services/deconsolidation"),
   },
 ] as const;
 
