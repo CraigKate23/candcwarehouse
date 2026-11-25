@@ -25,8 +25,11 @@ const PATH = hanahanLocation.path;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = `${hanahanLocation.heading} | Operating Bonded & General Order | C&C`;
-const DESCRIPTION = `${hanahanLocation.query}: operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${hanahanLocation.sqft} sq ft at ${hanahanLocation.street}. ${business.phoneDisplay}.`;
+const [wando, nct, leatherman, greer] = hanahanLocation.drives;
+
+// 58 characters: the query, then Port of Charleston, then Bonded & GO.
+const TITLE = `${hanahanLocation.heading} near Port of Charleston | Bonded & GO`;
+const DESCRIPTION = `${hanahanLocation.query}: operating CBP Class 3 bonded and General Order warehouse, not space for lease. Closest C&C building to the terminals: ${leatherman.label} ${leatherman.distance}, ${nct.label} ${nct.distance}. ${hanahanLocation.sqft} sq ft at ${hanahanLocation.street}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -50,9 +53,11 @@ export const metadata: Metadata = {
   },
 };
 
-const [wando, nct, leatherman, greer] = hanahanLocation.drives;
-
 const FAQ: { q: string; a: string }[] = [
+  {
+    q: "How far is the Hanahan SC warehouse from the Port of Charleston?",
+    a: `This building is the closest of our two buildings to the Port of Charleston terminals. Published drive distances from ${hanahanLocation.street}: ${leatherman.name} is ${leatherman.distance}, ${nct.name} is ${nct.distance}, ${wando.name} is ${wando.distance}, and ${greer.name} is ${greer.distance}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`,
+  },
   {
     q: "Is the Hanahan SC warehouse space for lease?",
     a: `No. ${hanahanOperatingLine}`,
@@ -214,6 +219,82 @@ export default function HanahanLocationPage() {
               Call {business.phoneDisplay}
             </a>
           </div>
+        </div>
+      </section>
+
+      <section style={{ padding: "48px 0 8px" }}>
+        <div style={container}>
+          <div style={eyebrow}>Port of Charleston</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3vw, 34px)",
+              fontWeight: 700,
+              marginTop: 10,
+              maxWidth: 720,
+            }}
+          >
+            Closest of our two buildings to the Port of Charleston terminals.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 720,
+            }}
+          >
+            The {hanahanLocation.query} at {hanahanLocation.street} is the
+            closest of our two buildings to the Port of Charleston terminals.
+            Published drive distances from this address: {leatherman.name} is{" "}
+            {leatherman.distance}, {nct.name} is {nct.distance}, and{" "}
+            {wando.name} is {wando.distance}. {greer.name} is {greer.distance}.
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 720,
+            }}
+          >
+            That proximity matters for the terminal moves handled at this
+            building.{" "}
+            <Link href="/services/drayage" style={linkStyle}>
+              Drayage
+            </Link>{" "}
+            from {leatherman.name}, {nct.name}, and {wando.name} is the inbound
+            leg for{" "}
+            <Link href="/services/transloading" style={linkStyle}>
+              transloading
+            </Link>{" "}
+            and{" "}
+            <Link href="/services/cross-dock" style={linkStyle}>
+              cross-dock
+            </Link>
+            .{" "}
+            <Link href="/services/devanning" style={linkStyle}>
+              Devanning
+            </Link>{" "}
+            is the unload after that dray.{" "}
+            <Link href="/services/overweight-reworking" style={linkStyle}>
+              Overweight reworking
+            </Link>{" "}
+            can be handled here, with direct moves from those terminals. The
+            operation is the{" "}
+            <Link href={threePlPath} style={linkStyle}>
+              3PL warehouse in Charleston
+            </Link>
+            . Miles for both buildings are on the{" "}
+            <Link href={terminalsGuidePath} style={linkStyle}>
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
+          </p>
         </div>
       </section>
 
