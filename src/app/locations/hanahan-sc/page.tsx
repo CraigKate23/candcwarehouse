@@ -59,10 +59,6 @@ const FAQ: { q: string; a: string }[] = [
     a: `This building is the closest of our two buildings to the Port of Charleston terminals. Published drive distances from ${hanahanLocation.street}: ${leatherman.name} is ${leatherman.distance}, ${nct.name} is ${nct.distance}, ${wando.name} is ${wando.distance}, and ${greer.name} is ${greer.distance}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`,
   },
   {
-    q: "Is the Hanahan warehouse space for lease?",
-    a: `No. ${business.name} operates this building. It is a CBP Class 3 bonded and General Order warehouse at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state}, not a commercial listing of space for lease.`,
-  },
-  {
     q: "Is the Hanahan SC warehouse space for lease?",
     a: `No. ${hanahanOperatingLine}`,
   },
