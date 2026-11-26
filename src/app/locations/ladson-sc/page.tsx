@@ -25,8 +25,9 @@ const PATH = ladsonLocation.path;
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.candcwarehouse.com";
 
-const TITLE = `${ladsonLocation.heading} | Operating Bonded & General Order | C&C`;
-const DESCRIPTION = `${ladsonLocation.query}: operating CBP Class 3 bonded and General Order warehousing, not space for lease. ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}. ${business.phoneDisplay}.`;
+// 58 characters: the query, then Port of Charleston, then 3PL and bonded.
+const TITLE = `${ladsonLocation.heading} near Port of Charleston | 3PL & Bonded`;
+const DESCRIPTION = `${ladsonLocation.query}: operating 3PL, CBP Class 3 bonded and GO warehousing near the Port of Charleston, not space for lease. ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -53,6 +54,14 @@ export const metadata: Metadata = {
 const [wando, nct, leatherman, greer] = ladsonLocation.drives;
 
 const FAQ: { q: string; a: string }[] = [
+  {
+    q: "How far is the Ladson SC warehouse from the Port of Charleston?",
+    a: `Published drive distances from ${ladsonLocation.street}: ${nct.name} is ${nct.about} on ${nct.road}, ${leatherman.name} is ${leatherman.about} on ${leatherman.road}, and ${wando.name} is ${wando.about} on ${wando.road}. ${greer.name} is ${greer.about} on ${greer.road}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals. The ${hanahanLocation.query} is closer to the port terminals — the shortest drayage runs in our network.`,
+  },
+  {
+    q: "Does C&C offer 3PL warehousing in Ladson, SC?",
+    a: `${business.name} is a third-party logistics (3PL) warehouse near the Port of Charleston. The primary building is ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. It is a CBP Class 3 bonded warehouse — an importer's private bonded warehouse — and a CBP-designated General Order facility. The company has been family-run since ${business.foundedYear}. Services at this address are the ten already listed on the site: ${serviceLinks.map((s) => s.label).join(", ")}.`,
+  },
   {
     q: "Is the Ladson SC warehouse space for lease?",
     a: `No. ${ladsonOperatingLine}`,
@@ -213,6 +222,110 @@ export default function LadsonLocationPage() {
               Call {business.phoneDisplay}
             </a>
           </div>
+        </div>
+      </section>
+
+      <section style={{ padding: "48px 0 8px" }}>
+        <div style={container}>
+          <div style={eyebrow}>Port of Charleston</div>
+          <h2
+            style={{
+              fontFamily: fonts.heading,
+              fontSize: "clamp(26px, 3vw, 34px)",
+              fontWeight: 700,
+              marginTop: 10,
+              maxWidth: 720,
+            }}
+          >
+            Primary building within 25 miles of the Port of Charleston
+            terminals.
+          </h2>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 720,
+            }}
+          >
+            The {ladsonLocation.query} at {ladsonLocation.street},{" "}
+            {ladsonLocation.city}, {ladsonLocation.state}{" "}
+            {ladsonLocation.postal} is the {ladsonLocation.sqft} sq ft primary
+            building. Published drive distances from this address: {nct.name}{" "}
+            is {nct.about} on {nct.road}, {leatherman.name} is{" "}
+            {leatherman.about} on {leatherman.road}, and {wando.name} is{" "}
+            {wando.about} on {wando.road}. {greer.name} is {greer.about} on{" "}
+            {greer.road}. Both facilities sit within 25 miles of all three SC
+            Ports Authority ocean terminals. The{" "}
+            <Link href={hanahanLocation.path} style={linkStyle}>
+              {hanahanLocation.query}
+            </Link>{" "}
+            is closer to the port terminals — the shortest drayage runs in our
+            network. Both addresses are on the{" "}
+            <Link href={locationsPath} style={linkStyle}>
+              locations
+            </Link>{" "}
+            page.
+          </p>
+          <p
+            style={{
+              fontFamily: fonts.body,
+              fontSize: 16.5,
+              lineHeight: 1.65,
+              color: colors.steel,
+              marginTop: 14,
+              maxWidth: 720,
+            }}
+          >
+            Those terminal runs are the inbound for warehousing and 3PL on
+            this floor.{" "}
+            <Link href="/services/drayage" style={linkStyle}>
+              Drayage
+            </Link>{" "}
+            from {nct.name}, {leatherman.name}, and {wando.name} is the inbound
+            leg for{" "}
+            <Link href="/services/transloading" style={linkStyle}>
+              transloading
+            </Link>{" "}
+            and{" "}
+            <Link href="/services/cross-dock" style={linkStyle}>
+              cross-dock
+            </Link>
+            .{" "}
+            <Link href="/services/devanning" style={linkStyle}>
+              Devanning
+            </Link>{" "}
+            is the unload after that dray. When one inbound ocean container
+            has to become several outbound shipments, that split is{" "}
+            <Link href="/services/deconsolidation" style={linkStyle}>
+              deconsolidation
+            </Link>
+            . Imported cargo held on bond is{" "}
+            <Link href="/services/bonded-storage" style={linkStyle}>
+              bonded storage
+            </Link>
+            . Unclaimed freight is{" "}
+            <Link href="/services/general-order" style={linkStyle}>
+              General Order
+            </Link>{" "}
+            storage at this CBP-designated facility. Amazon-bound freight can
+            use{" "}
+            <Link href="/services/fba-prep" style={linkStyle}>
+              Amazon FBA prep
+            </Link>
+            , already listed for this address. The same services, run as one
+            operation, are the{" "}
+            <Link href={threePlPath} style={linkStyle}>
+              3PL warehouse in Charleston
+            </Link>
+            . Miles for both buildings are on the{" "}
+            <Link href={terminalsGuidePath} style={linkStyle}>
+              Port of Charleston terminals
+            </Link>{" "}
+            guide.
+          </p>
         </div>
       </section>
 
