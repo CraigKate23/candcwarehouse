@@ -36,9 +36,13 @@ import {
 // No rate, fee, turn time, capacity, certification, or customer is added.
 
 const PATH = transloadServicePath;
-const TITLE = "Container Transloading in Charleston, SC | C&C";
+// 56 characters. The query terms lead, then Port of Charleston, then the
+// "| C&C" suffix used on the other service pages. `absolute` keeps the
+// layout template from appending the full business name.
+const TITLE = "Transloading Warehouse near Port of Charleston, SC | C&C";
+// 142 characters.
 const DESCRIPTION =
-  "Container transloading near the Port of Charleston. A container off the chassis at Ladson or Hanahan, devanned on the dock, and straight to outbound staging.";
+  "Container transloading warehouse near the Port of Charleston, SC. Off the chassis at Ladson or Hanahan, devanned on the dock, staged outbound.";
 
 const linkStyle = {
   color: colors.accent,
@@ -61,7 +65,7 @@ export const metadata: Metadata = {
         url: "/images/og-default.jpg",
         width: 1200,
         height: 630,
-        alt: "C&C Warehouse — container transloading near the Port of Charleston",
+        alt: "C&C Warehouse — container transloading warehouse near the Port of Charleston, SC",
       },
     ],
   },
@@ -97,6 +101,10 @@ const WHERE_ANSWER = `Transloading runs at both buildings. The primary floor is 
 
 const PORT_ANSWER = `The inbound leg is drayage from Wando Welch, North Charleston Terminal, and Hugh K. Leatherman into either building. From ${hanahanLocation.city}: ${oceanSentence(hanahanLocation.drives)}. From ${ladsonLocation.city}: ${oceanSentence(ladsonLocation.drives)}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`;
 
+const DISTANCE_ANSWER = `Published drive distances from the ${hanahanLocation.facilityName} at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state}: ${oceanSentence(hanahanLocation.drives)}. From the ${ladsonLocation.facilityName} at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state}: ${oceanSentence(ladsonLocation.drives)}. Both facilities sit within 25 miles of all three SC Ports Authority ocean terminals.`;
+
+const CLOSER_ANSWER = `The ${hanahanLocation.facilityName}, ${hanahanLocation.sqft} sq ft at ${hanahanLocation.street}, ${hanahanLocation.city}, ${hanahanLocation.state} ${hanahanLocation.postal}, is closer to the port terminals and has the shortest drayage runs in the network. The primary floor is the ${ladsonLocation.facilityName}, ${ladsonLocation.sqft} sq ft at ${ladsonLocation.street}, ${ladsonLocation.city}, ${ladsonLocation.state} ${ladsonLocation.postal}. Freight can move between the buildings. The WMS, the crew, and the phone number stay the same.`;
+
 const COMPARE_ANSWER =
   "Cross-dock is the speed pattern: freight comes in one side and goes out the other, often the same day, with little or no dwell. Transloading is that pattern when the inbound is an ocean container taken off the chassis at the dock. Devanning is the hand unload itself, with a piece-count audit against the bill of lading. After a devan, freight can go to a rack, to an outbound carrier, or onto pallets. Straight to outbound staging, with no put-away, is the transload. Deconsolidation is the split: one master bill becomes several outbound shipments, each on its own house BOL. A load can be split and then cross-docked, or it can wait until each destination is ready.";
 
@@ -111,6 +119,14 @@ const TURN_ANSWER =
 const QUOTE_ANSWER = `This page does not publish a rate. A quote starts from the routing guide, the inbound shape, and the outbound destinations. If a retailer has a compliance manual, share it before the first load. Call ${business.phoneDisplay}, email ${business.email}, or use the quote form. Hours published on the site are ${businessHours.display}.`;
 
 const FAQ: { q: string; a: string }[] = [
+  {
+    q: "How far is the transloading warehouse from the Port of Charleston terminals?",
+    a: DISTANCE_ANSWER,
+  },
+  {
+    q: "Which warehouse is closer to the Port of Charleston for a transload?",
+    a: CLOSER_ANSWER,
+  },
   {
     q: "What is container transloading near the Port of Charleston?",
     a: WHAT_ANSWER,
@@ -150,10 +166,11 @@ const serviceJsonLd = {
   "@type": "Service",
   "@id": `https://www.candcwarehouse.com${PATH}#service`,
   serviceType: "Container Transloading",
-  name: "Container Transloading near the Port of Charleston",
+  name: "Container Transloading Warehouse near the Port of Charleston, SC",
   alternateName: [
     "Charleston transload",
     "Container transloading in Charleston",
+    "Transloading warehouse near the Port of Charleston, SC",
   ],
   description: DESCRIPTION,
   url: `https://www.candcwarehouse.com${PATH}`,
@@ -178,12 +195,13 @@ export default function TransloadingPage() {
       <ServiceHero
         crumb="Transloading"
         eyebrowText="Container transloading"
-        title="Container Transloading near the Port of Charleston"
+        title="Container Transloading Warehouse near the Port of Charleston, SC"
         slogan="Off the chassis, devanned on the dock, straight to outbound staging."
         lede={
           <>
-            Container transloading near the Port of Charleston is the
-            port-direct devan and cross-dock. The container comes off the
+            Container transloading at the warehouses near the Port of
+            Charleston, SC is the port-direct devan and cross-dock. The
+            container comes off the
             chassis, is unloaded on the dock, and the freight moves to
             outbound staging — no put-away, no rack pull, no second touch.
             It runs from the{" "}
@@ -239,7 +257,7 @@ export default function TransloadingPage() {
               maxWidth: 760,
             }}
           >
-            Container transloading from both Charleston buildings.
+            Distance to Port of Charleston terminals.
           </h2>
           <p
             style={{
@@ -266,8 +284,9 @@ export default function TransloadingPage() {
               drayage
             </Link>{" "}
             is from Wando Welch, North Charleston Terminal, and Hugh K.
-            Leatherman. The miles below are the per-building figures already
-            published on the location pages and the{" "}
+            Leatherman. The miles below are the published distances from
+            each warehouse to those terminals, already on the location pages
+            and the{" "}
             <Link href={terminalsGuidePath} style={linkStyle}>
               Port of Charleston terminals
             </Link>{" "}
@@ -429,7 +448,7 @@ export default function TransloadingPage() {
       />
 
       <FaqList
-        title="Questions about container transloading in Charleston."
+        title="Questions about the transloading warehouse in Charleston, SC."
         items={FAQ}
       />
 
